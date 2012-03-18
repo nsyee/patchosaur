@@ -1,0 +1,27 @@
+!!! 5
+html(lang='en')
+  head
+    title patchagogy
+    meta(http-equiv="Content-Script-Type", content="text/javascript")
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
+    // HTML5 shim, for IE6-8 support of HTML5 elements 
+    //if lt IE 9
+      script(src='//html5shim.googlecode.com/svn/trunk/html5.js')
+    //
+
+    != css('patchagogy')
+  body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          .brand
+            a(href='/') patchagogy
+          .nav-collapse
+    != body
+    hr
+    != js('patchagogy')

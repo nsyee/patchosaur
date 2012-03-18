@@ -1,0 +1,35 @@
+require 'rake/clean'
+
+desc "run vows tests and coffeelint"
+task :test => [:coffeelint]
+task :default => :test
+
+desc "run coffeelint"
+task :coffeelint do
+    sh "find assets app -name '*.coffee' | xargs node_modules/.bin/coffeelint"
+end
+
+fixme_command = "grep -ri --after-context=3 fixme assets"
+desc fixme_command
+task :fixme do
+    sh fixme_command
+end
+
+desc 'update 3p'
+task :update3p do
+    sh "curl -o assets/js/3p/underscore.js 'https://raw.github.com/documentcloud/underscore/master/underscore-min.js'"
+    sh "curl -o assets/js/3p/raphael.js 'https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael-min.js'"
+    sh "curl -o assets/js/3p/audiolet.js 'https://raw.github.com/oampo/Audiolet/master/src/audiolet/Audiolet.min.js'"
+    # FIXME: clean up
+    sh "mkdir -p 'tmp_bootstrap'"
+    sh "curl -o tmp_bootstrap/bootstrap.zip 'http://twitter.github.com/bootstrap/assets/bootstrap.zip'"
+    sh "unzip -d tmp_bootstrap tmp_bootstrap/bootstrap.zip"
+    sh "cp tmp_bootstrap/bootstrap/css/*min*.css assets/css/3p/"
+    sh "cp tmp_bootstrap/bootstrap/js/*min*.js assets/js/3p/"
+    #FIXME: Include images
+    sh "rm -r tmp_bootstrap"
+    # rename all css files .styl
+    # sh "for file in `find assets/css -name '*.css'`; do mv $file ${file/\.css/\.styl}; done;"
+    # strip 'min' out of all names
+    sh "for file in `find assets -name '*.min.*'`; do mv $file ${file/\.min\./\.}; done;"
+end
