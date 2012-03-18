@@ -4,5 +4,6 @@
 #= require 3p/raphael
 #= require 3p/backbone
 #= require 3p/audiolet
+#= require graffle
 
 console.log 'damn'
