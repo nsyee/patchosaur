@@ -15,6 +15,16 @@ task :fixme do
     sh fixme_command
 end
 
+desc 'start the server'
+task :start do
+    sh "coffee server.coffee"
+end
+
+desc 'start the server in production mode'
+task "start:production" do
+    sh "export NODE_ENV=production; coffee server.coffee"
+end
+
 desc 'update 3p'
 task :update3p do
     sh "curl -o assets/js/3p/underscore.js 'https://raw.github.com/documentcloud/underscore/master/underscore-min.js'"
