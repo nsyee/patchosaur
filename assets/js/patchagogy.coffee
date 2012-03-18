@@ -9,36 +9,48 @@
 console.log 'damn'
 
 $ ->
-  dragger = ->
-    if this.type == 'rect'
-      this.ox = this.attr 'x'
-      this.oy = this.attr 'y'
+  startDrag = ->
+    if @type == 'rect'
+      @ox = @attr 'x'
+      @oy = @attr 'y'
     else
-      this.ox = this.attr 'cx'
-      this.oy = this.attr 'cy'
-    this.animate({"fill-opacity": .2}, 500)
+      @ox = @attr 'cx'
+      @oy = @attr 'cy'
+    @animate({"fill-opacity": .3}, 200)
+
+  endDrag = ->
+    @animate({"fill-opacity": 0}, 700)
 
   move = (dx, dy) ->
-    if this.type == 'rect'
-      att = {x: this.ox + dx, y: this.oy + dy}
+    if @type == 'rect'
+      att = {x: @ox + dx, y: @oy + dy}
     else
-      att = {cx: this.ox + dx, cy: this.oy + dy}
-    this.attr(att)
+      att = {cx: @ox + dx, cy: @oy + dy}
+    @attr(att)
     for c in connections
       r.connection(c)
     r.safari()
 
-  up = ->
-    this.animate({"fill-opacity": 0}, 500)
 
   r = Raphael("holder", "100%", "100%")
 
   connections = []
 
   createNode = (text, x, y) ->
+    group = do paper.set
+    
+    rect = r.rect x, y, 100, 20, 2
+    rect.attr {
+      fill: color
+      stroke: color
+      "fill-opacity": 0
+      "stroke-width": 2
+      cursor: "move"
+    }
     # make a set, add text, rect to fit
     # set attrs on rect
-    1
+    group.push rect
+    group.drag move, startDrag, endDrag
 
   shapes = [  r.ellipse(190, 100, 30, 20),
               r.rect(290, 80, 60, 40, 10),
@@ -53,7 +65,7 @@ $ ->
     # http://stackoverflow.com/questions/1458095/using-raphael-js-to-create-text-nodes
     color = Raphael.getColor()
     shape.attr({fill: color, stroke: color, "fill-opacity": 0, "stroke-width": 2, cursor: "move"})
-    shape.drag(move, dragger, up)
+    shape.drag(move, startDrag, endDrag)
 
   connections.push(r.connection(shapes[0], shapes[1], "#f00"))
   connections.push(r.connection(shapes[1], shapes[2], "#f00", "#f0f|5"))
