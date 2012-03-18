@@ -52,7 +52,7 @@ $ ->
     # set so they move together
     # http://stackoverflow.com/questions/1458095/using-raphael-js-to-create-text-nodes
     color = Raphael.getColor()
-    shape.attr({fill: color, stroke: color, "fill-opacity": 0, "stroke-width": 2, cursor: "move")
+    shape.attr({fill: color, stroke: color, "fill-opacity": 0, "stroke-width": 2, cursor: "move"})
     shape.drag(move, dragger, up)
 
   connections.push(r.connection(shapes[0], shapes[1], "#f00"))
