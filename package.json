@@ -1,0 +1,23 @@
+{
+  "author": "Brendan Adamson <brendan.adamson@gmail.com> (http://github.com/badamson)",
+  "name": "patchagogy",
+  "description": "Max/MSP in the browser: a Max/puredata-like frontend for audiolet",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/badamson/patchagogy.git"
+  },
+  "scripts": {
+    "test": "rake test"
+  },
+  "engines": {
+    "node": "0.6.x"
+  },
+  "dependencies": {
+    "connect-assets": "",
+    "coffee-script": "",
+    "stylus": "",
+    "bootstrap-stylus": ""
+  },
+  "devDependencies": {}
+}
