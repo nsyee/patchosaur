@@ -8,49 +8,66 @@
 
 console.log 'damn'
 
+newID = do ->
+  currID = 0
+  ->
+    newID = currID + 1
+    currID = newID
+
+# rectID: textElem
+textNodes = {}
+
 $ ->
   startDrag = ->
-    if @type == 'rect'
-      @ox = @attr 'x'
-      @oy = @attr 'y'
-    else
-      @ox = @attr 'cx'
-      @oy = @attr 'cy'
+    @ox = @attr 'x'
+    @oy = @attr 'y'
+    textNode = textNodes[@node.id]
+    if textNode
+      textNode.ox = textNode.attr 'x'
+      textNode.oy = textNode.attr 'y'
     @animate({"fill-opacity": .3}, 200)
 
   endDrag = ->
     @animate({"fill-opacity": 0}, 700)
 
   move = (dx, dy) ->
-    if @type == 'rect'
-      att = {x: @ox + dx, y: @oy + dy}
-    else
-      att = {cx: @ox + dx, cy: @oy + dy}
-    @attr(att)
+    att = {x: @ox + dx, y: @oy + dy}
+    @attr att
+    # move text node
+    textNode = textNodes[@node.id]
+    if textNode
+      att = {x: textNode.ox + dx, y: textNode.oy + dy}
+      textNode.attr att
     for c in connections
       r.connection(c)
     r.safari()
-
 
   r = Raphael("holder", "100%", "100%")
 
   connections = []
 
-  createNode = (text, x, y) ->
-    group = do paper.set
-    
-    rect = r.rect x, y, 100, 20, 2
+  createNode = (x, y, text) ->
+    set = r.set()
+    textElem = r.text x, y, text
+    box = textElem.getBBox()
+    padding = 2
+    rect = r.rect box.x - 2, box.y - 2, box.width + 4, box.height + 4, 2
+    rect.node.id = do newID
+    textNodes[rect.node.id] = textElem
     rect.attr {
-      fill: color
-      stroke: color
+      fill: '#a00'
+      stroke: '#e03'
       "fill-opacity": 0
       "stroke-width": 2
       cursor: "move"
     }
     # make a set, add text, rect to fit
     # set attrs on rect
-    group.push rect
-    group.drag move, startDrag, endDrag
+    set.push rect
+    set.push textElem
+    rect.drag move, startDrag, endDrag
+
+  createNode 250, 250, 'hey there'
 
   shapes = [  r.ellipse(190, 100, 30, 20),
               r.rect(290, 80, 60, 40, 10),
