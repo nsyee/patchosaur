@@ -5,7 +5,8 @@
 #= require 3p/backbone
 #= require 3p/audiolet
 #= require draw/connection
-#= require models/object
+#= require models/patch
+#= require views/patch
 
 console.log 'damn'
 
