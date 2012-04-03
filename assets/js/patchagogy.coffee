@@ -8,6 +8,7 @@
 #= require models
 #= require views
 #= require controllers
+#= require_tree units
 
 console.log 'aww... shit.'
 
