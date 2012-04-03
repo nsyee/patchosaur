@@ -7,7 +7,7 @@
 #= require draw/connection
 #= require models
 #= require views
-#= require controllers
+#= require routes
 #= require_tree units
 
 console.log 'aww... shit.'
