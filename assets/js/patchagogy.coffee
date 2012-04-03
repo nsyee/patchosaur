@@ -5,9 +5,9 @@
 #= require 3p/backbone
 #= require 3p/audiolet
 #= require draw/connection
-#= require models/patch
-#= require views/patch
-#= require controllers/patch
+#= require models
+#= require views
+#= require controllers
 
 console.log 'aww... shit.'
 
