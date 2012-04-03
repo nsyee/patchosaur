@@ -10,7 +10,9 @@ patchagogy.ObjectView = Backbone.View.extend {
 
 patchagogy.PatchView = Backbone.View.extend {
   el: $('#holder')
+  initialize: () ->
+    @patch.bind 'add', (object) ->
+      #new object view!!!
+      #see todo list app:
+      #http://documentcloud.github.com/backbone/docs/todos.html
 }
-
-$ ->
-  patchagogy.patchView = new patchagogy.PatchView model: patchagogy.patch

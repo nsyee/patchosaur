@@ -1,3 +1,5 @@
+# FIXME: require views and models
+
 patchagogy = @patchagogy = @patchagogy or {}
 
 patchagogy.controllers = {}
@@ -11,15 +13,10 @@ patchagogy.controllers.App = Backbone.Router.extend {
     # default
     "*path":       'index'
 
-  createObject: (attrs) ->
-    model = patchagogy.patch.newObject attrs
-    view = new patchagogy.ObjectView _.extend attrs, \
-      {model: model}
-
-
   index: () ->
     patchagogy.patch = new patchagogy.Patch
-    console.log 'creating patch:', patchagogy.patch
+    patchagogy.patchView = new patchagogy.PatchView patch: patchagogy.patch
+    console.log 'created patch:', patchagogy.patch
     # keep these test cases around
     x = patchagogy.patch.newObject {text: 'hey'}
     x = patchagogy.patch.newObject {text: "hey2 1.0 987 'hey there'"}
@@ -29,5 +26,3 @@ patchagogy.controllers.App = Backbone.Router.extend {
       position: [200, 220]
     }
 }
-
-
