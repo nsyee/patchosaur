@@ -1,0 +1,15 @@
+patchagogy = @patchagogy = @patchagogy or {}
+
+patchagogy.controllers = {}
+
+patchagogy.controllers.app = Backbone.Router.extend {
+  routes:
+    "index":      'index'
+    "help":       'help'
+    "help/:unit": 'help'
+    "patch/:file":  'patch'
+
+  index: () -> console.log 'index controller'
+}
+
+

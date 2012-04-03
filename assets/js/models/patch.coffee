@@ -25,11 +25,11 @@ patchagogy.Object = Backbone.Model.extend {
 
   initialize: ->
     @id = _.uniqueId('object_')
-    console.log "initializing object #{JSON.stringify @}"
     parsedText = @_textParse @get 'text'
     @set 'object_class', parsedText[0]
     @set 'object_args', parsedText[1..]
-    console.log 'parsedText', parsedText
+    console.debug "creating object:", @get('object_class'), \
+      @get('object_args')
     # create view, assign reference
     @set 'raphaelBox', null
     @bind 'change:text', ->
@@ -62,7 +62,7 @@ patchagogy.Patch = Backbone.Collection.extend {
 
 $ ->
   patchagogy.patch = new patchagogy.Patch
-  console.log 'patch', patchagogy.patch
+  console.log 'creating patch:', patchagogy.patch
   # keep these test cases around
   x = patchagogy.patch.newObject {text: 'hey'}
   x = patchagogy.patch.newObject {text: "hey2 1.0 987 'hey there'"}

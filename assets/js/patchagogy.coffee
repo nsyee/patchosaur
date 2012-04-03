@@ -7,8 +7,9 @@
 #= require draw/connection
 #= require models/patch
 #= require views/patch
+#= require controllers/patch
 
-console.log 'damn'
+console.log 'aww... shit.'
 
 newID = do ->
   currID = 0
@@ -89,3 +90,9 @@ $ ->
   connections.push(r.connection(shapes[0], shapes[1], "#f00"))
   connections.push(r.connection(shapes[1], shapes[2], "#f00", "#f0f|5"))
   connections.push(r.connection(shapes[1], shapes[3], "#f00", "#f0f"))
+
+
+$ ->
+  # start the engines
+  appController = new patchagogy.controllers.App
+  do Backbone.history.start
