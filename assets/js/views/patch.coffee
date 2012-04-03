@@ -1,18 +1,16 @@
 
 patchagogy = @patchagogy = @patchagogy or {}
 
-ObjectView = Backbone.View.extend {
+patchagogy.ObjectView = Backbone.View.extend {
+  initialize: () -> do @render
+  render: () ->
+    console.log 'rendering object view', @
+    @
 }
 
-PatchView = Backbone.View.extend {
+patchagogy.PatchView = Backbone.View.extend {
   el: $('#holder')
-
-  addObject: (object) ->
-    view = new ObjectView model: object
-    # append it
 }
-
-
 
 $ ->
-  patchagogy.patchView = new PatchView model: patchagogy.patch
+  patchagogy.patchView = new patchagogy.PatchView model: patchagogy.patch
