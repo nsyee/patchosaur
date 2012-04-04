@@ -22,6 +22,8 @@ patchagogy.controllers.App = Backbone.Router.extend {
     # # keep these test cases around
     one = patchagogy.patch.newObject {x: 100, y: 100, text: 'hey ZOMG 1'}
     two = patchagogy.patch.newObject {x: 250, y: 250, text: 'hey ZOMG 2'}
+    window.one = one
+    window.two = two
     one.connect(0, two.id, 0)
     console.log 'object one', one, 'connected to two', two
     # patchagogy.patch.newObject {text: "hey2 1.0 987 'hey there'"}

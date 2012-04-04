@@ -45,12 +45,16 @@ patchagogy.Object = Backbone.Model.extend {
     # connect
     cxs[outIndex].push to
     cxs = @set 'connections', cxs
+    # FIXME: backbone doesn't like prop to be object, change doesn't fire
+    # fire it yourself
+    @trigger 'change:connections'
 
   disconnect: (outIndex, inObjectID, inIndex) ->
     cxs = @get('connections')
     cxs = _.reject cxs, (cx) ->
         _.isEqual cx, [inObjectID, inIndex]
     cxs = @set('connections', cxs)
+    @trigger 'change:connections'
 }
 
 patchagogy.Patch = Backbone.Collection.extend {

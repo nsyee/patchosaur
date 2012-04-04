@@ -7,12 +7,13 @@ patchagogy.ObjectView = Backbone.View.extend {
     @p = patchagogy.paper
     @id = _.uniqueId 'objectView_'
     # FIXME: draws twice
-    # @model.bind 'change', @render, @
     @connections = []
     @raphaelElems = []
+    @model.bind 'change:connections', => @drawConnections true
     @bind 'redrawConnections', => @drawConnections false
     @model.set 'view', @
     do @render
+
   drawConnections: (redraw=true) ->
     # try to move current connections
     if not redraw and not _.isEmpty @connections
