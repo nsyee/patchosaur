@@ -43,18 +43,20 @@ patchagogy.Object = Backbone.Model.extend {
     return if _.find cxs[outIndex], (cx) -> _.isEqual cx, to
     # connect
     cxs[outIndex].push to
-    cxs = @set('connections')
+    cxs = @set('connections', cxs)
 
   disconnect: (outIndex, inObjectID, inIndex) ->
     cxs = @get('connections')
     cxs = _.reject cxs, (cx) ->
         _.isEqual cx, [inObjectID, inIndex]
-    cxs = @set('connections')
+    cxs = @set('connections', cxs)
 }
 
 patchagogy.Patch = Backbone.Collection.extend {
-  # url: -> '/patch'
+  url: -> '/patch'
   model: patchagogy.Object
   newObject: (attrs) ->
-    @add attrs
+    object = new @model attrs
+    @add object
+    object
 }

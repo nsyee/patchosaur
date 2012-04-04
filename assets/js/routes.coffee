@@ -14,15 +14,16 @@ patchagogy.controllers.App = Backbone.Router.extend {
     "*path":       'index'
 
   index: () ->
+    patchagogy.paper = Raphael("holder", "100%", "100%")
     patchagogy.patch = new patchagogy.Patch
-    patchagogy.patchView = new patchagogy.PatchView patch: patchagogy.patch
+    patchagogy.patchView = new patchagogy.PatchView
+      patch: patchagogy.patch
     console.log 'created patch:', patchagogy.patch
-    # keep these test cases around
-    x = patchagogy.patch.newObject {text: 'hey'}
-    x = patchagogy.patch.newObject {text: "hey2 1.0 987 'hey there'"}
-    x = patchagogy.patch.newObject {text: "hey3 3 '[1, 23, 8]' '{\"2\": 3}'"}
-    @createObject {
-      text: 'hey there whoa'
-      position: [200, 220]
-    }
+    # # keep these test cases around
+    one = patchagogy.patch.newObject {x: 100, y: 100, text: 'hey ZOMG 1'}
+    two = patchagogy.patch.newObject {x: 250, y: 250, text: 'hey ZOMG 2'}
+    one.connect(0, two.id, 0)
+    console.log 'object one', one, 'connected to two', two
+    # patchagogy.patch.newObject {text: "hey2 1.0 987 'hey there'"}
+    # patchagogy.patch.newObject {text: "hey3 3 '[1, 23, 8]' '{\"2\": 3}'"}
 }
