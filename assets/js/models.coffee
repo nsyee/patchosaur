@@ -32,18 +32,19 @@ patchagogy.Object = Backbone.Model.extend {
       @get('object_args')
     # create view, assign reference
     @set 'raphaelBox', null
+    @set 'connections', {}
     @bind 'change:text', ->
     @bind 'change:connections', ->
 
   connect: (outIndex, inObjectID, inIndex) ->
-    cxs = @get('connections')
+    cxs = @get 'connections'
     cxs[outIndex] ?= []
     to = [inObjectID, inIndex]
     # if it's already connected don't bother
     return if _.find cxs[outIndex], (cx) -> _.isEqual cx, to
     # connect
     cxs[outIndex].push to
-    cxs = @set('connections', cxs)
+    cxs = @set 'connections', cxs
 
   disconnect: (outIndex, inObjectID, inIndex) ->
     cxs = @get('connections')
@@ -53,6 +54,8 @@ patchagogy.Object = Backbone.Model.extend {
 }
 
 patchagogy.Patch = Backbone.Collection.extend {
+  # FIXME: on change to any objects connections,
+  # redraw all connections? possible wiht backbone?
   url: -> '/patch'
   model: patchagogy.Object
   newObject: (attrs) ->

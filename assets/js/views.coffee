@@ -9,7 +9,8 @@ patchagogy.ObjectView = Backbone.View.extend {
     # FIXME: draws twice
     # @model.bind 'change', @render, @
     @connections = []
-    # @model.bind 'change', @drawConnections, @
+    @raphaelElems = []
+    @bind 'redrawConnections', => @drawConnections false
     @model.set 'view', @
     do @render
   drawConnections: (redraw=true) ->
@@ -18,11 +19,12 @@ patchagogy.ObjectView = Backbone.View.extend {
       for connection in @connections
         @p.connection connection
       return
-    # clear current
+    # else, clear current and redo
     for connection in @connections
       connection.line.remove()
-      @connections = []
+    @connections = []
     connections = @model.get 'connections'
+    # console.log @model.get('text'), connections
     for outlet of connections
       for to in connections[outlet]
         toID = to[0]
@@ -31,6 +33,9 @@ patchagogy.ObjectView = Backbone.View.extend {
         @connections.push @p.connection @rect, toElem.get('view').rect, '#f00'
   render: () ->
     console.log 'rendering', @
+    for elem in @raphaelElems
+      elem.remove()
+    @raphaelElems = []
     drawConnections = (redraw) => @drawConnections redraw
     model = @model # for raphael funcs
     p = @p
@@ -39,9 +44,11 @@ patchagogy.ObjectView = Backbone.View.extend {
     text = @model.get 'text'
     set = @p.set()
     textElem = @p.text x, y, text
+    @raphaelElems.push textElem
     box = textElem.getBBox()
     padding = 2
     rect = @p.rect box.x - 2, box.y - 2, box.width + 4, box.height + 4, 2
+    @raphaelElems.push rect
     @rect = rect
     rect.node.id = @id
     rect.attr {
@@ -56,7 +63,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     set.push rect
     set.push textElem
     # set up dragging behavior
-    # closed over textElem, model, p, rect
+    # closed over textElem, model, p, rect, view
     startDrag = ->
       @ox = @attr 'x'
       @oy = @attr 'y'
@@ -68,18 +75,18 @@ patchagogy.ObjectView = Backbone.View.extend {
     endDrag = ->
       @animate({"fill-opacity": 0}, 700)
     move = (dx, dy) ->
-      # set these on model silently
       att = {x: @ox + dx, y: @oy + dy}
+      # move raphael object
       @attr att
+      # set on model, redraws connections
+      model.set att
       # move text node
       textNode = textElem
       if textNode
         att = {x: textNode.ox + dx, y: textNode.oy + dy}
         textNode.attr att
-      # FIXME: put this on view object, close over fat-arrowed
-      drawConnections(false)
       p.safari()
-    move = _.throttle move, 25
+    move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
     drawConnections()
     @
@@ -89,11 +96,17 @@ patchagogy.PatchView = Backbone.View.extend {
   el: $('#holder')
   initialize: () ->
     @patch = @options.patch
-    @patch.bind 'add', (object) ->
+    @objectViews = []
+    @patch.bind 'add', (object) =>
       console.log 'new view for', object
-      new patchagogy.ObjectView model: object
+      @objectViews.push new patchagogy.ObjectView model: object
     , @
-
+    redrawAllConnections = () =>
+      # FIXME: only redraw connections on affected lines
+      for object in @objectViews
+        object.trigger('redrawConnections')
+    @patch.bind 'change:x change:y', redrawAllConnections
+      
     # connections.push(r.connection(shapes[0], shapes[1], "#f00"))
     # connections.push(r.connection(shapes[1], shapes[2], "#f00", "#f0f|5"))
     # connections.push(r.connection(shapes[1], shapes[3], "#f00", "#f0f"))
