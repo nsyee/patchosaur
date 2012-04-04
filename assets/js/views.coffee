@@ -99,6 +99,7 @@ patchagogy.PatchView = Backbone.View.extend {
   el: $('#holder')
   initialize: () ->
     @patch = @options.patch
+    @svgEl = @$el.children('svg').get(0)
     @objectViews = []
     @patch.bind 'add', (object) =>
       console.log 'new view for', object
@@ -109,11 +110,18 @@ patchagogy.PatchView = Backbone.View.extend {
       for object in @objectViews
         object.trigger('redrawConnections')
     @patch.bind 'change:x change:y', redrawAllConnections
-      
-    # connections.push(r.connection(shapes[0], shapes[1], "#f00"))
-    # connections.push(r.connection(shapes[1], shapes[2], "#f00", "#f0f|5"))
-    # connections.push(r.connection(shapes[1], shapes[3], "#f00", "#f0f"))
+
+    # set up creating new 
+    # objects with ctrl click
+    @$el.on 'click', (event) =>
+      if event.target == @svgEl and event.ctrlKey
+        x = event.pageX
+        y = event.pageY
+        @patch.newObject
+          x: event.pageX
+          y: event.pageY
+          text: 'omg i added this'
+
+        # FIXME create a new elem
     @
-    #see todo list app:
-    #http://documentcloud.github.com/backbone/docs/todos.html
 }
