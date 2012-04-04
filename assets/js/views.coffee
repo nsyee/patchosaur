@@ -6,7 +6,6 @@ patchagogy.ObjectView = Backbone.View.extend {
     # get elements inside a span or div?
     @p = patchagogy.paper
     @id = _.uniqueId 'objectView_'
-    # FIXME: draws twice
     @connections = []
     @raphaelElems = []
     @model.bind 'change:connections', => @drawConnections true
@@ -78,6 +77,9 @@ patchagogy.ObjectView = Backbone.View.extend {
     move = (dx, dy) ->
       att = {x: @ox + dx, y: @oy + dy}
       # move raphael object
+      # FIXME: don't do this, the view should
+      # be listening for model changes and 
+      # moving the objects
       @attr att
       # set on model, redraws connections
       model.set att
