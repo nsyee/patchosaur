@@ -79,6 +79,7 @@ patchagogy.ObjectView = Backbone.View.extend {
       # FIXME: put this on view object, close over fat-arrowed
       drawConnections(false)
       p.safari()
+    move = _.throttle move, 25
     rect.drag move, startDrag, endDrag
     drawConnections()
     @
