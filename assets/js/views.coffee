@@ -47,7 +47,7 @@ patchagogy.ObjectView = Backbone.View.extend {
       for to in connections[outlet]
         toID = to[0]
         inlet = to[1]
-        toElem = patchagogy.patch.get toID
+        toElem = patchagogy.objects.get toID
         @connections.push @p.connection @outlets[outlet], toElem.get('view').inlets[inlet], '#f00'
 
   _setOffset: (onEl, fromEl) ->

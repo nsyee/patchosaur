@@ -23,6 +23,13 @@ patchagogy.Object = Backbone.Model.extend {
       catch error
         token
 
+  toJSON: ->
+    # whitelist only attributes to sync
+    o = {}
+    for prop in ['x', 'y', 'text']
+      o[prop] = @get prop
+    return o
+
   initialize: ->
     @id = _.uniqueId('object_')
     parsedText = @_textParse @get 'text'
@@ -57,13 +64,16 @@ patchagogy.Object = Backbone.Model.extend {
     @trigger 'change:connections'
 }
 
-patchagogy.Patch = Backbone.Collection.extend {
-  # FIXME: on change to any objects connections,
-  # redraw all connections? possible wiht backbone?
-  url: -> '/patch'
+patchagogy.Objects = Backbone.Collection.extend {
   model: patchagogy.Object
   newObject: (attrs) ->
     object = new @model attrs
     @add object
     object
 }
+
+# backbone collections don't have a save method, wrap in Model
+patchagogy.Patch = Backbone.Model.extend
+  url: '/patch'
+  defaults:
+    objects: []
