@@ -16,6 +16,8 @@ patchagogy.ObjectView = Backbone.View.extend {
     @connections = []
     @raphaelBox = null
     @raphaelText = null
+    @inlets  = []
+    @outlets = []
     @textOffset = [0, 0]
     # make it
     do @render
@@ -77,6 +79,31 @@ patchagogy.ObjectView = Backbone.View.extend {
       "stroke-width": 2
       cursor: "move"
     }
+    # make inlets and outlets
+    # FIXME: to move these, set offeset prop on the dom elements
+    # FIXME: refactor when it works
+    inlet.remove() for inlet in @inlets
+    outlet.remove() for outlet in @outlets
+    @inlets = @outlets = []
+    numInlets = @model.get 'numInlets'
+    numOutlets = @model.get 'numOutlets'
+    padding = 5
+    width = box.width - (padding * 2)
+    spacing = width / (numInlets - 1) # FIXME? work for one?
+    for inlet in _.range numInlets
+      inletElem = @p.rect(
+        box.x + padding - 2 + (inlet * spacing),
+        box.y - 6,
+        4, 4, 1)
+      @inlets.push inletElem
+    spacing = width / (numOutlets - 1) # FIXME? work for one?
+    for outlet in _.range numOutlets
+      outletElem = @p.rect(
+        box.x + padding - 2 + (outlet * spacing),
+        box.height + box.y + 2,
+        4, 4, 1)
+      @outlets.push outletElem
+      
     # set up dragging behavior
     self = @
     startDrag = ->

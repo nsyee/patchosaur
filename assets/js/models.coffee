@@ -6,7 +6,7 @@ patchagogy = @patchagogy = @patchagogy or {}
 patchagogy.Object = Backbone.Model.extend {
   defaults: # should be func?
     text: ''
-    numInlets: 2
+    numInlets: 3
     numOutlets: 2
     connections: {} # FIXME: structure?
     raphaelBox: null # view
