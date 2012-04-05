@@ -6,12 +6,28 @@ patchagogy.ObjectView = Backbone.View.extend {
     # get elements inside a span or div?
     @p = patchagogy.paper
     @id = _.uniqueId 'objectView_'
-    @connections = []
-    @raphaelElems = []
-    @model.bind 'change:connections', => @drawConnections true
-    @bind 'redrawConnections', => @drawConnections false
     @model.set 'view', @
+    # bind events
+    @model.bind 'change:connections', => @drawConnections true
+    @model.bind 'change:x change:y', => do @place
+    # triggered by patch view when x or y change on any obj
+    @bind 'redrawConnections', => @drawConnections false
+
+    @connections = []
+    @raphaelBox = null
+    @raphaelText = null
+    @textOffset = [0, 0]
+    # make it
     do @render
+
+  place: () ->
+    x = @model.get 'x'
+    y = @model.get 'y'
+    @raphaelBox.attr x: x, y: y
+    @raphaelText.attr
+      x: x + @textOffset[0]
+      y: y + @textOffset[1]
+    @p.safari()
 
   drawConnections: (redraw=true) ->
     # try to move current connections
@@ -31,11 +47,11 @@ patchagogy.ObjectView = Backbone.View.extend {
         inlet = to[1]
         toElem = patchagogy.patch.get toID
         @connections.push @p.connection @rect, toElem.get('view').rect, '#f00'
+
   render: () ->
     console.log 'rendering', @
-    for elem in @raphaelElems
-      elem.remove()
-    @raphaelElems = []
+    @raphaelBox?.remove()
+    @raphaelText?.remove()
     drawConnections = (redraw) => @drawConnections redraw
     model = @model # for raphael funcs
     p = @p
@@ -44,12 +60,17 @@ patchagogy.ObjectView = Backbone.View.extend {
     text = @model.get 'text'
     set = @p.set()
     textElem = @p.text x, y, text
-    @raphaelElems.push textElem
+    @raphaelText = textElem
     box = textElem.getBBox()
     padding = 2
     rect = @p.rect box.x - 2, box.y - 2, box.width + 4, box.height + 4, 2
-    @raphaelElems.push rect
+    @raphaelBox = rect
     @rect = rect
+    @textOffset = [
+      @raphaelText.attrs.x - @raphaelBox.attrs.x
+      @raphaelText.attrs.y - @raphaelBox.attrs.y
+    ]
+
     rect.node.id = @id
     rect.attr {
       fill: '#a00'
@@ -76,19 +97,9 @@ patchagogy.ObjectView = Backbone.View.extend {
       @animate({"fill-opacity": 0}, 700)
     move = (dx, dy) ->
       att = {x: @ox + dx, y: @oy + dy}
-      # move raphael object
-      # FIXME: don't do this, the view should
-      # be listening for model changes and 
-      # moving the objects
-      @attr att
-      # set on model, redraws connections
+      # set on model, triggers events
+      # to redraw
       model.set att
-      # move text node
-      textNode = textElem
-      if textNode
-        att = {x: textNode.ox + dx, y: textNode.oy + dy}
-        textNode.attr att
-      p.safari()
     move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
     drawConnections()
