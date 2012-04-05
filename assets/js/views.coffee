@@ -53,12 +53,10 @@ patchagogy.ObjectView = Backbone.View.extend {
     @raphaelBox?.remove()
     @raphaelText?.remove()
     drawConnections = (redraw) => @drawConnections redraw
-    model = @model # for raphael funcs
     p = @p
     x = @model.get 'x'
     y = @model.get 'y'
     text = @model.get 'text'
-    set = @p.set()
     textElem = @p.text x, y, text
     @raphaelText = textElem
     box = textElem.getBBox()
@@ -79,27 +77,21 @@ patchagogy.ObjectView = Backbone.View.extend {
       "stroke-width": 2
       cursor: "move"
     }
-    # make a set, add text, rect to fit
-    # set attrs on rect
-    set.push rect
-    set.push textElem
     # set up dragging behavior
-    # closed over textElem, model, p, rect, view
+    self = @
     startDrag = ->
       @ox = @attr 'x'
       @oy = @attr 'y'
-      textNode = textElem
-      if textNode
-        textNode.ox = textNode.attr 'x'
-        textNode.oy = textNode.attr 'y'
+      rt = self.raphaelText
+      rt.ox = rt.attr 'x'
+      rt.oy = rt.attr 'y'
       @animate({"fill-opacity": .3}, 200)
     endDrag = ->
       @animate({"fill-opacity": 0}, 700)
     move = (dx, dy) ->
       att = {x: @ox + dx, y: @oy + dy}
-      # set on model, triggers events
-      # to redraw
-      model.set att
+      # set on model, triggers events to redraw
+      self.model.set att
     move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
     drawConnections()
