@@ -25,10 +25,10 @@ patchagogy.ObjectView = Backbone.View.extend {
   place: () ->
     x = @model.get 'x'
     y = @model.get 'y'
-    @raphaelBox.attr x: x, y: y
-    @raphaelText.attr
-      x: x + @textOffset[0]
-      y: y + @textOffset[1]
+    for elem in _.flatten [@raphaelBox, @raphaelText, @inlets, @outlets]
+      elem.attr
+        x: x + (elem.offsetX or 0)
+        y: y + (elem.offsetY or 0)
     @p.safari()
 
   drawConnections: (redraw=true) ->
@@ -50,6 +50,10 @@ patchagogy.ObjectView = Backbone.View.extend {
         toElem = patchagogy.patch.get toID
         @connections.push @p.connection @rect, toElem.get('view').rect, '#f00'
 
+  _setOffset: (onEl, fromEl) ->
+    onEl.offsetX = onEl.attrs.x - fromEl.attrs.x
+    onEl.offsetY = onEl.attrs.y - fromEl.attrs.y
+
   render: () ->
     console.log 'rendering', @
     @raphaelBox?.remove()
@@ -66,10 +70,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     rect = @p.rect box.x - 2, box.y - 2, box.width + 4, box.height + 4, 2
     @raphaelBox = rect
     @rect = rect
-    @textOffset = [
-      @raphaelText.attrs.x - @raphaelBox.attrs.x
-      @raphaelText.attrs.y - @raphaelBox.attrs.y
-    ]
+    @_setOffset @raphaelText, @raphaelBox
 
     rect.node.id = @id
     rect.attr {
@@ -94,14 +95,16 @@ patchagogy.ObjectView = Backbone.View.extend {
       inletElem = @p.rect(
         box.x + padding - 2 + (inlet * spacing),
         box.y - 6,
-        4, 4, 1)
+        6, 4, 1)
+      @_setOffset inletElem, rect
       @inlets.push inletElem
     spacing = width / (numOutlets - 1) # FIXME? work for one?
     for outlet in _.range numOutlets
       outletElem = @p.rect(
         box.x + padding - 2 + (outlet * spacing),
         box.height + box.y + 2,
-        4, 4, 1)
+        6, 4, 1)
+      @_setOffset outletElem, rect
       @outlets.push outletElem
       
     # set up dragging behavior
