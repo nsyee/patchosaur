@@ -66,6 +66,7 @@ patchagogy.Object = Backbone.Model.extend {
 
   clear: ->
     @disconnectAll()
+    @view = null
   
   getToObjects: () ->
     # get a list of objects this is connected to

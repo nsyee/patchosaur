@@ -32,6 +32,8 @@ patchagogy.ObjectView = Backbone.View.extend {
     # # calling destroy on this model tries to phone home
     @model.clear()
     patchagogy.objects.remove(@model)
+    # break circular ref? we're leaking somewhere
+    @model = null
 
   place: () ->
     x = @model.get 'x'
@@ -40,9 +42,11 @@ patchagogy.ObjectView = Backbone.View.extend {
       elem.attr
         x: x + (elem.offsetX or 0)
         y: y + (elem.offsetY or 0)
-    @p.safari()
+    #@p.safari()
 
   drawConnections: (redraw=true) ->
+    # FIXME: looks like when this is disabled, memory doesn't leak as
+    # hard... hmm.
     # try to move current connections
     if not redraw and not _.isEmpty @connections
       for connection in @connections
@@ -51,6 +55,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     # else, clear current and redo
     for connection in @connections
       connection.line.remove()
+      connection.bg.remove()
     @connections = []
     connections = @model.get 'connections'
     # console.log @model.get('text'), connections
@@ -61,6 +66,7 @@ patchagogy.ObjectView = Backbone.View.extend {
         toElem = patchagogy.objects.get toID
         conn = @p.connection @outlets[outlet], toElem.get('view').inlets[inlet], '#f00'
         @connections.push conn
+        # FIXME: necc?
         @raphaelSet.push conn
 
   _setOffset: (onEl, fromEl) ->
@@ -154,9 +160,6 @@ patchagogy.ObjectView = Backbone.View.extend {
     startDrag = ->
       @ox = @attr 'x'
       @oy = @attr 'y'
-      rt = self.raphaelText
-      rt.ox = rt.attr 'x'
-      rt.oy = rt.attr 'y'
       @animate({"fill-opacity": .3}, 200)
     endDrag = (event) ->
       @animate({"fill-opacity": 0}, 700)
