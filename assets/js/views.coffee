@@ -5,6 +5,7 @@ patchagogy.ObjectView = Backbone.View.extend {
   initialize: () ->
     # get elements inside a span or div?
     @p = patchagogy.paper
+    @patchView = @options.patchView
     @id = _.uniqueId 'objectView_'
     @model.set 'view', @
     # bind events
@@ -108,6 +109,7 @@ patchagogy.ObjectView = Backbone.View.extend {
         box.y - 6,
         6, 4, 1)
       @_setOffset inletElem, rect
+      inletElem.attr fill: '#9b9'
       @inlets.push inletElem
     spacing = width / (numOutlets - 1) # FIXME? work for one?
     for outlet in _.range numOutlets
@@ -116,8 +118,37 @@ patchagogy.ObjectView = Backbone.View.extend {
         box.height + box.y + 2,
         6, 4, 1)
       @_setOffset outletElem, rect
+      outletElem.attr fill: '#99f'
       @outlets.push outletElem
-      
+
+    # FIXME: set on the view or model?
+    # i think on the patch view
+    # activeOutlet, on inlet clicks
+    # if there's an active outlet, tell model about connection
+    _.each @outlets, (outlet, i) =>
+      outlet.click (event) =>
+        glowee = outlet.glow()
+        anim = Raphael.animation {"stroke-width": 12}, 400
+        anim = anim.repeat Infinity
+        glowee.animate anim
+        @patchView.setActiveOutlet
+          modelID: @model.id
+          index: i
+          el: glowee
+
+    _.each @inlets, (inlet, i) =>
+      inlet.click (event) =>
+        @patchView.setInlet
+          modelID: @model.id
+          index: i
+
+    # glow on hover
+    _.each _.flatten([@outlets, @inlets]), (xlet) ->
+      xlet.hover (event) ->
+        xlet.glowEl = xlet.glow()
+      , (event) ->
+        xlet.glowEl.remove()
+
     # set up dragging behavior
     self = @
     startDrag = ->
@@ -127,7 +158,7 @@ patchagogy.ObjectView = Backbone.View.extend {
       rt.ox = rt.attr 'x'
       rt.oy = rt.attr 'y'
       @animate({"fill-opacity": .3}, 200)
-    endDrag = ->
+    endDrag = (event) ->
       @animate({"fill-opacity": 0}, 700)
     move = (dx, dy) ->
       att = {x: @ox + dx, y: @oy + dy}
@@ -151,8 +182,10 @@ patchagogy.PatchView = Backbone.View.extend {
     @objects.bind 'add', (object) =>
       console.log 'new view for', object
       # FIXME: can we do without this?
-      @objectViews.push new patchagogy.ObjectView model: object
-    , @
+      # @objectViews.push new patchagogy.ObjectView model: object
+      new patchagogy.ObjectView
+        model: object
+        patchView: @
     @objects.bind 'change:x change:y', (changedObject) =>
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
@@ -168,4 +201,19 @@ patchagogy.PatchView = Backbone.View.extend {
           x: event.pageX
           y: event.pageY
           text: 'omg i added this'
+
+  setActiveOutlet: (data) ->
+    @activeOutlet?.el.remove()
+    @activeOutlet = data
+
+  getActiveOutlet: -> @activeOutlet
+
+  setInlet: (data) ->
+    outletData = do @getActiveOutlet
+    return if not outletData
+    from = patchagogy.objects.get outletData.modelID
+    to   = patchagogy.objects.get data.modelID
+    # FIXME: if connected then disconnect?
+    from.connect outletData.index, data.modelID, data.index
+    @setActiveOutlet undefined
 }

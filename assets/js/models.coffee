@@ -103,6 +103,7 @@ patchagogy.Objects = Backbone.Collection.extend {
       tid == object.id or tid in toObjects
 
   model: patchagogy.Object
+
   newObject: (attrs) ->
     object = new @model attrs
     @add object
