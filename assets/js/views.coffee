@@ -126,24 +126,25 @@ patchagogy.ObjectView = Backbone.View.extend {
     move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
     drawConnections()
-    @
 }
 
 patchagogy.PatchView = Backbone.View.extend {
   el: $('#holder')
   initialize: () ->
-    @patch = @options.patch
-    @svgEl = @$el.children('svg').get(0)
+    @objects = @options.objects
+    @svgEl = @$el.children('svg').get 0
     @objectViews = []
-    @patch.bind 'add', (object) =>
+    @objects.bind 'add', (object) =>
       console.log 'new view for', object
+      # FIXME: can we do without this?
       @objectViews.push new patchagogy.ObjectView model: object
     , @
-    redrawAllConnections = () =>
-      # FIXME: only redraw connections on affected lines
-      for object in @objectViews
-        object.trigger('redrawConnections')
-    @patch.bind 'change:x change:y', redrawAllConnections
+    @objects.bind 'change:x change:y', (changedObject) =>
+      changedID = changedObject.id
+      affected = @objects.filter (object) ->
+        changedID == object.id or changedID in do object.getToObjects
+      _.each affected, (object) ->
+        object.get('view').trigger 'redrawConnections'
 
     # set up creating new 
     # objects with ctrl click
@@ -151,11 +152,8 @@ patchagogy.PatchView = Backbone.View.extend {
       if event.target == @svgEl and event.ctrlKey
         x = event.pageX
         y = event.pageY
-        @patch.newObject
+        @objects.newObject
           x: event.pageX
           y: event.pageY
           text: 'omg i added this'
-
-        # FIXME create a new elem
-    @
 }

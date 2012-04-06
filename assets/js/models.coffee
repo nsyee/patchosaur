@@ -62,6 +62,14 @@ patchagogy.Object = Backbone.Model.extend {
         _.isEqual cx, [inObjectID, inIndex]
     cxs = @set('connections', cxs)
     @trigger 'change:connections'
+  
+  getToObjects: () ->
+    # get a list of objects this is connected to
+    # useful for limiting connection redraws
+    _.flatten(
+      for tos in _.values @get 'connections'
+        for to in tos
+          to[0])
 }
 
 patchagogy.Objects = Backbone.Collection.extend {

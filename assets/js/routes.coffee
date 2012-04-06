@@ -18,7 +18,7 @@ patchagogy.controllers.App = Backbone.Router.extend {
     patchagogy.objects = new patchagogy.Objects
     patchagogy.patch = new patchagogy.Patch objects: patchagogy.objects
     patchagogy.patchView = new patchagogy.PatchView
-      patch: patchagogy.objects
+      objects: patchagogy.objects
     console.log 'created patch:', patchagogy.objects
     # # keep these test cases around
     one = patchagogy.objects.newObject {x: 100, y: 100, text: 'hey ZOMG 1'}
