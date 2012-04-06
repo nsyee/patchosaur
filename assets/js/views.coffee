@@ -21,6 +21,16 @@ patchagogy.ObjectView = Backbone.View.extend {
     @textOffset = [0, 0]
     # make it
     do @render
+    @raphaelSet.forEach (el) =>
+      el.node.setAttribute 'class', @id
+
+  clear: () ->
+    # FIXME: what are we leaving behind?
+    # @?
+    do @raphaelSet.remove
+    # # calling destroy on this model tries to phone home
+    @model.clear()
+    patchagogy.objects.remove(@model)
 
   place: () ->
     x = @model.get 'x'
@@ -48,16 +58,18 @@ patchagogy.ObjectView = Backbone.View.extend {
         toID = to[0]
         inlet = to[1]
         toElem = patchagogy.objects.get toID
-        @connections.push @p.connection @outlets[outlet], toElem.get('view').inlets[inlet], '#f00'
+        conn = @p.connection @outlets[outlet], toElem.get('view').inlets[inlet], '#f00'
+        @connections.push conn
+        @raphaelSet.push conn
 
   _setOffset: (onEl, fromEl) ->
     onEl.offsetX = onEl.attrs.x - fromEl.attrs.x
     onEl.offsetY = onEl.attrs.y - fromEl.attrs.y
 
   render: () ->
-    console.log 'rendering', @
-    @raphaelBox?.remove()
-    @raphaelText?.remove()
+    @raphaelSet?.remove()
+    do @p.setStart
+    console.log 'rendering object view', @id, @
     drawConnections = (redraw) => @drawConnections redraw
     p = @p
     x = @model.get 'x'
@@ -72,7 +84,6 @@ patchagogy.ObjectView = Backbone.View.extend {
     @rect = rect
     @_setOffset @raphaelText, @raphaelBox
 
-    rect.node.id = @id
     rect.attr {
       fill: '#a00'
       stroke: '#e03'
@@ -81,8 +92,7 @@ patchagogy.ObjectView = Backbone.View.extend {
       cursor: "move"
     }
     # make inlets and outlets
-    # FIXME: to move these, set offeset prop on the dom elements
-    # FIXME: refactor when it works
+    # FIXME: this is the same code twice. clean up.
     inlet.remove() for inlet in @inlets
     outlet.remove() for outlet in @outlets
     @inlets = []
@@ -126,6 +136,10 @@ patchagogy.ObjectView = Backbone.View.extend {
     move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
     drawConnections()
+    @raphaelSet = do @p.setFinish
+    @raphaelSet.click (event) =>
+      if event.shiftKey
+        do @clear
 }
 
 patchagogy.PatchView = Backbone.View.extend {
@@ -140,16 +154,14 @@ patchagogy.PatchView = Backbone.View.extend {
       @objectViews.push new patchagogy.ObjectView model: object
     , @
     @objects.bind 'change:x change:y', (changedObject) =>
-      changedID = changedObject.id
-      affected = @objects.filter (object) ->
-        changedID == object.id or changedID in do object.getToObjects
+      affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
         object.get('view').trigger 'redrawConnections'
 
     # set up creating new 
     # objects with ctrl click
     @$el.on 'click', (event) =>
-      if event.target == @svgEl and event.ctrlKey
+      if event.target == @svgEl and event.shiftKey
         x = event.pageX
         y = event.pageY
         @objects.newObject

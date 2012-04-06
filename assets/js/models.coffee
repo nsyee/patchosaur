@@ -8,8 +8,6 @@ patchagogy.Object = Backbone.Model.extend {
     text: ''
     numInlets: 3
     numOutlets: 2
-    connections: {} # FIXME: structure?
-    raphaelBox: null # view
 
   _textParse: (text) ->
     # split arguments, don't split between single quotes
@@ -25,6 +23,7 @@ patchagogy.Object = Backbone.Model.extend {
 
   toJSON: ->
     # whitelist only attributes to sync
+    # FIXME: needs more, see trello...
     o = {}
     for prop in ['x', 'y', 'text']
       o[prop] = @get prop
@@ -37,8 +36,6 @@ patchagogy.Object = Backbone.Model.extend {
     @set 'object_args', parsedText[1..]
     console.debug "creating object:", @get('object_class'), \
       @get('object_args')
-    # create view, assign reference
-    @set 'raphaelBox', null
     @set 'connections', {}
     @bind 'change:text', ->
     @bind 'change:connections', ->
@@ -62,6 +59,13 @@ patchagogy.Object = Backbone.Model.extend {
         _.isEqual cx, [inObjectID, inIndex]
     cxs = @set('connections', cxs)
     @trigger 'change:connections'
+
+  disconnectAll: ->
+    @set 'connections', {}
+    @trigger 'change:connections'
+
+  clear: ->
+    @disconnectAll()
   
   getToObjects: () ->
     # get a list of objects this is connected to
@@ -73,6 +77,31 @@ patchagogy.Object = Backbone.Model.extend {
 }
 
 patchagogy.Objects = Backbone.Collection.extend {
+  initialize: ->
+    @bind 'remove', (removed) ->
+      _.each @connectedFrom(removed), (object) ->
+        do object.disconnectAll
+
+  # FIXME: you are going to need this
+  #@bind 'change:numInlets change:numOutlets', (changed) =>
+  # FIXME: do you need this? probably for changing numoutlets
+  # connectedObjects: (targetObject) ->
+  #   # get objects this is connected to or from
+  #   # including this object
+  #   tid = targetObject.id
+  #   targetToObjects = do targetObject.getToObjects
+  #   affected = @filter (object) ->
+  #     toObjects = do object.getToObjects
+  #     tid == object.id or tid in toObjects or tid in targetToObjects
+
+  connectedFrom: (targetObject) ->
+    # get objects this is connected from
+    # INCLUDING this object
+    tid = targetObject.id
+    affected = @filter (object) ->
+      toObjects = do object.getToObjects
+      tid == object.id or tid in toObjects
+
   model: patchagogy.Object
   newObject: (attrs) ->
     object = new @model attrs

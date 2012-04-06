@@ -9,7 +9,7 @@ task :coffeelint do
     sh "find assets app -name '*.coffee' | xargs node_modules/.bin/coffeelint"
 end
 
-fixme_command = "grep -ri --after-context=3 fixme assets"
+fixme_command = "grep -ri --after-context=5 fixme assets"
 desc fixme_command
 task :fixme do
     sh fixme_command
