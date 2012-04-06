@@ -45,29 +45,36 @@ patchagogy.ObjectView = Backbone.View.extend {
     #@p.safari()
 
   drawConnections: (redraw=true) ->
-    # FIXME: looks like when this is disabled, memory doesn't leak as
-    # hard... hmm.
-    # try to move current connections
-    if not redraw and not _.isEmpty @connections
-      for connection in @connections
-        @p.connection connection
-      return
+    # draw your own lines
+    # FIXME, move current if poss
     # else, clear current and redo
-    for connection in @connections
-      connection.line.remove()
-      connection.bg.remove()
+    # FIXME there has to be some kind of wrapper lib
+    # make slightly curvy?
+    # http://raphaeljs.com/reference.html#Paper.path
+    # still leaking memory, maybe this isn't why
+    # but it's better anyway
+    # FIXME: rename @connections to connectionels, update line instead of making new one
+    for line in @connections
+      line.remove()
     @connections = []
     connections = @model.get 'connections'
-    # console.log @model.get('text'), connections
     for outlet of connections
       for to in connections[outlet]
         toID = to[0]
         inlet = to[1]
-        toElem = patchagogy.objects.get toID
-        conn = @p.connection @outlets[outlet], toElem.get('view').inlets[inlet], '#f00'
+        toElem = patchagogy.objects.get(toID).get('view').inlets[inlet]
+        fromElem = @outlets[outlet]
+        bbox1 = fromElem.getBBox()
+        x1 = bbox1.x + (bbox1.width / 2)
+        y1 = bbox1.y + (bbox1.height)
+        # FIXME
+        bbox2 = toElem.getBBox()
+        x2 = bbox2.x + (bbox2.width / 2)
+        y2 = bbox2.y + (bbox2.height)
+        conn = @p.path "#M#{x1},#{y1}L#{x2},#{y2}"
         @connections.push conn
         # FIXME: necc?
-        @raphaelSet.push conn
+        # @raphaelSet.push conn
 
   _setOffset: (onEl, fromEl) ->
     onEl.offsetX = onEl.attrs.x - fromEl.attrs.x
