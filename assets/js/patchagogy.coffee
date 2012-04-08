@@ -4,7 +4,7 @@
 #= require 3p/raphael
 #= require 3p/backbone
 #= require 3p/audiolet
-#= require draw/connection
+#= require 3p/state-machine
 #= require models
 #= require views
 #= require routes
@@ -12,6 +12,6 @@
 
 $ ->
   # start the engines
-  appController = new patchagogy.controllers.App
+  appController = new patchagogy.routes.App
   do Backbone.history.start
   console.log 'aww... shit.'

@@ -2,9 +2,9 @@
 
 patchagogy = @patchagogy = @patchagogy or {}
 
-patchagogy.controllers = {}
+patchagogy.routes = {}
 
-patchagogy.controllers.App = Backbone.Router.extend {
+patchagogy.routes.App = Backbone.Router.extend {
   routes:
     "index":       'index'
     "help":        'help'

@@ -27,11 +27,12 @@ end
 
 desc 'update 3p'
 task :update3p do
-    sh "curl -o assets/js/3p/underscore.js 'https://raw.github.com/documentcloud/underscore/master/underscore-min.js'"
-    sh "curl -o assets/js/3p/raphael.js 'https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael-min.js'"
-    sh "curl -o assets/js/3p/audiolet.js 'https://raw.github.com/oampo/Audiolet/master/src/audiolet/Audiolet.min.js'"
-    sh "curl -o assets/js/3p/backbone.js 'http://documentcloud.github.com/backbone/backbone-min.js'"
-    sh "curl -o assets/js/3p/jquery.js 'http://code.jquery.com/jquery-1.7.1.min.js'"
+    sh "curl -o assets/js/3p/underscore.js 'https://raw.github.com/documentcloud/underscore/master/underscore.js'"
+    sh "curl -o assets/js/3p/state-machine.js 'https://raw.github.com/jakesgordon/javascript-state-machine/master/state-machine.js'"
+    sh "curl -o assets/js/3p/raphael.js 'https://raw.github.com/DmitryBaranovskiy/raphael/master/raphael.js'"
+    sh "curl -o assets/js/3p/audiolet.js 'https://raw.github.com/oampo/Audiolet/master/src/audiolet/Audiolet.js'"
+    sh "curl -o assets/js/3p/backbone.js 'http://documentcloud.github.com/backbone/backbone.js'"
+    sh "curl -o assets/js/3p/jquery.js 'http://code.jquery.com/jquery-1.7.1.js'"
     # get bootstrap
     # FIXME: clean up
     sh "mkdir -p 'tmp_bootstrap'"
