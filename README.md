@@ -10,3 +10,5 @@ ideas
 write both audio and non-audio objects as js or coffeescript
 save to gists?
 socket.io midi/OSC bridge?
+
+npm install rake

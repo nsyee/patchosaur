@@ -144,14 +144,14 @@ patchagogy.ObjectView = Backbone.View.extend {
         anim = Raphael.animation {"stroke-width": 12}, 400
         anim = anim.repeat Infinity
         glowee.animate anim
-        @patchView.setActiveOutlet
+        @patchView.selectOutlet
           modelID: @model.id
           index: i
           el: glowee
 
     _.each @inlets, (inlet, i) =>
       inlet.click (event) =>
-        @patchView.setInlet
+        @patchView.selectInlet
           modelID: @model.id
           index: i
 
@@ -191,8 +191,6 @@ patchagogy.PatchView = Backbone.View.extend {
     @objectViews = []
     @objects.bind 'add', (object) =>
       console.log 'new view for', object
-      # FIXME: can we do without this?
-      # @objectViews.push new patchagogy.ObjectView model: object
       new patchagogy.ObjectView
         model: object
         patchView: @
@@ -200,6 +198,24 @@ patchagogy.PatchView = Backbone.View.extend {
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
         object.get('view').trigger 'redrawConnections'
+
+    # https://github.com/jakesgordon/javascript-state-machine
+    @fsm = StateMachine.create
+      initial: 'ready'
+      events: [
+        {name: 'selectOutlet', from: '*', to: 'outletSelected'}
+        {name: 'selectInlet', from: 'outletSelected', to: 'ready'}
+        {
+          name: 'escape'
+          from: ['outletSelected', 'inletSelected']
+          to: 'ready'
+        }
+      ]
+      callbacks:
+        onselectOutlet: (event, from, to, data) =>
+          @_setActiveOutlet data
+        onselectInlet: (event, from, to, data) =>
+          @_setInlet data
 
     # set up creating new 
     # objects with ctrl click
@@ -212,18 +228,21 @@ patchagogy.PatchView = Backbone.View.extend {
           y: event.pageY
           text: 'omg i added this'
 
-  setActiveOutlet: (data) ->
+  selectOutlet: (args...) -> @fsm.selectOutlet(args...)
+  selectInlet:  (args...) -> @fsm.selectInlet(args...)
+
+  _setActiveOutlet: (data) ->
     @activeOutlet?.el.remove()
     @activeOutlet = data
 
-  getActiveOutlet: -> @activeOutlet
+  _getActiveOutlet: -> @activeOutlet
 
-  setInlet: (data) ->
-    outletData = do @getActiveOutlet
+  _setInlet: (data) ->
+    outletData = do @_getActiveOutlet
     return if not outletData
     from = patchagogy.objects.get outletData.modelID
     to   = patchagogy.objects.get data.modelID
     # FIXME: if connected then disconnect?
     from.connect outletData.index, data.modelID, data.index
-    @setActiveOutlet undefined
+    @_setActiveOutlet undefined
 }
