@@ -14,7 +14,7 @@ patchagogy.Object = Backbone.Model.extend {
   _textParse: (text) ->
     # split arguments, don't split between single quotes
     tokens = text.match /'[^']+'|\S+/g
-    return [''] if tokens is null
+    return [''] if not tokens
     # convert to native types where possible
     for token in tokens
       # strip leading and trailing single quotes

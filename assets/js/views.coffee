@@ -95,7 +95,7 @@ patchagogy.ObjectView = Backbone.View.extend {
         # FIXME
         bbox2 = toElem.getBBox()
         x2 = bbox2.x + (bbox2.width / 2)
-        y2 = bbox2.y + (bbox2.height)
+        y2 = bbox2.y
         conn = @p.path "#M#{x1},#{y1}L#{x2},#{y2}"
         @connections.push conn
         # FIXME: necc?
