@@ -1,4 +1,3 @@
-
 patchagogy = @patchagogy = @patchagogy or {}
 
 patchagogy.ObjectView = Backbone.View.extend {

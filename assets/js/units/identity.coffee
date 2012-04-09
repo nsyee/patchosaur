@@ -1,7 +1,7 @@
-identity = patchagogy.ExecClass.extend
-  initialize:
-    @get('options')
-  id: 'identity'
-  exec: (args...) ->
-    for arg, i in args
-      @outlet[i] arg
+class Identity extends patchagogy.Unit
+  constructor: ->
+  call: (i, args...) ->
+    @out i, arg
+
+patchagogy.units['identity'] = identity
+
