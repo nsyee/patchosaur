@@ -9,6 +9,22 @@ patchagogy.units ?= {}
 
 class patchagogy.Unit
   constructor: (@objectModel, @args) ->
-  out: (i, stuff) ->
+    @connections = {}  # {outletIndex: [func, array]}
+    @inlets = []       # [inlet1Func, inlet2Func]
+    @setup @objectModel, @args
+
+  setConnections: (@connections) ->
+
+  out: (i, arg) ->
+    for ofunc in @connections[i]
+      ofunc arg
+  
+  makeInlets: (numInlets, func) ->
+    # convenience method to build @inlets from a function
+    # that takes (inlet, arg)
+    @inlets = for index in _.range numInlets
+      (arg) -> do func index, arg
+
+
 
 
