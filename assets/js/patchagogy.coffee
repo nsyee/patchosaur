@@ -5,8 +5,10 @@
 #= require 3p/backbone
 #= require 3p/audiolet
 #= require 3p/state-machine
-#= require models
-#= require views
+#= require docModels
+#= require execModels
+#= require uiViews
+#= require execViews
 #= require routes
 #= require_tree units
 

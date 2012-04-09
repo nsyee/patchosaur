@@ -15,14 +15,15 @@ patchagogy.routes.App = Backbone.Router.extend {
 
   index: () ->
     patchagogy.paper = Raphael("holder", "100%", "100%")
+    patchagogy.execClasses = new patchagogy.ExecClasses
     patchagogy.objects = new patchagogy.Objects
     patchagogy.patch = new patchagogy.Patch objects: patchagogy.objects
     patchagogy.patchView = new patchagogy.PatchView
       objects: patchagogy.objects
     console.log 'created patch:', patchagogy.objects
     # # keep these test cases around
-    one = patchagogy.objects.newObject {x: 100, y: 100, text: 'hey ZOMG 1'}
-    two = patchagogy.objects.newObject {x: 250, y: 250, text: 'hey ZOMG 2'}
+    one = patchagogy.objects.newObject {x: 100, y: 100, text: 'hey "ZOMG", 1'}
+    two = patchagogy.objects.newObject {x: 250, y: 250, text: 'hey {"ZOMG": 2, "heythere": true}'}
     window.one = one
     window.two = two
     one.connect(0, two.id, 0)

@@ -12,17 +12,18 @@ patchagogy.Object = Backbone.Model.extend {
   isBlank: -> @get('text') == 'identity'
 
   _textParse: (text) ->
-    # split arguments, don't split between single quotes
-    tokens = text.match /'[^']+'|\S+/g
-    return [''] if not tokens
-    # convert to native types where possible
-    for token in tokens
-      # strip leading and trailing single quotes
-      token = token.replace /^'|'$/g, ''
-      try
-        JSON.parse(token)
-      catch error
-        token
+    # returns [execClass, options]
+    # everything before first space
+    execClass = text.replace(/\ .*/, '')
+    # everything after first space, surrounded
+    # by square brackets and parsed as json
+    options = text.replace(/^.*?\ /g, '')
+    try
+      options = JSON.parse("[#{options}]")
+    catch error
+      console.warn "json parsing of object '#{execClass}' options '#{options}' failed:", error, "...using options string"
+    finally
+      return [execClass, options]
 
   toJSON: ->
     # whitelist only attributes to sync
