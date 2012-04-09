@@ -25,15 +25,18 @@ patchagogy.Object = Backbone.Model.extend {
     @id = _.uniqueId('object_')
     parsedText = @_textParse @get 'text'
     @set unitClassName: parsedText[0]
-    @set unitOptions: parsedText[1]
+    @set unitArgs: parsedText[1]
     console.debug "creating object:", @get('unitClassName'), \
-      @get('unitOptions')
+      @get('unitArgs')
+    # put this in private method, call on change:text?
     UnitClass = patchagogy.units[@get 'unitClassName']
     if not UnitClass
       console.warn "no unit class found for #{@get 'unitClassName'}, using #{DEFAULT_UNIT}"
       UnitClass = patchagogy.units[DEFAULT_UNIT]
-    @set unit: new UnitClass
+    @set unit: new UnitClass(@, @get 'unitArgs')
+    # ---
     @set 'connections', {}
+    # 
     @bind 'change:text', ->
     @bind 'change:connections', ->
 

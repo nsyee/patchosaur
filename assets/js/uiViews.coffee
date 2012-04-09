@@ -139,19 +139,20 @@ patchagogy.ObjectView = Backbone.View.extend {
     numOutlets = @model.get 'numOutlets'
     padding = 5
     width = box.width - (padding * 2)
-    spacing = width / (numInlets - 1) # FIXME? work for one?
+    # FIXME ugly
+    spacing = width / ((numInlets - 1) or 2)
     for inlet in _.range numInlets
       inletElem = @p.rect(
-        box.x + padding - 2 + (inlet * spacing),
+        box.x + padding - 3 + (inlet * spacing),
         box.y - 6,
         6, 4, 1)
       @_setOffset inletElem, rect
       inletElem.attr fill: '#9b9'
       @inlets.push inletElem
-    spacing = width / (numOutlets - 1) # FIXME? work for one?
+    spacing = width / ((numOutlets - 1) or 2)
     for outlet in _.range numOutlets
       outletElem = @p.rect(
-        box.x + padding - 2 + (outlet * spacing),
+        box.x + padding - 3 + (outlet * spacing),
         box.height + box.y + 2,
         6, 4, 1)
       @_setOffset outletElem, rect

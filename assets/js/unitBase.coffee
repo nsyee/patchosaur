@@ -8,11 +8,7 @@ patchagogy.units ?= {}
 # are these, models, views, what's what.
 
 class patchagogy.Unit
-  constructor: (@objectModel) ->
-    console.log 'calling inialiaze on Unit', @
-    @objectModel.set 'numInlets', 4
-    @objectModel.set 'numOutlets', 5
-
+  constructor: (@objectModel, @args) ->
   out: (i, stuff) ->
 
 
