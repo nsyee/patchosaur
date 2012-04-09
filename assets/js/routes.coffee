@@ -28,7 +28,7 @@ patchagogy.routes.App = Backbone.Router.extend {
     three = patchagogy.objects.newObject {x: 100, y: 350, text: 'cs "(x) -> x*x"'}
     three = patchagogy.objects.newObject {x: 100, y: 450, text: 'identity 1'}
     one.connect(0, two.id, 0)
-    two.connect(0, three.id, 1)
+    two.connect(0, three.id, 0) #FIXME: not connecting? js error...
     console.log 'object one', one, 'connected to two', two
     # patchagogy.patch.newObject {text: "hey2 1.0 987 'hey there'"}
     # patchagogy.patch.newObject {text: "hey3 3 '[1, 23, 8]' '{\"2\": 3}'"}

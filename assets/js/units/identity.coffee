@@ -4,7 +4,7 @@ class Identity extends patchagogy.Unit
     numInlets = parseInt(numInlets)
     numInlets = 2 if not _.isFinite numInlets
     @objectModel.set numInlets: numInlets
-    @objectModel.set numOutlets: 4
+    @objectModel.set numOutlets: numInlets + 1
 
   call: (i, args...) ->
     @out i, arg

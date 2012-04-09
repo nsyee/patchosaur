@@ -87,6 +87,9 @@ patchagogy.ObjectView = Backbone.View.extend {
         toID = to[0]
         inlet = to[1]
         toElem = patchagogy.objects.get(toID).get('view').inlets[inlet]
+        if not toElem
+          # FIXME handle this
+          console.log "no inlet here..."
         fromElem = @outlets[outlet]
         bbox1 = fromElem.getBBox()
         x1 = bbox1.x + (bbox1.width / 2)
@@ -131,6 +134,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     }
     # make inlets and outlets
     # FIXME: this is the same code twice. clean up.
+    # also pull it out so you can redraw them on model:numInlets change
     inlet.remove() for inlet in @inlets
     outlet.remove() for outlet in @outlets
     @inlets = []
