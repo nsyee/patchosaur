@@ -4,14 +4,17 @@
 patchagogy = @patchagogy = @patchagogy or {}
 
 patchagogy.Object = Backbone.Model.extend {
-  defaults: # should be func?
-    text: ''
+  defaults:
+    text: 'identity' # '' and even ' ' makes 0px objects
     numInlets: 3
     numOutlets: 2
+
+  isBlank: -> @get('text') == 'identity'
 
   _textParse: (text) ->
     # split arguments, don't split between single quotes
     tokens = text.match /'[^']+'|\S+/g
+    return [''] if tokens is null
     # convert to native types where possible
     for token in tokens
       # strip leading and trailing single quotes

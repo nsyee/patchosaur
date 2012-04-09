@@ -13,27 +13,52 @@ patchagogy.ObjectView = Backbone.View.extend {
     @model.bind 'change:x change:y', => do @place
     # triggered by patch view when x or y change on any obj
     @bind 'redrawConnections', => @drawConnections false
+    # when text changes, start over...
+    @model.bind 'change:text', =>
+      console.log 'calling change text'
+      do @clearElems
+      do @render
 
     @connections = []
     @raphaelBox = null
     @raphaelText = null
     @inlets  = []
     @outlets = []
-    @textOffset = [0, 0]
     # make it
     do @render
     @raphaelSet.forEach (el) =>
       el.node.setAttribute 'class', @id
 
+  clearElems: ->
+    for el in _.flatten [@raphaelSet, @raphaelBox, @raphaelText, @inlets, @outlets]
+      el?.remove()
+
   clear: () ->
-    # FIXME: what are we leaving behind?
-    # @?
-    do @raphaelSet.remove
-    # # calling destroy on this model tries to phone home
+    do @clearElems
     @model.clear()
+    # calling destroy on this model tries to phone home
+    # FIXME
     patchagogy.objects.remove(@model)
-    # break circular ref? we're leaking somewhere
     @model = null
+
+  edit: () ->
+    @raphaelSet.hide()
+    editEl = $ document.createElement 'input'
+    bbox = @raphaelBox.getBBox()
+    $('body').append editEl
+    editEl.focus()
+    editEl.select() #FIXME
+    editEl.css 'position', 'absolute'
+    editEl.css 'left', bbox.x - 1
+    editEl.css 'top', bbox.y - 1
+    if not do @model.isBlank
+      editEl.val @model.get 'text'
+    editEl.on 'focusout', (event) =>
+      @model.set 'text', editEl.val() or 'identity'
+      editEl.remove()
+      @raphaelSet.show()
+    editEl.on 'keydown', (event) ->
+      do editEl.blur if event.which == 13
 
   place: () ->
     x = @model.get 'x'
@@ -83,7 +108,7 @@ patchagogy.ObjectView = Backbone.View.extend {
   render: () ->
     @raphaelSet?.remove()
     do @p.setStart
-    console.log 'rendering object view', @id, @
+    console.log 'rendering object view', @id, @, @model
     drawConnections = (redraw) => @drawConnections redraw
     p = @p
     x = @model.get 'x'
@@ -155,7 +180,8 @@ patchagogy.ObjectView = Backbone.View.extend {
           modelID: @model.id
           index: i
 
-    # glow on hover
+    # FIXME:  delegate
+    # glow on hover, set this up as delegate
     _.each _.flatten([@outlets, @inlets]), (xlet) ->
       xlet.hover (event) ->
         xlet.glowEl = xlet.glow()
@@ -176,11 +202,12 @@ patchagogy.ObjectView = Backbone.View.extend {
       self.model.set att
     move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
+    rect.dblclick => do @edit
     drawConnections()
-    @raphaelSet = do @p.setFinish
-    @raphaelSet.click (event) =>
+    rect.click (event) =>
       if event.shiftKey
         do @clear
+    @raphaelSet = do @p.setFinish
 }
 
 patchagogy.PatchView = Backbone.View.extend {
@@ -188,23 +215,37 @@ patchagogy.PatchView = Backbone.View.extend {
   initialize: () ->
     @objects = @options.objects
     @svgEl = @$el.children('svg').get 0
-    @objectViews = []
+    @currentObjectView
+    @fsm = do @makeFSM
+    # bind model change events
     @objects.bind 'add', (object) =>
-      console.log 'new view for', object
-      new patchagogy.ObjectView
+      objectView = new patchagogy.ObjectView
         model: object
         patchView: @
-    @objects.bind 'change:x change:y', (changedObject) =>
+      do objectView.edit if do object.isBlank
+
+    @objects.bind 'change:x change:y change:text', (changedObject) =>
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
         object.get('view').trigger 'redrawConnections'
 
+    # bind view event handlers
+    @$el.on 'click', (event) =>
+      if not (event.target == @svgEl and event.shiftKey)
+        return
+      @fsm.createObject
+        x: event.pageX
+        y: event.pageY
+
+  makeFSM: () ->
     # https://github.com/jakesgordon/javascript-state-machine
     @fsm = StateMachine.create
       initial: 'ready'
       events: [
         {name: 'selectOutlet', from: '*', to: 'outletSelected'}
         {name: 'selectInlet', from: 'outletSelected', to: 'ready'}
+        {name: 'createObject', from: '*', to: 'editingObject'}
+        {name: 'saveObjectEdit', from: 'editingObject', to: 'ready'}
         {
           name: 'escape'
           from: ['outletSelected', 'inletSelected']
@@ -216,17 +257,8 @@ patchagogy.PatchView = Backbone.View.extend {
           @_setActiveOutlet data
         onselectInlet: (event, from, to, data) =>
           @_setInlet data
-
-    # set up creating new 
-    # objects with ctrl click
-    @$el.on 'click', (event) =>
-      if event.target == @svgEl and event.shiftKey
-        x = event.pageX
-        y = event.pageY
-        @objects.newObject
-          x: event.pageX
-          y: event.pageY
-          text: 'omg i added this'
+        oncreateObject: (event, from, to, object) =>
+          @objects.newObject object
 
   selectOutlet: (args...) -> @fsm.selectOutlet(args...)
   selectInlet:  (args...) -> @fsm.selectInlet(args...)
