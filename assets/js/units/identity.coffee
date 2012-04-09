@@ -3,5 +3,5 @@ class Identity extends patchagogy.Unit
   call: (i, args...) ->
     @out i, arg
 
-patchagogy.units['identity'] = identity
+patchagogy.units['identity'] = Identity
 

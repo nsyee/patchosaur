@@ -204,7 +204,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     rect.dblclick => do @edit
     drawConnections()
     rect.click (event) =>
-      if event.shiftKey
+      if event.altKey
         do @clear
     @raphaelSet = do @p.setFinish
 }
@@ -229,8 +229,8 @@ patchagogy.PatchView = Backbone.View.extend {
         object.get('view').trigger 'redrawConnections'
 
     # bind view event handlers
-    @$el.on 'click', (event) =>
-      if not (event.target == @svgEl and event.shiftKey)
+    @$el.on 'dblclick', (event) =>
+      if not (event.target == @svgEl)
         return
       @fsm.createObject
         x: event.pageX

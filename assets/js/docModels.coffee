@@ -3,13 +3,39 @@
 
 patchagogy = @patchagogy = @patchagogy or {}
 
+DEFAULT_UNIT = 'identity'
+
 patchagogy.Object = Backbone.Model.extend {
   defaults:
-    text: 'identity' # '' and even ' ' makes 0px objects
+    text: DEFAULT_UNIT # '' and even ' ' makes 0px objects
     numInlets: 3
     numOutlets: 2
 
-  isBlank: -> @get('text') == 'identity'
+  isBlank: -> @get('text') == DEFAULT_UNIT
+
+  toJSON: ->
+    # whitelist only attributes to sync
+    # FIXME: needs more, see trello...
+    o = {}
+    for prop in ['x', 'y', 'text']
+      o[prop] = @get prop
+    return o
+
+  initialize: ->
+    @id = _.uniqueId('object_')
+    parsedText = @_textParse @get 'text'
+    @set unitClassName: parsedText[0]
+    @set unitOptions: parsedText[1]
+    console.debug "creating object:", @get('unitClassName'), \
+      @get('unitOptions')
+    UnitClass = patchagogy.units[@get 'unitClassName']
+    if not UnitClass
+      console.warn "no unit class found for #{@get 'unitClassName'}, using #{DEFAULT_UNIT}"
+      UnitClass = patchagogy.units[DEFAULT_UNIT]
+    @set unit: new UnitClass
+    @set 'connections', {}
+    @bind 'change:text', ->
+    @bind 'change:connections', ->
 
   _textParse: (text) ->
     # returns [execClass, options]
@@ -24,25 +50,6 @@ patchagogy.Object = Backbone.Model.extend {
       console.warn "json parsing of object '#{execClass}' options '#{options}' failed:", error, "...using options string"
     finally
       return [execClass, options]
-
-  toJSON: ->
-    # whitelist only attributes to sync
-    # FIXME: needs more, see trello...
-    o = {}
-    for prop in ['x', 'y', 'text']
-      o[prop] = @get prop
-    return o
-
-  initialize: ->
-    @id = _.uniqueId('object_')
-    parsedText = @_textParse @get 'text'
-    @set 'object_class', parsedText[0]
-    @set 'object_args', parsedText[1..]
-    console.debug "creating object:", @get('object_class'), \
-      @get('object_args')
-    @set 'connections', {}
-    @bind 'change:text', ->
-    @bind 'change:connections', ->
 
   connect: (outIndex, inObjectID, inIndex) ->
     cxs = @get 'connections'
