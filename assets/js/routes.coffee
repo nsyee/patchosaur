@@ -23,15 +23,24 @@ patchagogy.routes.App = Backbone.Router.extend {
       objects: patchagogy.objects
     console.log 'created patch:', patchagogy.objects
     # # keep these test cases around
-    one   = patchagogy.objects.newObject {x: 100, y: 100, text: 'metrolite 2000'}
-    two   = patchagogy.objects.newObject {x: 100, y: 150, text: 'identity 1'}
-    three = patchagogy.objects.newObject {x: 100, y: 200, text: 'cs "(x) -> x*x"'}
-    three = patchagogy.objects.newObject {x: 100, y: 250, text: 'print "whoah"'}
-    one.connect(0, two.id, 0)
-    two.connect(0, three.id, 0) #FIXME: not connecting? js error...
-    console.log 'object one', one, 'connected to two', two
-    # patchagogy.patch.newObject {text: "hey2 1.0 987 'hey there'"}
-    # patchagogy.patch.newObject {text: "hey3 3 '[1, 23, 8]' '{\"2\": 3}'"}
+    metrolite   = patchagogy.objects.newObject {x: 100, y: 100, text: 'metrolite 2000'}
+    dump = patchagogy.objects.newObject {x: 90, y: 140, text: 'dump 10'}
+    trig1 = patchagogy.objects.newObject {x: 90, y: 170, text: 'trigger 2'}
+    cs1 = patchagogy.objects.newObject {x: 95, y: 210, text: 'cs "(x) -> x*x"'}
+    cs2 = patchagogy.objects.newObject {x: 190, y: 214, text: 'cs "(x) -> x*x*x"'}
+    cs3 = patchagogy.objects.newObject {x: 120, y: 254, text: 'cs "(x,y) -> x+y"'}
+    print1 = patchagogy.objects.newObject {x: 70, y: 300, text: 'print "squared"'}
+    print2 = patchagogy.objects.newObject {x: 210, y: 300, text: 'print "cubed"'}
+    print3 = patchagogy.objects.newObject {x: 210, y: 330, text: 'print "cubed + squared"'}
+    metrolite.connect(0, dump.id, 0)
+    dump.connect(0, trig1.id, 0)
+    trig1.connect(0, cs1.id, 0)
+    trig1.connect(1, cs2.id, 0)
+    cs1.connect(0, print1.id, 0)
+    cs2.connect(0, print2.id, 0)
+    cs1.connect(0, cs3.id, 0)
+    cs2.connect(0, cs3.id, 1)
+    cs3.connect(0, print3.id, 0)
     # #FIXME: this will fail for now
     patchagogy.patch.save()
 }

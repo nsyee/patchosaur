@@ -29,10 +29,7 @@ class patchagogy.Unit
     # convenience method to build @inlets from a function
     # that takes (inlet, arg)
     for index in _.range numInlets
-      (arg) -> func index, arg
+      do (index) ->
+        (arg) -> func index, arg
 
   stop: ->
-
-
-
-
