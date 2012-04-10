@@ -11,16 +11,18 @@ class patchagogy.Unit
   setConnections: (@connections) ->
 
   out: (i, arg) ->
-    console.debug @objectModel.get('text'), 'out:', i, arg
+    objectText = @objectModel.get 'text'
+    console.debug "out: #{objectText} from outlet #{i} with", arg
     ofuncs = @connections[i]
     if ofuncs
       for ofunc in ofuncs
         try
           ofunc arg
         catch error
-          console.error @objectModel.get('text'), \
+          console.error objectText, \
             "error calling func connected to outlet #{i} with #{arg}:", \
             error
+          throw error
 
   makeInlets: (numInlets, func) ->
     console.log 'calling makeInlets'

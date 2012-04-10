@@ -24,9 +24,9 @@ patchagogy.routes.App = Backbone.Router.extend {
     console.log 'created patch:', patchagogy.objects
     # # keep these test cases around
     one   = patchagogy.objects.newObject {x: 100, y: 100, text: 'metrolite 2000'}
-    two   = patchagogy.objects.newObject {x: 100, y: 250, text: 'hey {"ZOMG": 2, "heythere": true}'}
-    three = patchagogy.objects.newObject {x: 100, y: 350, text: 'cs "(x) -> x*x"'}
-    three = patchagogy.objects.newObject {x: 100, y: 450, text: 'identity 1'}
+    two   = patchagogy.objects.newObject {x: 100, y: 150, text: 'identity 1'}
+    three = patchagogy.objects.newObject {x: 100, y: 200, text: 'cs "(x) -> x*x"'}
+    three = patchagogy.objects.newObject {x: 100, y: 250, text: 'print "whoah"'}
     one.connect(0, two.id, 0)
     two.connect(0, three.id, 0) #FIXME: not connecting? js error...
     console.log 'object one', one, 'connected to two', two
