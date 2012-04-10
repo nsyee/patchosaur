@@ -82,9 +82,7 @@ patchagogy.Object = Backbone.Model.extend {
   clear: ->
     console.log 'clearing model', @
     @disconnectAll()
-    @get('unit').stop()
-    @unset 'unit'
-    @unset 'view'
+    # @unset 'view'
   
   getToObjects: () ->
     # get a list of objects this is connected to
