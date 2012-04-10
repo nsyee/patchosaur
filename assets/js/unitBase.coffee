@@ -12,7 +12,7 @@ class patchagogy.Unit
 
   out: (i, arg) ->
     objectText = @objectModel.get 'text'
-    console.debug "out: #{objectText} from outlet #{i} with", arg
+    # console.debug "out: #{objectText} from outlet #{i} with", arg
     ofuncs = @connections[i]
     if ofuncs
       for ofunc in ofuncs
