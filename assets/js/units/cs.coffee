@@ -3,8 +3,8 @@ class Coffee extends patchagogy.Unit
     # take num inlets from num args
     @csFunc = CoffeeScript.eval @args[0]
     numInlets = @csFunc.length
-    # bind this to instance... useful?
-    # could prevent pollution.
+    # bind this to instance, so you can do things like a counter:
+    # (bang) -> @x = (@x or 0) + 1
     @csFunc = _.bind @csFunc, @
     # keep state, only call when left inlet fires
     @currArgs = []
