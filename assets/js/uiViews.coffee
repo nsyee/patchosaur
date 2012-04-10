@@ -117,21 +117,23 @@ patchagogy.ObjectView = Backbone.View.extend {
     y = @model.get 'y'
     text = @model.get 'text'
     textElem = @p.text x, y, text
+    textElem.attr
+      "font-size": 11
+      "font-family": "monospace"
     @raphaelText = textElem
     box = textElem.getBBox()
-    padding = 2
-    rect = @p.rect box.x - 2, box.y - 2, box.width + 4, box.height + 4, 2
+    pad = 2
+    rect = @p.rect box.x - pad, box.y - pad + 1, box.width + (pad*2), box.height + (pad*2) - 1, 2
     @raphaelBox = rect
     @rect = rect
     @_setOffset @raphaelText, @raphaelBox
 
-    rect.attr {
+    rect.attr
       fill: '#a00'
       stroke: '#e03'
       "fill-opacity": 0
       "stroke-width": 2
       cursor: "move"
-    }
     # make inlets and outlets
     # FIXME: this is the same code twice. clean up.
     # also pull it out so you can redraw them on model:numInlets change

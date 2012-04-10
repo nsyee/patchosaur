@@ -27,10 +27,10 @@ patchagogy.routes.App = Backbone.Router.extend {
     dump = patchagogy.objects.newObject {x: 90, y: 140, text: 'dump 10'}
     trig1 = patchagogy.objects.newObject {x: 90, y: 170, text: 'trigger 2'}
     cs1 = patchagogy.objects.newObject {x: 95, y: 210, text: 'cs "(x) -> x*x"'}
-    cs2 = patchagogy.objects.newObject {x: 190, y: 214, text: 'cs "(x) -> x*x*x"'}
+    cs2 = patchagogy.objects.newObject {x: 240, y: 214, text: 'cs "(x) -> x*x*x"'}
     cs3 = patchagogy.objects.newObject {x: 120, y: 254, text: 'cs "(x,y) -> x+y"'}
     print1 = patchagogy.objects.newObject {x: 70, y: 300, text: 'print "squared"'}
-    print2 = patchagogy.objects.newObject {x: 210, y: 300, text: 'print "cubed"'}
+    print2 = patchagogy.objects.newObject {x: 270, y: 300, text: 'print "cubed"'}
     print3 = patchagogy.objects.newObject {x: 210, y: 330, text: 'print "cubed + squared"'}
     metrolite.connect(0, dump.id, 0)
     dump.connect(0, trig1.id, 0)
