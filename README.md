@@ -1,5 +1,6 @@
 patchagogy
+Max/MSP/puredata-like patching in the browser
 
-a patching front end for audiolet.js, using raphael.
+gem install rake
+npm install
 
-npm install rake
