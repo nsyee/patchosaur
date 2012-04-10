@@ -1,14 +1,9 @@
-patchagogy = @patchagogy = @patchagogy or {}
+patchagogy = @patchagogy ?= {}
 patchagogy.units ?= {}
-
-# FIXME: do you want each inlet to have a func, or one func for all? both?
-# both.
-# nah, maybe just inlet and outlet calls
-#
-# are these, models, views, what's what.
 
 class patchagogy.Unit
   constructor: (@objectModel, @args) ->
+    console.log 'making unit', @objectModel.get 'text'
     @connections = {}  # {outletIndex: [func, array]}
     @inlets = []       # [inlet1Func, inlet2Func]
     @setup @objectModel, @args
@@ -16,14 +11,25 @@ class patchagogy.Unit
   setConnections: (@connections) ->
 
   out: (i, arg) ->
-    for ofunc in @connections[i]
-      ofunc arg
-  
+    console.debug @objectModel.get('text'), 'out:', i, arg
+    ofuncs = @connections[i]
+    if ofuncs
+      for ofunc in ofuncs
+        try
+          ofunc arg
+        catch error
+          console.error @objectModel.get('text'), \
+            "error calling func connected to outlet #{i} with #{arg}:", \
+            error
+
   makeInlets: (numInlets, func) ->
+    console.log 'calling makeInlets'
     # convenience method to build @inlets from a function
     # that takes (inlet, arg)
-    @inlets = for index in _.range numInlets
-      (arg) -> do func index, arg
+    for index in _.range numInlets
+      (arg) -> func index, arg
+
+  stop: ->
 
 
 

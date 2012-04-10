@@ -23,10 +23,14 @@ patchagogy.Object = Backbone.Model.extend {
 
   initialize: ->
     @id = _.uniqueId('object_')
+    @set 'connections', {}
+    do @setup
+
+  setup: ->
     parsedText = @_textParse @get 'text'
     @set unitClassName: parsedText[0]
     @set unitArgs: parsedText[1]
-    console.debug "creating object:", @get('unitClassName'), \
+    console.debug "setting up object:", @get('unitClassName'), \
       @get('unitArgs')
     # put this in private method, call on change:text?
     UnitClass = patchagogy.units[@get 'unitClassName']
@@ -34,11 +38,8 @@ patchagogy.Object = Backbone.Model.extend {
       console.warn "no unit class found for #{@get 'unitClassName'}, using #{DEFAULT_UNIT}"
       UnitClass = patchagogy.units[DEFAULT_UNIT]
     @set unit: new UnitClass(@, @get 'unitArgs')
-    # ---
-    @set 'connections', {}
-    # 
-    @bind 'change:text', ->
-    @bind 'change:connections', ->
+    @bind 'change:text', =>
+      do @setup
 
   _textParse: (text) ->
     # returns [execClass, options]
@@ -65,22 +66,25 @@ patchagogy.Object = Backbone.Model.extend {
     cxs = @set 'connections', cxs
     # FIXME: backbone doesn't like prop to be object, change doesn't fire
     # fire it yourself
-    @trigger 'change:connections'
+    @trigger 'change:connections', @
 
   disconnect: (outIndex, inObjectID, inIndex) ->
     cxs = @get('connections')
     cxs = _.reject cxs, (cx) ->
         _.isEqual cx, [inObjectID, inIndex]
     cxs = @set('connections', cxs)
-    @trigger 'change:connections'
+    @trigger 'change:connections', @
 
   disconnectAll: ->
     @set 'connections', {}
-    @trigger 'change:connections'
+    @trigger 'change:connections', @
 
   clear: ->
+    console.log 'clearing model', @
     @disconnectAll()
-    @view = null
+    @get('unit').stop()
+    @unset 'unit'
+    @unset 'view'
   
   getToObjects: () ->
     # get a list of objects this is connected to

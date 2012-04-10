@@ -23,7 +23,7 @@ patchagogy.routes.App = Backbone.Router.extend {
       objects: patchagogy.objects
     console.log 'created patch:', patchagogy.objects
     # # keep these test cases around
-    one   = patchagogy.objects.newObject {x: 100, y: 100, text: 'hey "ZOMG", 1'}
+    one   = patchagogy.objects.newObject {x: 100, y: 100, text: 'metrolite 2000'}
     two   = patchagogy.objects.newObject {x: 100, y: 250, text: 'hey {"ZOMG": 2, "heythere": true}'}
     three = patchagogy.objects.newObject {x: 100, y: 350, text: 'cs "(x) -> x*x"'}
     three = patchagogy.objects.newObject {x: 100, y: 450, text: 'identity 1'}
