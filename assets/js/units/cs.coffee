@@ -3,6 +3,9 @@ class Coffee extends patchagogy.Unit
     # take num inlets from num args
     @csFunc = CoffeeScript.eval @args[0]
     numInlets = @csFunc.length
+    # bind this to instance... useful?
+    # could prevent pollution.
+    @csFunc = _.bind @csFunc, @
     # keep state, only call when left inlet fires
     @currArgs = []
     @objectModel.set numInlets: numInlets

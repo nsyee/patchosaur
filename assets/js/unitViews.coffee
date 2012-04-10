@@ -12,7 +12,7 @@ patchagogy.UnitGraphView = Backbone.View.extend
     @objects.bind 'remove', (object) =>
       object.get('unit').stop()
 
-    @objects.bind 'change:connections', (object) =>
+    @objects.bind 'change:text change:connections', (object) =>
       # FIXME: this works too hard?
       affecteds = @objects.connectedFrom object
       _.each affecteds, (affected) => @makeConnections affected
