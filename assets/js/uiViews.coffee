@@ -214,7 +214,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     rect.dblclick => do @edit
     drawConnections()
     rect.click (event) =>
-      if event.altKey
+      if event.altKey or event.ctrlKey
         do @clear
     @raphaelSet = do @p.setFinish
 }
