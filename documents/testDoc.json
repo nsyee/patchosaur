@@ -1,7 +1,7 @@
 [
   {
-    "x": 245,
-    "y": 100,
+    "x": 42,
+    "y": 63,
     "text": "metrolite 2000",
     "connections": {
       "0": [
@@ -10,11 +10,12 @@
           0
         ]
       ]
-    }
+    },
+    "id": "c2"
   },
   {
-    "x": 230,
-    "y": 135,
+    "x": 46,
+    "y": 96,
     "text": "dump 10",
     "connections": {
       "0": [
@@ -23,11 +24,12 @@
           0
         ]
       ]
-    }
+    },
+    "id": "c5"
   },
   {
-    "x": 250,
-    "y": 170,
+    "x": 49,
+    "y": 128,
     "text": "trigger 3",
     "connections": {
       "0": [
@@ -48,11 +50,12 @@
           0
         ]
       ]
-    }
+    },
+    "id": "c8"
   },
   {
-    "x": 95,
-    "y": 210,
+    "x": 32,
+    "y": 182,
     "text": "cs \"(x) -> x*x\"",
     "connections": {
       "0": [
@@ -65,11 +68,12 @@
           0
         ]
       ]
-    }
+    },
+    "id": "c11"
   },
   {
-    "x": 240,
-    "y": 214,
+    "x": 164,
+    "y": 181,
     "text": "cs \"(x) -> x*x*x\"",
     "connections": {
       "0": [
@@ -82,11 +86,12 @@
           1
         ]
       ]
-    }
+    },
+    "id": "c14"
   },
   {
-    "x": 120,
-    "y": 254,
+    "x": 60,
+    "y": 232,
     "text": "cs \"(x,y) -> x+y\"",
     "connections": {
       "0": [
@@ -95,11 +100,12 @@
           0
         ]
       ]
-    }
+    },
+    "id": "c17"
   },
   {
-    "x": 440,
-    "y": 210,
+    "x": 306,
+    "y": 167,
     "text": "cs \"(b) -> @x = (@x or 0) + 1\"",
     "connections": {
       "0": [
@@ -108,30 +114,35 @@
           0
         ]
       ]
-    }
+    },
+    "id": "c20"
   },
   {
-    "x": 70,
-    "y": 360,
+    "x": 10,
+    "y": 297,
     "text": "print \"squared\"",
-    "connections": {}
+    "connections": {},
+    "id": "c23"
   },
   {
-    "x": 270,
-    "y": 300,
+    "x": 228,
+    "y": 242,
     "text": "print \"cubed\"",
-    "connections": {}
+    "connections": {},
+    "id": "c26"
   },
   {
-    "x": 210,
-    "y": 330,
+    "x": 138,
+    "y": 277,
     "text": "print \"cubed + squared\"",
-    "connections": {}
+    "connections": {},
+    "id": "c29"
   },
   {
-    "x": 410,
-    "y": 256,
+    "x": 310,
+    "y": 212,
     "text": "print \"ghetto counter\"",
-    "connections": {}
+    "connections": {},
+    "id": "c32"
   }
 ]

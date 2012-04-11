@@ -43,5 +43,5 @@ patchagogy.routes.App = Backbone.Router.extend {
     cs2.connect(0, cs3.id, 1)
     cs3.connect(0, print3.id, 0)
     cs4.connect(0, print4.id, 0)
-    patchagogy.objects.save()
+    patchagogy.objects.load()
 }

@@ -5,7 +5,7 @@ exports.index = (request, response, next) ->
 
 exports.postPatch = (request, response, next) ->
   doc = JSON.stringify request.body, null, 2
-  fs.writeFile 'testDoc.json', doc, (error) ->
+  fs.writeFile 'documents/testDoc.json', doc, (error) ->
     if error
       response.json error, 500
     else
@@ -14,7 +14,7 @@ exports.postPatch = (request, response, next) ->
       , 200
 
 exports.getPatch = (request, response, next) ->
-  fs.readFile 'testDoc.json', (error, data) ->
+  fs.readFile 'documents/testDoc.json', (error, data) ->
     if error
       response.json error, 500
     else

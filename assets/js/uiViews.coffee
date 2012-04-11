@@ -116,12 +116,19 @@ patchagogy.ObjectView = Backbone.View.extend {
     textElem.attr
       "font-size": 11
       "font-family": "monospace"
-    @raphaelText = textElem
     box = textElem.getBBox()
+    # reposition so saves/restores work
+    # FIXME this is stupid
+    textElem.attr
+      x: x + (box.width / 2)
+      y: y + (box.height / 2)
+    box = textElem.getBBox()
+    @raphaelText = textElem
     pad = 2
     rect = @p.rect box.x - pad, box.y - pad + 1, box.width + (pad*2), box.height + (pad*2) - 1, 2
     @raphaelBox = rect
     @rect = rect
+    # @_setOffset @raphaelText, @raphaelBox
     @_setOffset @raphaelText, @raphaelBox
 
     rect.attr
