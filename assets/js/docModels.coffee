@@ -17,14 +17,18 @@ patchagogy.Object = Backbone.Model.extend {
     # whitelist only attributes to sync
     # FIXME: needs more, see trello...
     o = {}
-    for prop in ['x', 'y', 'text']
+    for prop in ['x', 'y', 'text', 'id', 'connections']
       o[prop] = @get prop
     return o
 
   initialize: ->
-    @id = _.uniqueId('object_')
+    # FIXME: collisions possible?
+    if @id == @cid
+      console.error 'omg id and cid same', @id, @cid
+    @id = @id or @cid
     @set 'connections', {}
     do @setup
+    @bind 'remove', => do @disconnectAll
 
   setup: ->
     parsedText = @_textParse @get 'text'
@@ -69,21 +73,27 @@ patchagogy.Object = Backbone.Model.extend {
     @trigger 'change:connections', @
 
   disconnect: (outIndex, inObjectID, inIndex) ->
+    # FIXME test
     cxs = @get('connections')
-    cxs = _.reject cxs, (cx) ->
+    cxs[outIndex] = _.reject cxs[outIndex], (cx) ->
         _.isEqual cx, [inObjectID, inIndex]
-    cxs = @set('connections', cxs)
+    @set('connections', cxs)
+    @trigger 'change:connections', @
+
+  disconnectTo: (inObjectID) ->
+    # disconnect from this to another objectID
+    # any outlet here, any outlet there.
+    outlets = @get('connections')
+    for outlet in _.keys outlets
+      outlets[outlet] = _.reject outlets[outlet], (cx) ->
+        _.isEqual cx[0], inObjectID
+    @set('connections', outlets)
     @trigger 'change:connections', @
 
   disconnectAll: ->
     @set 'connections', {}
     @trigger 'change:connections', @
 
-  clear: ->
-    console.log 'clearing model', @
-    @disconnectAll()
-    # @unset 'view'
-  
   getToObjects: () ->
     # get a list of objects this is connected to
     # useful for limiting connection redraws
@@ -94,10 +104,18 @@ patchagogy.Object = Backbone.Model.extend {
 }
 
 patchagogy.Objects = Backbone.Collection.extend {
+  url: '/patch'
+  model: patchagogy.Object
+
   initialize: ->
     @bind 'remove', (removed) ->
       _.each @connectedFrom(removed), (object) ->
-        do object.disconnectAll
+        object.disconnectTo removed.id
+
+  newObject: (attrs) ->
+    object = new @model attrs
+    @add object
+    object
 
   # FIXME: you are going to need this
   #@bind 'change:numInlets change:numOutlets', (changed) =>
@@ -119,16 +137,14 @@ patchagogy.Objects = Backbone.Collection.extend {
       toObjects = do object.getToObjects
       tid == object.id or tid in toObjects
 
-  model: patchagogy.Object
-
-  newObject: (attrs) ->
-    object = new @model attrs
-    @add object
-    object
+  # FIXME
+  save: () ->
+    Backbone.sync 'create', @
+  reload: () ->
+    @remove @models
+    @fetch()
+  parse: (response) ->
+    for attrs in response
+      @newObject attrs
+    []
 }
-
-# backbone collections don't have a save method, wrap in Model
-patchagogy.Patch = Backbone.Model.extend
-  url: '/patch'
-  defaults:
-    objects: []

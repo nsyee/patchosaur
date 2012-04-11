@@ -12,3 +12,10 @@ exports.postPatch = (request, response, next) ->
       response.json
         status: 'SUCCESS'
       , 200
+
+exports.getPatch = (request, response, next) ->
+  fs.readFile 'testDoc.json', (error, data) ->
+    if error
+      response.json error, 500
+    else
+      response.send data

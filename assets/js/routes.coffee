@@ -16,13 +16,11 @@ patchagogy.routes.App = Backbone.Router.extend {
   index: () ->
     patchagogy.paper = Raphael("holder", "100%", "100%")
     patchagogy.objects = new patchagogy.Objects
-    patchagogy.patch = new patchagogy.Patch objects: patchagogy.objects
     patchagogy.patchView = new patchagogy.PatchView
       objects: patchagogy.objects
     patchagogy.unitGraphView = new patchagogy.UnitGraphView
       objects: patchagogy.objects
     console.log 'created patch:', patchagogy.objects
-    # # keep these test cases around
     metrolite   = patchagogy.objects.newObject {x: 245, y: 100, text: 'metrolite 2000'}
     dump = patchagogy.objects.newObject {x: 230, y: 135, text: 'dump 10'}
     trig1 = patchagogy.objects.newObject {x: 250, y: 170, text: 'trigger 3'}
@@ -45,6 +43,5 @@ patchagogy.routes.App = Backbone.Router.extend {
     cs2.connect(0, cs3.id, 1)
     cs3.connect(0, print3.id, 0)
     cs4.connect(0, print4.id, 0)
-    # #FIXME: this will fail for now
-    patchagogy.patch.save()
+    patchagogy.objects.save()
 }

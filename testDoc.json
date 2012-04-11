@@ -1,0 +1,137 @@
+[
+  {
+    "x": 245,
+    "y": 100,
+    "text": "metrolite 2000",
+    "connections": {
+      "0": [
+        [
+          "c5",
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "x": 230,
+    "y": 135,
+    "text": "dump 10",
+    "connections": {
+      "0": [
+        [
+          "c8",
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "x": 250,
+    "y": 170,
+    "text": "trigger 3",
+    "connections": {
+      "0": [
+        [
+          "c11",
+          0
+        ]
+      ],
+      "1": [
+        [
+          "c14",
+          0
+        ]
+      ],
+      "2": [
+        [
+          "c20",
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "x": 95,
+    "y": 210,
+    "text": "cs \"(x) -> x*x\"",
+    "connections": {
+      "0": [
+        [
+          "c23",
+          0
+        ],
+        [
+          "c17",
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "x": 240,
+    "y": 214,
+    "text": "cs \"(x) -> x*x*x\"",
+    "connections": {
+      "0": [
+        [
+          "c26",
+          0
+        ],
+        [
+          "c17",
+          1
+        ]
+      ]
+    }
+  },
+  {
+    "x": 120,
+    "y": 254,
+    "text": "cs \"(x,y) -> x+y\"",
+    "connections": {
+      "0": [
+        [
+          "c29",
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "x": 440,
+    "y": 210,
+    "text": "cs \"(b) -> @x = (@x or 0) + 1\"",
+    "connections": {
+      "0": [
+        [
+          "c32",
+          0
+        ]
+      ]
+    }
+  },
+  {
+    "x": 70,
+    "y": 360,
+    "text": "print \"squared\"",
+    "connections": {}
+  },
+  {
+    "x": 270,
+    "y": 300,
+    "text": "print \"cubed\"",
+    "connections": {}
+  },
+  {
+    "x": 210,
+    "y": 330,
+    "text": "print \"cubed + squared\"",
+    "connections": {}
+  },
+  {
+    "x": 410,
+    "y": 256,
+    "text": "print \"ghetto counter\"",
+    "connections": {}
+  }
+]

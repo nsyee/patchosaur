@@ -8,6 +8,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     @id = _.uniqueId 'objectView_'
     @model.set 'view', @
     # bind events
+    @model.bind 'remove', => do @clearElems
     @model.bind 'change:connections', => @drawConnections true
     @model.bind 'change:x change:y', => do @place
     # triggered by patch view when x or y change on any obj
@@ -33,12 +34,7 @@ patchagogy.ObjectView = Backbone.View.extend {
       el?.remove()
 
   clear: () ->
-    do @clearElems
-    @model.clear()
-    # calling destroy on this model tries to phone home
-    # FIXME
     patchagogy.objects.remove(@model)
-    @model = null
 
   edit: () ->
     @raphaelSet.hide()

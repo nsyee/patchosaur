@@ -13,14 +13,11 @@ patchagogy.UnitGraphView = Backbone.View.extend
       object.get('unit').stop()
 
     @objects.bind 'change:text change:connections', (object) =>
-      # FIXME: this works too hard?
-      affecteds = @objects.connectedFrom object
-      _.each affecteds, (affected) => @makeConnections affected
+      @makeConnections object
 
   # object model instantiates unit, available as object.unit
 
   makeConnections: (object) ->
-    # have this do a model get affected objects and operate on all
     # FIXME: put method to get inlet funcs on model?
     connections = object.get 'connections'
     unit = object.get 'unit'

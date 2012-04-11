@@ -25,6 +25,7 @@ app.set 'views', 'app/views'
 
 # routes
 app.get  '/',      controllers.index
+app.get '/patch',  controllers.getPatch
 app.post '/patch', controllers.postPatch
 
 port = process.env.PORT or 7777
