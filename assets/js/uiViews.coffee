@@ -9,10 +9,10 @@ patchagogy.ObjectView = Backbone.View.extend {
     @model.set 'view', @
     # bind events
     @model.bind 'remove', => do @clearElems
-    @model.bind 'change:connections', => @drawConnections true
+    @model.bind 'change:connections', => do @drawConnections
     @model.bind 'change:x change:y', => do @place
     # triggered by patch view when x or y change on any obj
-    @bind 'redrawConnections', => @drawConnections false
+    @bind 'redrawConnections', => do @drawConnections
     # when text changes, start over...
     @model.bind 'change:text', =>
       console.log 'calling change text'
@@ -64,7 +64,7 @@ patchagogy.ObjectView = Backbone.View.extend {
         y: y + (elem.offsetY or 0)
     #@p.safari()
 
-  drawConnections: (redraw=true) ->
+  drawConnections: () ->
     # draw your own lines
     # FIXME, move current if poss
     # else, clear current and redo
@@ -82,10 +82,10 @@ patchagogy.ObjectView = Backbone.View.extend {
       for to in connections[outlet]
         toID = to[0]
         inlet = to[1]
-        toElem = patchagogy.objects.get(toID).get('view').inlets[inlet]
+        toElem = patchagogy.objects.get(toID)?.get('view')?.inlets[inlet]
         if not toElem
-          # FIXME handle this
-          console.log "no inlet here..."
+          console.warn "no inlet here, we must be loading a patch"
+          continue
         fromElem = @outlets[outlet]
         bbox1 = fromElem.getBBox()
         x1 = bbox1.x + (bbox1.width / 2)
@@ -107,7 +107,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     @raphaelSet?.remove()
     do @p.setStart
     console.log 'rendering object view', @id, @, @model
-    drawConnections = (redraw) => @drawConnections redraw
+    drawConnections = => do @drawConnections
     p = @p
     x = @model.get 'x'
     y = @model.get 'y'
@@ -226,7 +226,7 @@ patchagogy.PatchView = Backbone.View.extend {
         patchView: @
       do objectView.edit if do object.isBlank
 
-    @objects.bind 'change:x change:y change:text', (changedObject) =>
+    @objects.bind 'add change:x change:y change:text', (changedObject) =>
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
         object.get('view').trigger 'redrawConnections'

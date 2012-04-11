@@ -17,16 +17,19 @@ patchagogy.Object = Backbone.Model.extend {
     # whitelist only attributes to sync
     # FIXME: needs more, see trello...
     o = {}
-    for prop in ['x', 'y', 'text', 'id', 'connections']
+    for prop in ['x', 'y', 'text', 'connections']
       o[prop] = @get prop
+    o.id = @id
     return o
 
   initialize: ->
     # FIXME: collisions possible?
     if @id == @cid
-      console.error 'omg id and cid same', @id, @cid
+      # this could happen if we assign ids to models from cid,
+      # that are the same as ones we've loaded
+      console.error 'id and cid same', @id, @cid
     @id = @id or @cid
-    @set 'connections', {}
+    @set 'connections', (@get 'connections') or {}
     do @setup
     @bind 'remove', => do @disconnectAll
 
@@ -111,6 +114,7 @@ patchagogy.Objects = Backbone.Collection.extend {
     @bind 'remove', (removed) ->
       _.each @connectedFrom(removed), (object) ->
         object.disconnectTo removed.id
+    @bind 'change', => do @save
 
   newObject: (attrs) ->
     object = new @model attrs
@@ -140,9 +144,11 @@ patchagogy.Objects = Backbone.Collection.extend {
   # FIXME, save works, reload doesn't load connections
   # because connectinos aren't shallow. You could get rid of the trigger crap
   # if you fixed that. make them shallow.
-  save: () ->
+  save: _.debounce () ->
     Backbone.sync 'create', @
-  reload: () ->
+  , 1000 # debounce ms
+
+  load: () ->
     @remove @models
     @fetch({add: true})
 }

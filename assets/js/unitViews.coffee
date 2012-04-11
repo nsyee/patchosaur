@@ -5,14 +5,11 @@ patchagogy.UnitGraphView = Backbone.View.extend
   initialize: () ->
     # see uiviews for knowing when to redo connections
     @objects = @options.objects
-    @objects.bind 'add', (object) =>
-      console.log "unit views object add:", object
-      @makeConnections object
 
     @objects.bind 'remove', (object) =>
       object.get('unit').stop()
 
-    @objects.bind 'change:text change:connections', (object) =>
+    @objects.bind 'add change:text change:connections', (object) =>
       @makeConnections object
 
   # object model instantiates unit, available as object.unit
@@ -26,6 +23,9 @@ patchagogy.UnitGraphView = Backbone.View.extend
     for outlet of connections
       unitConnections[outlet] = []
       for [toObjID, toIndex] in connections[outlet]
-        toFunc = @objects.get(toObjID).get('unit').inlets[toIndex]
-        unitConnections[outlet].push toFunc
+        toFunc = @objects.get(toObjID)?.get('unit').inlets[toIndex]
+        if toFunc
+          unitConnections[outlet].push toFunc
+        else
+          console.warn "no inlet func here, we must be loading a patch"
     unit.setConnections unitConnections
