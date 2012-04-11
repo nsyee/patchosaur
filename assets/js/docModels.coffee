@@ -32,6 +32,10 @@ patchagogy.Object = Backbone.Model.extend {
     @set 'connections', (@get 'connections') or {}
     do @setup
     @bind 'remove', => do @disconnectAll
+    @bind 'change:text', =>
+      # FIXME put unit stuff in unit graph view
+      @get('unit').stop()
+      do @setup
 
   setup: ->
     parsedText = @_textParse @get 'text'
@@ -39,14 +43,12 @@ patchagogy.Object = Backbone.Model.extend {
     @set unitArgs: parsedText[1]
     console.debug "setting up object:", @get('unitClassName'), \
       @get('unitArgs')
-    # put this in private method, call on change:text?
+    # FIXME: put this on unit graph view!
     UnitClass = patchagogy.units[@get 'unitClassName']
     if not UnitClass
       console.warn "no unit class found for #{@get 'unitClassName'}, using #{DEFAULT_UNIT}"
       UnitClass = patchagogy.units[DEFAULT_UNIT]
     @set unit: new UnitClass(@, @get 'unitArgs')
-    @bind 'change:text', =>
-      do @setup
 
   _textParse: (text) ->
     # returns [execClass, options]

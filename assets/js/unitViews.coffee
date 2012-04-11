@@ -9,8 +9,10 @@ patchagogy.UnitGraphView = Backbone.View.extend
     @objects.bind 'remove', (object) =>
       object.get('unit').stop()
 
-    @objects.bind 'add change:text change:connections', (object) =>
-      @makeConnections object
+    @objects.bind 'add change:text change:connections', (changedObject) =>
+      affected = @objects.connectedFrom changedObject
+      _.each affected, (object) =>
+        @makeConnections object
 
   # object model instantiates unit, available as object.unit
 
