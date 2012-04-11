@@ -137,14 +137,12 @@ patchagogy.Objects = Backbone.Collection.extend {
       toObjects = do object.getToObjects
       tid == object.id or tid in toObjects
 
-  # FIXME
+  # FIXME, save works, reload doesn't load connections
+  # because connectinos aren't shallow. You could get rid of the trigger crap
+  # if you fixed that. make them shallow.
   save: () ->
     Backbone.sync 'create', @
   reload: () ->
     @remove @models
-    @fetch()
-  parse: (response) ->
-    for attrs in response
-      @newObject attrs
-    []
+    @fetch({add: true})
 }
