@@ -34,6 +34,9 @@ task :update3p do
     sh "curl -o assets/js/3p/backbone.js 'http://documentcloud.github.com/backbone/backbone.js'"
     sh "curl -o assets/js/3p/jquery.js 'http://code.jquery.com/jquery-1.7.1.js'"
     sh "curl -o assets/js/3p/coffee-script.js 'https://raw.github.com/jashkenas/coffee-script/master/extras/coffee-script.js'"
+    sh "curl -o assets/js/3p/jasmine.js 'https://raw.github.com/pivotal/jasmine/master/lib/jasmine-core/jasmine.js'"
+    sh "curl -o assets/js/3p/jasmine-html.js 'https://raw.github.com/pivotal/jasmine/master/lib/jasmine-core/jasmine-html.js'"
+    sh "curl -o assets/css/3p/jasmine.css 'https://raw.github.com/pivotal/jasmine/master/lib/jasmine-core/jasmine.css'"
     # get bootstrap
     # FIXME: clean up
     sh "mkdir -p 'tmp_bootstrap'"
@@ -44,5 +47,5 @@ task :update3p do
     #FIXME: Include images
     sh "rm -r tmp_bootstrap"
     # strip 'min' out of all names
-    sh "for file in `find assets -name '*.min.*'`; do mv $file ${file/\.min\./\.}; done;"
+    sh "bash -c 'for file in `find assets -name \'*.min.*\'`; do mv $file ${file/\.min\./\.}; done;\'"
 end

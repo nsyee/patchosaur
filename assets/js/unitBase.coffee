@@ -4,7 +4,7 @@ patchagogy.units ?= {}
 class patchagogy.Unit
   constructor: (@objectModel, @args) ->
     console.log 'making unit', @objectModel.get 'text'
-    @connections = {}  # {outletIndex: [func, array]}
+    @connections = {}  # {outletIndex: [func, func, func...]}
     @inlets = []       # [inlet1Func, inlet2Func]
     @setup @objectModel, @args
 

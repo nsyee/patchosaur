@@ -1,7 +1,10 @@
 fs = require 'fs'
 
 exports.index = (request, response, next) ->
-  response.render 'index', {}
+  response.render 'index', includeTests: false
+
+exports.tests = (request, response, next) ->
+  response.render 'tests', includeTests: true
 
 exports.postPatch = (request, response, next) ->
   doc = JSON.stringify request.body, null, 2

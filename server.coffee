@@ -25,6 +25,7 @@ app.set 'views', 'app/views'
 
 # routes
 app.get  '/',      controllers.index
+app.get  '/tests',      controllers.tests
 app.get '/patch',  controllers.getPatch
 app.post '/patch', controllers.postPatch
 
