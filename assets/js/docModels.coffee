@@ -7,9 +7,11 @@ DEFAULT_UNIT = 'identity'
 
 patchagogy.Object = Backbone.Model.extend {
   defaults:
-    text: DEFAULT_UNIT # '' and even ' ' makes 0px objects
-    numInlets: 3
-    numOutlets: 2
+    text: DEFAULT_UNIT # '' and even ' ' makes 0px objects FIXME: just put in min width
+    numInlets: 1
+    numOutlets: 1
+    x: 100
+    y: 100
 
   isBlank: -> @get('text') == DEFAULT_UNIT
 
@@ -76,6 +78,15 @@ patchagogy.Object = Backbone.Model.extend {
     # FIXME: backbone doesn't like prop to be object, change doesn't fire
     # fire it yourself
     @trigger 'change:connections', @
+    @
+
+  connected: (outIndex, inObjectID, inIndex) ->
+    # are two objects connected?
+    cxs = @get 'connections'
+    return false unless cxs[outIndex]
+    to = [inObjectID, inIndex]
+    connection = _.find cxs[outIndex], (cx) -> _.isEqual cx, to
+    connection and true or false
 
   disconnect: (outIndex, inObjectID, inIndex) ->
     # FIXME test
@@ -84,6 +95,7 @@ patchagogy.Object = Backbone.Model.extend {
         _.isEqual cx, [inObjectID, inIndex]
     @set('connections', cxs)
     @trigger 'change:connections', @
+    @
 
   disconnectTo: (inObjectID) ->
     # disconnect from this to another objectID
@@ -94,10 +106,12 @@ patchagogy.Object = Backbone.Model.extend {
         _.isEqual cx[0], inObjectID
     @set('connections', outlets)
     @trigger 'change:connections', @
+    @
 
   disconnectAll: ->
     @set 'connections', {}
     @trigger 'change:connections', @
+    @
 
   getToObjects: () ->
     # get a list of objects this is connected to
@@ -150,7 +164,9 @@ patchagogy.Objects = Backbone.Collection.extend {
     Backbone.sync 'create', @
   , 1000 # debounce ms
 
+  clear: -> @remove @models
+
   load: () ->
-    @remove @models
+    do @clear
     @fetch({add: true})
 }
