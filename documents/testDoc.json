@@ -1,7 +1,7 @@
 [
   {
-    "x": 134,
-    "y": 53,
+    "x": 136,
+    "y": 57,
     "text": "metrolite 2000",
     "connections": {
       "0": [
@@ -158,5 +158,26 @@
     "text": "+",
     "connections": {},
     "id": "object_39"
+  },
+  {
+    "x": 335,
+    "y": 265,
+    "text": "socket.io \"midi\"",
+    "connections": {
+      "0": [
+        [
+          "object_45",
+          0
+        ]
+      ]
+    },
+    "id": "object_41"
+  },
+  {
+    "x": 320,
+    "y": 318,
+    "text": "print \"socket.io midi\"",
+    "connections": {},
+    "id": "object_45"
   }
 ]

@@ -1,12 +1,14 @@
 express = require 'express'
+app = do express.createServer
+io = require('socket.io').listen app
 
 controllers = require './app/controllers'
+midi = require './app/controllers/midi'
 
 cacheMiddleware = (req, res, next) ->
   res.setHeader "Cache-Control", "public, max-age=86400"  # 1 day
   do next
 
-app = do express.createServer
 
 app.configure 'production', ->
   app.use cacheMiddleware
@@ -28,6 +30,13 @@ app.get  '/',      controllers.index
 app.get  '/tests',      controllers.tests
 app.get '/patch',  controllers.getPatch
 app.post '/patch', controllers.postPatch
+
+# see namespacing
+# http://socket.io/#how-to-use
+io.sockets.on 'connection', (socket) ->
+  midi.input.on 'message', (deltaT, message) ->
+    socket.volatile.emit 'midi', deltaT: deltaT, message: message
+  socket.emit 'status', messsage: "connected", status: "SUCESS"
 
 port = process.env.PORT or 7777
 app.listen port

@@ -20,7 +20,8 @@
     "uglify-js": "",
     "jade": "",
     "stylus": "",
-    "express": ""
+    "express": "",
+    "socket.io": ""
   },
   "devDependencies": {}
 }
