@@ -122,8 +122,10 @@ patchagogy.Objects = Backbone.Collection.extend {
     if not attrs.id?
       # unique, using generated cid as id can collide
       # with old ones we loaded
+      # FIXME
+      id = _.uniqueId 'object_' 
       while @get id
-        id = _.uniqueId 'object_'
+        id = _.uniqueId 'object_' 
       attrs.id = id
     object = new @model attrs
     @add object
