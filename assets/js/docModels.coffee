@@ -119,13 +119,14 @@ patchagogy.Objects = Backbone.Collection.extend {
     @bind 'change', => do @save
 
   newObject: (attrs) ->
+    attrs = {} if attrs is undefined
     if not attrs.id?
       # unique, using generated cid as id can collide
       # with old ones we loaded
-      # FIXME
-      id = _.uniqueId 'object_' 
-      while @get id
-        id = _.uniqueId 'object_' 
+      genID = -> _.uniqueId 'object_'
+      id = do genID
+      while @get id   # collision?
+        id = do genID
       attrs.id = id
     object = new @model attrs
     @add object
