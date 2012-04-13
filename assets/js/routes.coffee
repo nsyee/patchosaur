@@ -18,6 +18,7 @@ patchagogy.routes.App = Backbone.Router.extend {
     patchagogy.objects = new patchagogy.Objects
     patchagogy.patchView = new patchagogy.PatchView
       objects: patchagogy.objects
+      paper:   patchagogy.paper
     patchagogy.unitGraphView = new patchagogy.UnitGraphView
       objects: patchagogy.objects
     console.log 'created patch:', patchagogy.objects

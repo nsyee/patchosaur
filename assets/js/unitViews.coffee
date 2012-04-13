@@ -43,5 +43,5 @@ patchagogy.UnitGraphView = Backbone.View.extend
         if toFunc
           unitConnections[outlet].push toFunc
         else
-          console.warn "no inlet func here, we must be loading a patch"
+          console.warn "no inlet func here, we must be loading a patch", object, @objects.get toObjID
     unit.setConnections unitConnections

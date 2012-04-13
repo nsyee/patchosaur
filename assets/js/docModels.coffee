@@ -25,12 +25,6 @@ patchagogy.Object = Backbone.Model.extend {
     return o
 
   initialize: ->
-    # FIXME: collisions possible?
-    if @id == @cid
-      # this could happen if we assign ids to models from cid,
-      # that are the same as ones we've loaded
-      console.error 'id and cid same', @id, @cid
-    @id = @id or @cid
     @get('connections') or @set 'connections', {}
     do @setup
     @bind 'remove', => do @disconnectAll
@@ -125,6 +119,12 @@ patchagogy.Objects = Backbone.Collection.extend {
     @bind 'change', => do @save
 
   newObject: (attrs) ->
+    if not attrs.id?
+      # unique, using generated cid as id can collide
+      # with old ones we loaded
+      while @get id
+        id = _.uniqueId 'object_'
+      attrs.id = id
     object = new @model attrs
     @add object
     object

@@ -1,5 +1,5 @@
 class Trigger extends patchagogy.Unit
-  @names: ['trigger']
+  @names: ['trigger', 't']
   # repeat input to many outputs, specified by arg
   # outlets called in right-to-left order
   setup: (@objectModel, @args) ->

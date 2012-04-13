@@ -3,8 +3,8 @@ patchagogy = @patchagogy = @patchagogy or {}
 patchagogy.ObjectView = Backbone.View.extend {
   initialize: () ->
     # get elements inside a span or div?
-    @p = patchagogy.paper
     @patchView = @options.patchView
+    @p = @patchView.paper
     @id = _.uniqueId 'objectView_'
     @model.set 'view', @
     # bind events
@@ -34,7 +34,8 @@ patchagogy.ObjectView = Backbone.View.extend {
       el?.remove()
 
   clear: () ->
-    patchagogy.objects.remove(@model)
+    # FIXME
+    @model.collection.remove(@model)
 
   edit: () ->
     @raphaelSet.hide()
@@ -82,7 +83,7 @@ patchagogy.ObjectView = Backbone.View.extend {
       for to in connections[outlet]
         toID = to[0]
         inlet = to[1]
-        toElem = patchagogy.objects.get(toID)?.get('view')?.inlets[inlet]
+        toElem = @model.collection.get(toID)?.get('view')?.inlets[inlet]
         if not toElem
           console.warn "no inlet here, we must be loading a patch"
           continue
@@ -224,9 +225,11 @@ patchagogy.ObjectView = Backbone.View.extend {
 }
 
 patchagogy.PatchView = Backbone.View.extend {
+  # FIXME: let the view make the #holder div
   el: $('#holder')
   initialize: () ->
     @objects = @options.objects
+    @paper = @options.paper # raphael paper
     @svgEl = @$el.children('svg').get 0
     @currentObjectView
     @fsm = do @makeFSM
@@ -285,8 +288,8 @@ patchagogy.PatchView = Backbone.View.extend {
   _setInlet: (data) ->
     outletData = do @_getActiveOutlet
     return if not outletData
-    from = patchagogy.objects.get outletData.modelID
-    to   = patchagogy.objects.get data.modelID
+    from = @objects.get outletData.modelID
+    to   = @objects.get data.modelID
     # FIXME: if connected then disconnect?
     from.connect outletData.index, data.modelID, data.index
     @_setActiveOutlet undefined
