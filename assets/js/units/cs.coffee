@@ -8,6 +8,7 @@ class Coffee extends patchagogy.Unit
     @csFunc = _.bind @csFunc, @
     # keep state, only call when left inlet fires
     @currArgs = []
+    console.error @objectModel, numInlets
     @objectModel.set numInlets: numInlets
     @objectModel.set numOutlets: 1
     @inlets = @makeInlets numInlets, @call

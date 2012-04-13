@@ -14,7 +14,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     # triggered by patch view when x or y change on any obj
     @bind 'redrawConnections', => do @drawConnections
     # when text changes, start over...
-    @model.bind 'change:text', =>
+    @model.bind 'change:numInlets change:numOutlets change:text', =>
       console.log 'calling change text'
       do @clearElems
       do @render
@@ -87,6 +87,10 @@ patchagogy.ObjectView = Backbone.View.extend {
           console.warn "no inlet here, we must be loading a patch"
           continue
         fromElem = @outlets[outlet]
+        if not fromElem
+          # num outlets not set yet, we're still on default 1
+          console.warn "no outlet here, we must be loading a patch"
+          continue
         bbox1 = fromElem.getBBox()
         x1 = bbox1.x + (bbox1.width / 2)
         y1 = bbox1.y + (bbox1.height)

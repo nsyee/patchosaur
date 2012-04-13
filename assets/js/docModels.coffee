@@ -31,12 +31,10 @@ patchagogy.Object = Backbone.Model.extend {
       # that are the same as ones we've loaded
       console.error 'id and cid same', @id, @cid
     @id = @id or @cid
-    @set 'connections', (@get 'connections') or {}
+    @get('connections') or @set 'connections', {}
     do @setup
     @bind 'remove', => do @disconnectAll
     @bind 'change:text', =>
-      # FIXME put unit stuff in unit graph view
-      @get('unit').stop()
       do @setup
 
   setup: ->
@@ -45,12 +43,6 @@ patchagogy.Object = Backbone.Model.extend {
     @set unitArgs: parsedText[1]
     console.debug "setting up object:", @get('unitClassName'), \
       @get('unitArgs')
-    # FIXME: put this on unit graph view!
-    UnitClass = patchagogy.units[@get 'unitClassName']
-    if not UnitClass
-      console.warn "no unit class found for #{@get 'unitClassName'}, using #{DEFAULT_UNIT}"
-      UnitClass = patchagogy.units[DEFAULT_UNIT]
-    @set unit: new UnitClass(@, @get 'unitArgs')
 
   _textParse: (text) ->
     # returns [execClass, options]
@@ -113,7 +105,7 @@ patchagogy.Object = Backbone.Model.extend {
     @trigger 'change:connections', @
     @
 
-  getToObjects: () ->
+  getToObjectIDs: () ->
     # get a list of objects this is connected to
     # useful for limiting connection redraws
     _.flatten(
@@ -154,7 +146,7 @@ patchagogy.Objects = Backbone.Collection.extend {
     # INCLUDING this object
     tid = targetObject.id
     affected = @filter (object) ->
-      toObjects = do object.getToObjects
+      toObjects = do object.getToObjectIDs
       tid == object.id or tid in toObjects
 
   # FIXME, save works, reload doesn't load connections

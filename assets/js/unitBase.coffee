@@ -25,7 +25,6 @@ class patchagogy.Unit
           throw error
 
   makeInlets: (numInlets, func) ->
-    console.log 'calling makeInlets'
     # convenience method to build @inlets from a function
     # that takes (inlet, arg)
     for index in _.range numInlets

@@ -1,6 +1,8 @@
 # FIXME: put this directly on models? that seems like a bad idea too
 patchagogy = @patchagogy = @patchagogy or {}
 
+DEFAULT_UNIT = 'identity'
+
 patchagogy.UnitGraphView = Backbone.View.extend
   initialize: () ->
     # see uiviews for knowing when to redo connections
@@ -9,6 +11,16 @@ patchagogy.UnitGraphView = Backbone.View.extend
     @objects.bind 'remove', (object) =>
       object.get('unit').stop()
 
+    @objects.bind 'add change:text', (o) =>
+      o.get('unit')?.stop()
+      UnitClass = patchagogy.units[o.get 'unitClassName']
+      if not UnitClass
+        # FIXME: just don't make it?
+        console.warn "no unit class found for #{o.get 'unitClassName'}, using #{DEFAULT_UNIT}"
+        UnitClass = patchagogy.units[DEFAULT_UNIT]
+      o.set unit: new UnitClass(o, o.get 'unitArgs')
+
+    # redo connections
     @objects.bind 'add change:text change:connections', (changedObject) =>
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) =>
@@ -25,7 +37,7 @@ patchagogy.UnitGraphView = Backbone.View.extend
     for outlet of connections
       unitConnections[outlet] = []
       for [toObjID, toIndex] in connections[outlet]
-        toFunc = @objects.get(toObjID)?.get('unit').inlets[toIndex]
+        toFunc = @objects.get(toObjID)?.get('unit')?.inlets[toIndex]
         if toFunc
           unitConnections[outlet].push toFunc
         else
