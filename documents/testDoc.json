@@ -144,5 +144,19 @@
     "text": "print \"ghetto counter\"",
     "connections": {},
     "id": "c32"
+  },
+  {
+    "x": 362,
+    "y": 108,
+    "text": ">>>",
+    "connections": {},
+    "id": "object_35"
+  },
+  {
+    "x": 396,
+    "y": 125,
+    "text": "+",
+    "connections": {},
+    "id": "object_39"
   }
 ]

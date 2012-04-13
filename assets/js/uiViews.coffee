@@ -130,6 +130,11 @@ patchagogy.ObjectView = Backbone.View.extend {
     box = textElem.getBBox()
     @raphaelText = textElem
     pad = 2
+    # FIXME: mess
+    # draw wider based on max(numInlets, outlets)
+    # put this in a constant
+    if box.width < 22
+      box.width = 22
     rect = @p.rect box.x - pad, box.y - pad + 1, box.width + (pad*2), box.height + (pad*2) - 1, 2
     @raphaelBox = rect
     @rect = rect
