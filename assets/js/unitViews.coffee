@@ -1,3 +1,5 @@
+#= require unitBase
+
 # FIXME: put this directly on models? that seems like a bad idea too
 patchagogy = @patchagogy = @patchagogy or {}
 
@@ -13,12 +15,12 @@ patchagogy.UnitGraphView = Backbone.View.extend
 
     @objects.bind 'add change:text', (o) =>
       o.get('unit')?.stop()
-      UnitClass = patchagogy.units[o.get 'unitClassName']
+      UnitClass = patchagogy.units.get o.get 'unitClassName'
       if not UnitClass
         # FIXME: just don't make it?
         console.warn "no unit class found for #{o.get 'unitClassName'}, using #{DEFAULT_UNIT}"
-        UnitClass = patchagogy.units[DEFAULT_UNIT]
-      o.set unit: new UnitClass(o, o.get 'unitArgs')
+        UnitClass = patchagogy.units.get DEFAULT_UNIT
+      o.set unit: new UnitClass o, o.get 'unitArgs'
 
     # redo connections
     @objects.bind 'add change:text change:connections', (changedObject) =>

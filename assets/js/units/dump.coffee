@@ -1,5 +1,6 @@
 class Dump extends patchagogy.Unit
   # repeat initialization value whenever input received
+  @names: ['dump']
   setup: (@objectModel, @args) ->
     @value = @args[0] or true
     @objectModel.set numInlets: 1
@@ -9,5 +10,5 @@ class Dump extends patchagogy.Unit
   inlet: (arg) =>
     @out 0, @value
 
-patchagogy.units['dump'] = Dump
+patchagogy.units.add Dump
 

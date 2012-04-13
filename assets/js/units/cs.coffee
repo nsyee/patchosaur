@@ -1,4 +1,5 @@
 class Coffee extends patchagogy.Unit
+  @names: ['cs']
   setup: (@objectModel, @args) ->
     # take num inlets from num args
     @csFunc = CoffeeScript.eval @args[0]
@@ -18,5 +19,4 @@ class Coffee extends patchagogy.Unit
     if i == 0
       @out 0, @csFunc @currArgs...
 
-patchagogy.units['cs'] = Coffee
-
+patchagogy.units.add Coffee

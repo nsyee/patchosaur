@@ -1,4 +1,5 @@
 class Print extends patchagogy.Unit
+  @names: ['print']
   setup: (@objectModel, @args) ->
     @label = @args[0] or "print"
     @objectModel.set numInlets: 1
@@ -9,5 +10,5 @@ class Print extends patchagogy.Unit
   inlet: (arg) =>
     console.log "#{@label}:", arg
 
-patchagogy.units['print'] = Print
+patchagogy.units.add Print
 

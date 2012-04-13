@@ -1,4 +1,5 @@
 class Identity extends patchagogy.Unit
+  @names: ['identity']
   setup: (@objectModel, @args) ->
     @objectModel.set numInlets: 1
     @objectModel.set numOutlets: 1
@@ -8,5 +9,4 @@ class Identity extends patchagogy.Unit
   call: (i, arg) =>
     @out i, arg
 
-patchagogy.units['identity'] = Identity
-
+patchagogy.units.add Identity

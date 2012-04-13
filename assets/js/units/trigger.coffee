@@ -1,4 +1,5 @@
 class Trigger extends patchagogy.Unit
+  @names: ['trigger']
   # repeat input to many outputs, specified by arg
   # outlets called in right-to-left order
   setup: (@objectModel, @args) ->
@@ -12,6 +13,4 @@ class Trigger extends patchagogy.Unit
     for i in _.range(@numOutlets).reverse()
       @out i, arg
 
-patchagogy.units['trigger'] = Trigger
-patchagogy.units['t'] = Trigger
-
+patchagogy.units.add Trigger

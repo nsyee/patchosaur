@@ -1,5 +1,4 @@
-patchagogy = @patchagogy ?= {}
-patchagogy.units ?= {}
+@patchagogy ?= {}
 
 class patchagogy.Unit
   constructor: (@objectModel, @args) ->
@@ -32,3 +31,18 @@ class patchagogy.Unit
         (arg) -> func index, arg
 
   stop: ->
+
+class patchagogy.Units
+  constructor: -> @units = {}
+
+  add: (UnitClass) ->
+    for name in UnitClass.names
+      if @units[name]?
+        console.error "unit class already defined:", name, UnitClass
+      else
+        @units[name] = UnitClass
+
+  get: (name) ->
+    @units[name] or console.log 'no unit class by name:', name
+
+patchagogy.units = new patchagogy.Units

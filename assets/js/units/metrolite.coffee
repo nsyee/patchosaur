@@ -1,4 +1,5 @@
 class Metrolite extends patchagogy.Unit
+  @names: ['metrolite']
   setup: (@objectModel, @args) ->
     console.log 'making metrolite unit', @
     [deltaT, rest...] = @args
@@ -20,5 +21,5 @@ class Metrolite extends patchagogy.Unit
   tick: =>
     @out 0, true
 
-patchagogy.units['metrolite'] = Metrolite
+patchagogy.units.add Metrolite
 
