@@ -31,6 +31,15 @@ funcs.push _.extend ((x, y) -> x && y),  names: ['&&', 'and'] # logical
 funcs.push _.extend ((x, y) -> x || y),  names: ['||', 'or'] # logical
 funcs.push _.extend ((x) -> not x),      names: ['!', 'not'] # logical
 
+# from http://www.musicdsp.org/showone.php?id=238
+funcs.push _.extend (x) ->
+  return -1 if x < -3
+  return  1 if x > 3
+  squared = x * x
+  return (27 + squared) / (27 + 9 * squared)
+, names: ['rtanh']
+
+
 for func in funcs
   do (func) ->
     class MathFunc extends patchagogy.Unit

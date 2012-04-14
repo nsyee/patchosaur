@@ -21,7 +21,9 @@
     "jade": "",
     "stylus": "",
     "express": "",
-    "socket.io": ""
+    "socket.io": "",
+    "underscore": "",
+    "midi": ""
   },
   "devDependencies": {}
 }
