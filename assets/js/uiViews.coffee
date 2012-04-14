@@ -101,8 +101,10 @@ patchagogy.ObjectView = Backbone.View.extend {
         y2 = bbox2.y
         conn = @p.path "#M#{x1},#{y1}L#{x2},#{y2}"
         @connections.push conn
-        # FIXME: necc?
-        # @raphaelSet.push conn
+        # disconnect with alt-click or ctrl-click
+        conn.click (event) =>
+          if event.altKey or event.ctrlKey
+            @model.disconnect outlet, toID, inlet
 
   _setOffset: (onEl, fromEl) ->
     onEl.offsetX = onEl.attrs.x - fromEl.attrs.x
