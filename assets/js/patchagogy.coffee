@@ -6,6 +6,7 @@
 #= require 3p/audiolet
 #= require 3p/state-machine
 #= require 3p/coffee-script
+#= require audio
 #= require docModels
 #= require uiViews
 #= require unitViews

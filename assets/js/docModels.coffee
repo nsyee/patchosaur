@@ -118,6 +118,7 @@ patchagogy.Objects = Backbone.Collection.extend {
         object.disconnectTo removed.id
     @bind 'change', => do @save
 
+
   newObject: (attrs) ->
     attrs = {} if attrs is undefined
     if not attrs.id?
@@ -157,7 +158,7 @@ patchagogy.Objects = Backbone.Collection.extend {
   # if you fixed that. make them shallow.
   save: _.debounce () ->
     Backbone.sync 'create', @
-  , 1000 # debounce ms
+  , 20 # debounce ms
 
   clear: -> @remove @models
 
