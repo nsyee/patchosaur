@@ -31,6 +31,16 @@ funcs.push _.extend ((x, y) -> x && y),  names: ['&&', 'and'] # logical
 funcs.push _.extend ((x, y) -> x || y),  names: ['||', 'or'] # logical
 funcs.push _.extend ((x) -> not x),      names: ['!', 'not'] # logical
 
+# midi to frequency
+funcs.push _.extend (x) ->
+    return (Math.pow 2, (x-57)/12) * 440
+, names: ['mtof']
+
+# frequency to midi
+funcs.push _.extend (x) ->
+    return (Math.round(Math.log x/440 / Math.log 2)) * 12 + 57
+, names: ['ftom']
+
 # from http://www.musicdsp.org/showone.php?id=238
 funcs.push _.extend (x) ->
   return -1 if x < -3
