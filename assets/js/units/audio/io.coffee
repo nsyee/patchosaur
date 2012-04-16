@@ -4,14 +4,12 @@ class DAC extends patchagogy.Unit
     @objectModel.set numInlets: 2
     @objectModel.set numOutlets: 0
     a = patchagogy.audiolet
-    group = new AudioletGroup a, 2, 2
     panL = new Pan a, 0
     panR = new Pan a, 1
-    group.inputs[0].connect panL
-    group.inputs[1].connect panR
     panL.connect a.output
     panR.connect a.output
-    @audioletGroup = group
+    # analagous to inputs
+    @audioletNodes = [panL, panR]
 
 class ADC extends patchagogy.Unit
   @names: ['adc~', 'in~']

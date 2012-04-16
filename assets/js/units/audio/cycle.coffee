@@ -6,6 +6,7 @@ class Cycle extends patchagogy.Unit
     @objectModel.set numInlets: 1
     @objectModel.set numOutlets: 1
     @inlets = [(x)=>@sine.frequency.setValue x] # FIXME
-    @audioletGroup = new Sine(patchagogy.audiolet, 440)
+    @sine = new Sine patchagogy.audiolet, 440
+    @audioletNodes = [@sine]
 
 patchagogy.units.add Cycle

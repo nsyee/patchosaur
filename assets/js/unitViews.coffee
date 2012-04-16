@@ -34,8 +34,8 @@ patchagogy.UnitGraphView = Backbone.View.extend
           [fromID, outlet, toID, inlet] = connection
           fromUnit = object.get 'unit'
           toUnit = @objects.get(toID)?.get('unit')
-          if toUnit?.audioletGroup?
-            fromUnit.audioletGroup?.disconnect toUnit.audioletGroup
+          if toUnit?.audioletNodes?
+            fromUnit.audioletNodes?[outlet].disconnect toUnit.audioletNodes[inlet]
         # make func and audiolet connections
         @makeConnections object
 
@@ -50,8 +50,8 @@ patchagogy.UnitGraphView = Backbone.View.extend
       toUnit = @objects.get(toID)?.get('unit')
       toFunc = toUnit?.inlets[inlet]
       # connect audiolet groups
-      if toUnit?.audioletGroup?
-        fromUnit.audioletGroup?.connect toUnit.audioletGroup, outlet, inlet
+      if toUnit?.audioletNodes?
+        fromUnit.audioletNodes?[outlet].connect toUnit.audioletNodes[inlet]
       # make make normal connections
       if toFunc
         unitConnections[outlet] or= []
