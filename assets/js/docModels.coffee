@@ -25,7 +25,7 @@ patchagogy.Object = Backbone.Model.extend {
     return o
 
   initialize: ->
-    @get('connections') or @set 'connections', {}
+    @get('connections') or @setConnections []
     do @setup
     @bind 'remove', => do @disconnectAll
     @bind 'change:text', =>
@@ -52,60 +52,48 @@ patchagogy.Object = Backbone.Model.extend {
     finally
       return [execClass, options]
 
+  # backbone change events won't fire properly with
+  # array attributes. flatten to a string until you
+  # find a better way to do this
+  setConnections: (connections) ->
+    @set connections: JSON.stringify connections
+  getConnections: ->
+    JSON.parse @get 'connections'
+  getPreviousConnections: ->
+    JSON.parse @previous 'connections'
+
   connect: (outIndex, inObjectID, inIndex) ->
-    cxs = @get 'connections'
-    cxs[outIndex] ?= []
-    to = [inObjectID, inIndex]
-    # if it's already connected don't bother
-    return if _.find cxs[outIndex], (cx) -> _.isEqual cx, to
-    # connect
-    cxs[outIndex].push to
-    cxs = @set 'connections', cxs
-    # FIXME: backbone doesn't like prop to be object, change doesn't fire
-    # fire it yourself
-    @trigger 'change:connections', @
-    @
+    connections = do @getConnections
+    connection = [@id, outIndex, inObjectID, inIndex]
+    connections.push connection
+    connections = _.uniq connections, null, (x) -> x.join()
+    @setConnections connections
 
   connected: (outIndex, inObjectID, inIndex) ->
-    # are two objects connected?
-    cxs = @get 'connections'
-    return false unless cxs[outIndex]
-    to = [inObjectID, inIndex]
-    connection = _.find cxs[outIndex], (cx) -> _.isEqual cx, to
-    connection and true or false
+    connections = do @getConnections
+    connection = [@id, outIndex, inObjectID, inIndex]
+    connection in connections
 
   disconnect: (outIndex, inObjectID, inIndex) ->
-    # FIXME test
-    cxs = @get('connections')
-    cxs[outIndex] = _.reject cxs[outIndex], (cx) ->
-        _.isEqual cx, [inObjectID, inIndex]
-    @set('connections', cxs)
-    @trigger 'change:connections', @
-    @
+    connections = do @getConnections
+    connection = [@id, outIndex, inObjectID, inIndex]
+    connections = _.reject connections, (cx) -> _.isEqual cx, connection
+    @setConnections connections
 
   disconnectTo: (inObjectID) ->
-    # disconnect from this to another objectID
+    # disconnect all connections from this to another objectID
     # any outlet here, any outlet there.
-    outlets = @get('connections')
-    for outlet in _.keys outlets
-      outlets[outlet] = _.reject outlets[outlet], (cx) ->
-        _.isEqual cx[0], inObjectID
-    @set('connections', outlets)
-    @trigger 'change:connections', @
-    @
+    connections = do @getConnections
+    connections = _.reject connections, (cx) ->
+      cx[2] == inObjectID
+    @setConnections connections
 
-  disconnectAll: ->
-    @set 'connections', {}
-    @trigger 'change:connections', @
-    @
+  disconnectAll: -> @setConnections []
 
   getToObjectIDs: () ->
     # get a list of objects this is connected to
     # useful for limiting connection redraws
-    _.flatten(
-      for tos in _.values @get 'connections'
-        for to in tos
-          to[0])
+    (cx[2] for cx in do @getConnections)
 }
 
 patchagogy.Objects = Backbone.Collection.extend {
@@ -153,12 +141,9 @@ patchagogy.Objects = Backbone.Collection.extend {
       toObjects = do object.getToObjectIDs
       tid == object.id or tid in toObjects
 
-  # FIXME, save works, reload doesn't load connections
-  # because connectinos aren't shallow. You could get rid of the trigger crap
-  # if you fixed that. make them shallow.
   save: _.debounce () ->
     Backbone.sync 'create', @
-  , 20 # debounce ms
+  , 1000 # debounce ms
 
   clear: -> @remove @models
 

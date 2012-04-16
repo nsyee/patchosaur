@@ -1,183 +1,121 @@
 [
   {
-    "x": 136,
-    "y": 57,
+    "x": 109,
+    "y": 51,
     "text": "metrolite 2000",
-    "connections": {
-      "0": [
-        [
-          "c5",
-          0
-        ]
-      ]
-    },
+    "connections": "[[\"c2\",0,\"c5\",0]]",
     "id": "c2"
   },
   {
-    "x": 137,
+    "x": 114,
     "y": 88,
     "text": "dump 10",
-    "connections": {
-      "0": [
-        [
-          "c8",
-          0
-        ]
-      ]
-    },
+    "connections": "[[\"c5\",0,\"c8\",0]]",
     "id": "c5"
   },
   {
-    "x": 141,
-    "y": 121,
+    "x": 106,
+    "y": 126,
     "text": "trigger 3",
-    "connections": {
-      "0": [
-        [
-          "c11",
-          0
-        ]
-      ],
-      "1": [
-        [
-          "c14",
-          0
-        ]
-      ],
-      "2": [
-        [
-          "c20",
-          0
-        ]
-      ]
-    },
+    "connections": "[[\"c8\",0,\"c11\",0],[\"c8\",1,\"c14\",0],[\"c8\",2,\"c20\",0]]",
     "id": "c8"
   },
   {
-    "x": 26,
-    "y": 178,
+    "x": 24,
+    "y": 170,
     "text": "cs \"(x) -> x*x\"",
-    "connections": {
-      "0": [
-        [
-          "c23",
-          0
-        ],
-        [
-          "c17",
-          0
-        ]
-      ]
-    },
+    "connections": "[[\"c11\",0,\"c23\",0],[\"c11\",0,\"c17\",0]]",
     "id": "c11"
   },
   {
-    "x": 156,
-    "y": 177,
+    "x": 149,
+    "y": 171,
     "text": "cs \"(x) -> x*x*x\"",
-    "connections": {
-      "0": [
-        [
-          "c26",
-          0
-        ],
-        [
-          "c17",
-          1
-        ]
-      ]
-    },
+    "connections": "[[\"c14\",0,\"c17\",1],[\"c14\",0,\"c26\",0]]",
     "id": "c14"
   },
   {
     "x": 53,
     "y": 239,
     "text": "cs \"(x,y) -> x+y\"",
-    "connections": {
-      "0": [
-        [
-          "c29",
-          0
-        ]
-      ]
-    },
+    "connections": "[[\"c17\",0,\"c29\",0]]",
     "id": "c17"
   },
   {
-    "x": 291,
-    "y": 171,
+    "x": 333,
+    "y": 172,
     "text": "cs \"(b) -> @x = (@x or 0) + 1\"",
-    "connections": {
-      "0": [
-        [
-          "c32",
-          0
-        ]
-      ]
-    },
+    "connections": "[[\"c20\",0,\"c32\",0]]",
     "id": "c20"
   },
   {
-    "x": 22,
-    "y": 332,
+    "x": 39,
+    "y": 339,
     "text": "print \"squared\"",
-    "connections": {},
+    "connections": "[]",
     "id": "c23"
   },
   {
-    "x": 213,
-    "y": 256,
+    "x": 208,
+    "y": 258,
     "text": "print \"cubed\"",
-    "connections": {},
+    "connections": "[]",
     "id": "c26"
   },
   {
-    "x": 69,
-    "y": 294,
+    "x": 73,
+    "y": 298,
     "text": "print \"cubed + squared\"",
-    "connections": {},
+    "connections": "[]",
     "id": "c29"
   },
   {
     "x": 278,
     "y": 223,
     "text": "print \"ghetto counter\"",
-    "connections": {},
+    "connections": "[]",
     "id": "c32"
   },
   {
-    "x": 362,
-    "y": 108,
+    "x": 359,
+    "y": 106,
     "text": ">>>",
-    "connections": {},
+    "connections": "[]",
     "id": "object_35"
   },
   {
-    "x": 396,
-    "y": 125,
+    "x": 399,
+    "y": 132,
     "text": "+",
-    "connections": {},
+    "connections": "[]",
     "id": "object_39"
   },
   {
-    "x": 335,
-    "y": 265,
+    "x": 333,
+    "y": 282,
     "text": "socket.io \"midi\"",
-    "connections": {
-      "0": [
-        [
-          "object_45",
-          0
-        ]
-      ]
-    },
+    "connections": "[[\"object_41\",0,\"object_45\",0]]",
     "id": "object_41"
   },
   {
-    "x": 320,
-    "y": 318,
+    "x": 304,
+    "y": 337,
     "text": "print \"socket.io midi\"",
-    "connections": {},
+    "connections": "[]",
     "id": "object_45"
+  },
+  {
+    "x": 278,
+    "y": 67,
+    "text": "cycle~",
+    "connections": "[]",
+    "id": "object_47"
+  },
+  {
+    "x": 269,
+    "y": 116,
+    "text": "dac~",
+    "connections": "[]",
+    "id": "object_51"
   }
 ]

@@ -9,7 +9,8 @@ patchagogy.ObjectView = Backbone.View.extend {
     @model.set 'view', @
     # bind events
     @model.bind 'remove', => do @clearElems
-    @model.bind 'change:connections', => do @drawConnections
+    @model.bind 'change:connections', =>
+      do @drawConnections
     @model.bind 'change:x change:y', => do @place
     # triggered by patch view when x or y change on any obj
     @bind 'redrawConnections', => do @drawConnections
@@ -75,36 +76,35 @@ patchagogy.ObjectView = Backbone.View.extend {
     # still leaking memory, maybe this isn't why
     # but it's better anyway
     # FIXME: rename @connections to connectionels, update line instead of making new one
+    # FIXME: connections and @connections
     for line in @connections
       line.remove()
     @connections = []
-    connections = @model.get 'connections'
-    for outlet of connections
-      for to in connections[outlet]
-        toID = to[0]
-        inlet = to[1]
-        toElem = @model.collection.get(toID)?.get('view')?.inlets[inlet]
-        if not toElem
-          console.warn "no inlet here, we must be loading a patch"
-          continue
-        fromElem = @outlets[outlet]
-        if not fromElem
-          # num outlets not set yet, we're still on default 1
-          console.warn "no outlet here, we must be loading a patch"
-          continue
-        bbox1 = fromElem.getBBox()
-        x1 = bbox1.x + (bbox1.width / 2)
-        y1 = bbox1.y + (bbox1.height)
-        # FIXME
-        bbox2 = toElem.getBBox()
-        x2 = bbox2.x + (bbox2.width / 2)
-        y2 = bbox2.y
-        conn = @p.path "#M#{x1},#{y1}L#{x2},#{y2}"
-        @connections.push conn
-        # disconnect with alt-click or ctrl-click
-        conn.click (event) =>
-          if event.altKey or event.ctrlKey
-            @model.disconnect outlet, toID, inlet
+    connections = @model.getConnections()
+    for connection in connections
+      [fromID, outlet, toID, inlet] = connection
+      toElem = @model.collection.get(toID)?.get('view')?.inlets[inlet]
+      if not toElem
+        console.warn "no inlet here, we must be loading a patch"
+        continue
+      fromElem = @outlets[outlet]
+      if not fromElem
+        # num outlets not set yet, we're still on default 1
+        console.warn "no outlet here, we must be loading a patch"
+        continue
+      bbox1 = fromElem.getBBox()
+      x1 = bbox1.x + (bbox1.width / 2)
+      y1 = bbox1.y + (bbox1.height)
+      # FIXME
+      bbox2 = toElem.getBBox()
+      x2 = bbox2.x + (bbox2.width / 2)
+      y2 = bbox2.y
+      conn = @p.path "#M#{x1},#{y1}L#{x2},#{y2}"
+      @connections.push conn
+      # disconnect with alt-click or ctrl-click
+      conn.click (event) =>
+        if event.altKey or event.ctrlKey
+          @model.disconnect outlet, toID, inlet
 
   _setOffset: (onEl, fromEl) ->
     onEl.offsetX = onEl.attrs.x - fromEl.attrs.x

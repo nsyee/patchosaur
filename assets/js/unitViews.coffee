@@ -24,38 +24,38 @@ patchagogy.UnitGraphView = Backbone.View.extend
 
     # redo connections
     @objects.bind 'add change:text change:connections', (changedObject) =>
-      prevConns = changedObject.previous 'connections'
+      prevConns = changedObject.getPreviousConnections()
       # make connections on affected objects
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) =>
         # remove all previous audiolet connections
         # FIXME: rethink this
-        for outlet of prevConns
-          for [toObjID, toIndex] in prevConns[outlet]
-            fromUnit = object.get 'unit'
-            toUnit = @objects.get(toObjID)?.get('unit')
-            if toUnit?.audioletGroup?
-              fromUnit.audioletGroup?.disconnect toUnit.audioletGroup
+        for connection in prevConns
+          [fromID, outlet, toID, inlet] = connection
+          fromUnit = object.get 'unit'
+          toUnit = @objects.get(toID)?.get('unit')
+          if toUnit?.audioletGroup?
+            fromUnit.audioletGroup?.disconnect toUnit.audioletGroup
         # make func and audiolet connections
         @makeConnections object
 
   makeConnections: (object) ->
     # FIXME: put method to get inlet funcs on model?
-    connections = object.get 'connections'
+    connections = object.getConnections()
     fromUnit = object.get 'unit'
     console.log 'redoing unit connections on', object.get 'text'
     unitConnections = {}
-    for outlet of connections
-      unitConnections[outlet] = []
-      for [toObjID, toIndex] in connections[outlet]
-        toUnit = @objects.get(toObjID)?.get('unit')
-        toFunc = toUnit?.inlets[toIndex]
-        # connect audiolet groups
-        if toUnit?.audioletGroup?
-          fromUnit.audioletGroup?.connect toUnit.audioletGroup
-        # make make normal connections
-        if toFunc
-          unitConnections[outlet].push toFunc
-        else
-          console.warn "no inlet func here, we must be loading a patch", object, @objects.get toObjID
+    for connection in connections
+      [fromID, outlet, toID, inlet] = connection
+      toUnit = @objects.get(toID)?.get('unit')
+      toFunc = toUnit?.inlets[inlet]
+      # connect audiolet groups
+      if toUnit?.audioletGroup?
+        fromUnit.audioletGroup?.connect toUnit.audioletGroup
+      # make make normal connections
+      if toFunc
+        unitConnections[outlet] or= []
+        unitConnections[outlet].push toFunc
+      else
+        console.warn "no inlet func here, we must be loading a patch", object, @objects.get toID
     fromUnit.setConnections unitConnections
