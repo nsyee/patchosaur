@@ -20,7 +20,7 @@
     "uglify-js": "",
     "jade": "",
     "stylus": "",
-    "express": "",
+    "express": "2.5.9",
     "socket.io": "",
     "underscore": "",
     "midi": ""
