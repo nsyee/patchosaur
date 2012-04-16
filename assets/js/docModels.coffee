@@ -71,8 +71,8 @@ patchagogy.Object = Backbone.Model.extend {
 
   connected: (outIndex, inObjectID, inIndex) ->
     connections = do @getConnections
-    connection = [@id, outIndex, inObjectID, inIndex]
-    connection in connections
+    match = [@id, outIndex, inObjectID, inIndex]
+    !! _.find connections, (cx) -> _.isEqual match, cx
 
   disconnect: (outIndex, inObjectID, inIndex) ->
     connections = do @getConnections
