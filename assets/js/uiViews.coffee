@@ -25,13 +25,17 @@ patchagogy.ObjectView = Backbone.View.extend {
     @raphaelText = null
     @inlets  = []
     @outlets = []
+    @customGui = @model.get 'customGui'
     # make it
     do @render
     @raphaelSet.forEach (el) =>
       el.node.setAttribute 'class', @id
+    @model.bind 'change:customGui', =>
+      @customGui = @model.get 'customGui'
+      @place()
 
   clearElems: ->
-    for el in _.flatten [@raphaelSet, @raphaelBox, @raphaelText, @inlets, @outlets]
+    for el in _.flatten [@raphaelSet, @raphaelBox, @raphaelText, @inlets, @outlets, @customGui]
       el?.remove()
 
   clear: () ->
@@ -64,7 +68,12 @@ patchagogy.ObjectView = Backbone.View.extend {
       elem.attr
         x: x + (elem.offsetX or 0)
         y: y + (elem.offsetY or 0)
-    #@p.safari()
+    @p.safari()
+    # move custom GUI
+    if @customGui
+      box = @raphaelBox.getBBox()
+      @customGui.css 'left', box.x + box.width + 2
+      @customGui.css 'top', box.y
 
   drawConnections: () ->
     # draw your own lines

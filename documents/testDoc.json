@@ -3,7 +3,7 @@
     "x": 109,
     "y": 51,
     "text": "metrolite 2000",
-    "connections": "[[\"c2\",0,\"c5\",0]]",
+    "connections": "[]",
     "id": "c2"
   },
   {
@@ -117,5 +117,19 @@
     "text": "dac~",
     "connections": "[]",
     "id": "object_51"
+  },
+  {
+    "x": 433,
+    "y": 87,
+    "text": "checkbox",
+    "connections": "[[\"object_53\",0,\"object_56\",0]]",
+    "id": "object_53"
+  },
+  {
+    "x": 458,
+    "y": 132,
+    "text": "print \"checkbox\"",
+    "connections": "[]",
+    "id": "object_56"
   }
 ]
