@@ -1,13 +1,13 @@
 [
   {
-    "x": 109,
-    "y": 51,
+    "x": 115,
+    "y": 56,
     "text": "metrolite 2000",
-    "connections": "[]",
+    "connections": "[[\"c2\",0,\"c5\",0]]",
     "id": "c2"
   },
   {
-    "x": 114,
+    "x": 122,
     "y": 88,
     "text": "dump 10",
     "connections": "[[\"c5\",0,\"c8\",0]]",
