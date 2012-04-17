@@ -45,7 +45,10 @@ patchagogy.Object = Backbone.Model.extend {
     execClass = text.replace(/\ .*/, '')
     # everything after first space, surrounded
     # by square brackets and parsed as json
-    options = text.replace(/^.*?\ /g, '')
+    if text.match(/\ /g) # if space, pull out everything after it
+      options = text.replace(/^.*?\ /g, '')
+    else
+      options = ''
     try
       options = JSON.parse("[#{options}]")
     catch error

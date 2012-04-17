@@ -45,7 +45,7 @@
     "x": 333,
     "y": 172,
     "text": "cs \"(b) -> @x = (@x or 0) + 1\"",
-    "connections": "[[\"c20\",0,\"c32\",0]]",
+    "connections": "[[\"c20\",0,\"c32\",0],[\"c20\",0,\"object_39\",0]]",
     "id": "c20"
   },
   {
@@ -84,10 +84,10 @@
     "id": "object_35"
   },
   {
-    "x": 399,
-    "y": 132,
-    "text": "+",
-    "connections": "[]",
+    "x": 485,
+    "y": 209,
+    "text": "% 2",
+    "connections": "[[\"object_39\",0,\"object_53\",0]]",
     "id": "object_39"
   },
   {
@@ -119,15 +119,15 @@
     "id": "object_51"
   },
   {
-    "x": 433,
-    "y": 87,
-    "text": "checkbox",
+    "x": 492,
+    "y": 245,
+    "text": "cb",
     "connections": "[[\"object_53\",0,\"object_56\",0]]",
     "id": "object_53"
   },
   {
-    "x": 458,
-    "y": 132,
+    "x": 503,
+    "y": 279,
     "text": "print \"checkbox\"",
     "connections": "[]",
     "id": "object_56"
