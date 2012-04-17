@@ -52,12 +52,13 @@ patchagogy.ObjectView = Backbone.View.extend {
     editEl.css 'position', 'absolute'
     editEl.css 'left', bbox.x - 1
     editEl.css 'top', bbox.y - 1
-    if not do @model.isBlank
-      editEl.val @model.get 'text'
+    editEl.val @model.get 'text'
     editEl.on 'focusout', (event) =>
       @model.set 'text', editEl.val() or 'identity'
       editEl.remove()
       @raphaelSet.show()
+      @model.set new: false
+      @patchView.fsm.saveObjectEdit() # change state FIXME: save through this event?
     editEl.on 'keydown', (event) ->
       do editEl.blur if event.which == 13
 
@@ -254,7 +255,7 @@ patchagogy.PatchView = Backbone.View.extend {
       objectView = new patchagogy.ObjectView
         model: object
         patchView: @
-      do objectView.edit if do object.isBlank
+      do objectView.edit if do object.isNew
 
     @objects.bind 'add change:x change:y change:text', (changedObject) =>
       affected = @objects.connectedFrom changedObject
@@ -268,14 +269,19 @@ patchagogy.PatchView = Backbone.View.extend {
       @fsm.createObject
         x: event.pageX
         y: event.pageY
+        new: true
 
     do @generateHelp
     # bind h key to toggle help
     # to get link in header to toggle it, see docs under markup,
     # you can have a link with data-toggle
     $(document).on 'keydown', (event) =>
+      # toggle help
       if event.which == 72      # "h"
-        @helpEl.modal('toggle')
+        if @fsm.can('showHelp')
+          @fsm.showHelp()
+        else if @fsm.can('hideHelp')
+          @fsm.hideHelp()
 
   generateHelp: ->
     # FIXME: use templates, compile before
@@ -315,6 +321,8 @@ patchagogy.PatchView = Backbone.View.extend {
         {name: 'selectInlet', from: 'outletSelected', to: 'ready'}
         {name: 'createObject', from: '*', to: 'editingObject'}
         {name: 'saveObjectEdit', from: 'editingObject', to: 'ready'}
+        {name: 'showHelp', from: 'ready', to: 'help'}
+        {name: 'hideHelp', from: 'help', to: 'ready'}
         {
           name: 'escape'
           from: ['outletSelected', 'inletSelected']
@@ -328,6 +336,10 @@ patchagogy.PatchView = Backbone.View.extend {
           @_setInlet data
         oncreateObject: (event, from, to, object) =>
           @objects.newObject object
+        onshowHelp: (event, from, to, object) =>
+          @helpEl.modal('show')
+        onhideHelp: (event, from, to, object) =>
+          @helpEl.modal('hide')
 
   selectOutlet: (args...) -> @fsm.selectOutlet(args...)
   selectInlet:  (args...) -> @fsm.selectInlet(args...)

@@ -14,6 +14,7 @@ patchagogy.Object = Backbone.Model.extend {
     y: 100
 
   isBlank: -> @get('text') == DEFAULT_UNIT
+  isNew: -> !! @get 'new'
 
   toJSON: ->
     # whitelist only attributes to sync
