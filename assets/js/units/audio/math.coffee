@@ -3,8 +3,8 @@ class Cycle extends patchagogy.Unit
   @names: ['muladd~']
   setup: (@objectModel, @args) ->
     # take num inlets from num args
-    @mul = 1 # fixme: take args, right now [0] is m from muladd
-    @add = 0
+    mul = @args[0] or 1
+    add = @args[1] or 0
     @objectModel.set numInlets: 3
     @objectModel.set numOutlets: 1
     @inlets = [
@@ -13,14 +13,11 @@ class Cycle extends patchagogy.Unit
         ( (x) => @muladd.add.setValue x)
     ]
     a = patchagogy.audiolet
-    @muladd = new MulAdd a, @mul, @add
-    # these are audiolet inputs, not nodes
-    node1 = new PassThroughNode a, 1, 1
-    node2 = new PassThroughNode a, 1, 1
-    node3 = new PassThroughNode a, 1, 1
-    node1.connect @muladd, 0, 0
-    node2.connect @muladd, 0, 1
-    node3.connect @muladd, 0, 2
-    @audioletNodes = [node1, node2, node3]
+    @muladd = new MulAdd a, mul, add
+    mulNode = new PassThroughNode a, 1, 1
+    addNode = new PassThroughNode a, 1, 1
+    mulNode.connect @muladd, 0, 1
+    mulNode.connect @muladd, 0, 2
+    @audioletNodes = [@muladd, mulNode, addNode]
 
 patchagogy.units.add Cycle

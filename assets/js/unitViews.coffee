@@ -20,24 +20,32 @@ patchagogy.UnitGraphView = Backbone.View.extend
         # FIXME: just don't make it?
         console.warn "no unit class found for #{o.get 'unitClassName'}, using #{DEFAULT_UNIT}"
         UnitClass = patchagogy.units.get DEFAULT_UNIT
-      o.set unit: new UnitClass o, o.get 'unitArgs'
+      unit = new UnitClass o, o.get 'unitArgs'
+      console.log 'unit', unit
+      o.set unit: unit
+      @redoConnections o
 
-    # redo connections
-    @objects.bind 'add change:text change:connections', (changedObject) =>
-      prevConns = changedObject.getPreviousConnections()
-      # make connections on affected objects
-      affected = @objects.connectedFrom changedObject
-      _.each affected, (object) =>
-        # remove all previous audiolet connections
-        # FIXME: rethink this
-        for connection in prevConns
-          [fromID, outlet, toID, inlet] = connection
-          fromUnit = object.get 'unit'
-          toUnit = @objects.get(toID)?.get('unit')
-          if toUnit?.audioletNodes?
-            fromUnit.audioletNodes?[outlet].disconnect toUnit.audioletNodes[inlet]
-        # make func and audiolet connections
-        @makeConnections object
+    @objects.bind 'change:connections', (object) =>
+      @redoConnections object
+
+  redoConnections: (changedObject) ->
+    prevConns = changedObject.getPreviousConnections()
+    affected = @objects.connectedFrom changedObject
+    _.each affected, (object) =>
+      # remove all previous audiolet connections
+      # FIXME: rethink this
+      for connection in prevConns
+        [fromID, outlet, toID, inlet] = connection
+        fromUnit = object.get 'unit'
+        console.log 'fromUnit', object, fromUnit, JSON.stringify connection
+        # for some reason, muladd doesn't have a unit yet.
+        # that's when you're trying to connect to it from cycle though
+        # only doesn't get connected on patch load
+        toUnit = @objects.get(toID)?.get('unit')
+        if toUnit?.audioletNodes?
+          fromUnit?.audioletNodes?[outlet].disconnect toUnit.audioletNodes[inlet]
+      # make new ones
+      @makeConnections object
 
   makeConnections: (object) ->
     # FIXME: put method to get inlet funcs on model?
@@ -51,7 +59,8 @@ patchagogy.UnitGraphView = Backbone.View.extend
       toFunc = toUnit?.inlets[inlet]
       # connect audiolet groups
       if toUnit?.audioletNodes?
-        fromUnit.audioletNodes?[outlet].connect toUnit.audioletNodes[inlet]
+        # fromUnit? is this a bug? when would it not be there yet?
+        fromUnit?.audioletNodes?[outlet].connect toUnit.audioletNodes[inlet]
       # make make normal connections
       if toFunc
         unitConnections[outlet] or= []

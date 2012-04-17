@@ -25,6 +25,11 @@ task "start:production" do
     sh "export NODE_ENV=production; coffee server.coffee"
 end
 
+desc 'restore documents: git checkout documents'
+task "restore:docs" do
+    sh "git checkout documents"
+end
+
 desc 'update 3p'
 task :update3p do
     sh "curl -o assets/js/3p/underscore.js 'https://raw.github.com/documentcloud/underscore/master/underscore.js'"

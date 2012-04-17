@@ -77,8 +77,8 @@
     "id": "c32"
   },
   {
-    "x": 359,
-    "y": 106,
+    "x": 366,
+    "y": 103,
     "text": ">>>",
     "connections": "[]",
     "id": "object_35"
@@ -108,7 +108,7 @@
     "x": 278,
     "y": 67,
     "text": "cycle~",
-    "connections": "[]",
+    "connections": "[[\"object_47\",0,\"object_51\",0]]",
     "id": "object_47"
   },
   {

@@ -262,7 +262,10 @@ patchagogy.PatchView = Backbone.View.extend {
     @objects.bind 'add change:x change:y change:text', (changedObject) =>
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
-        object.get('view').trigger 'redrawConnections'
+        view = object.get 'view'
+        # FIXME: is the if a bug?
+        if view
+          view.trigger 'redrawConnections'
 
     # bind view event handlers
     @$el.on 'dblclick', (event) =>
