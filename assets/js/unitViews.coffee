@@ -51,6 +51,7 @@ patchagogy.UnitGraphView = Backbone.View.extend
     # FIXME: put method to get inlet funcs on model?
     connections = object.getConnections()
     fromUnit = object.get 'unit'
+    return if not fromUnit # FIXME
     console.log 'redoing unit connections on', object.get 'text'
     unitConnections = {}
     for connection in connections

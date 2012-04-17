@@ -77,13 +77,6 @@
     "id": "c32"
   },
   {
-    "x": 366,
-    "y": 103,
-    "text": ">>>",
-    "connections": "[]",
-    "id": "object_35"
-  },
-  {
     "x": 485,
     "y": 209,
     "text": "% 2",
@@ -105,24 +98,24 @@
     "id": "object_45"
   },
   {
-    "x": 278,
-    "y": 67,
-    "text": "cycle~",
-    "connections": "[[\"object_47\",0,\"object_51\",0]]",
+    "x": 573,
+    "y": 128,
+    "text": "cycle~ 440",
+    "connections": "[[\"object_47\",0,\"object_59\",0],[\"object_47\",0,\"object_51\",1]]",
     "id": "object_47"
   },
   {
-    "x": 269,
-    "y": 116,
+    "x": 593,
+    "y": 236,
     "text": "dac~",
     "connections": "[]",
     "id": "object_51"
   },
   {
-    "x": 492,
-    "y": 245,
+    "x": 500,
+    "y": 241,
     "text": "cb",
-    "connections": "[[\"object_53\",0,\"object_56\",0]]",
+    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_59\",1]]",
     "id": "object_53"
   },
   {
@@ -131,5 +124,12 @@
     "text": "print \"checkbox\"",
     "connections": "[]",
     "id": "object_56"
+  },
+  {
+    "x": 569,
+    "y": 177,
+    "text": "muladd~ 1, 0",
+    "connections": "[[\"object_59\",0,\"object_51\",0]]",
+    "id": "object_59"
   }
 ]

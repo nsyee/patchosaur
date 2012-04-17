@@ -9,8 +9,6 @@ patchagogy.ObjectView = Backbone.View.extend {
     @model.set 'view', @
     # bind events
     @model.bind 'remove', => do @clearElems
-    @model.bind 'change:connections', =>
-      do @drawConnections
     @model.bind 'change:x change:y', => do @place
     # triggered by patch view when x or y change on any obj
     @bind 'redrawConnections', => do @drawConnections
@@ -259,7 +257,7 @@ patchagogy.PatchView = Backbone.View.extend {
         patchView: @
       do objectView.edit if do object.isNew
 
-    @objects.bind 'add change:x change:y change:text', (changedObject) =>
+    @objects.bind 'add change:x change:y change:text change:connections', (changedObject) =>
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
         view = object.get 'view'
