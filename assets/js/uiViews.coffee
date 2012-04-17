@@ -72,8 +72,10 @@ patchagogy.ObjectView = Backbone.View.extend {
     # move custom GUI
     if @customGui
       box = @raphaelBox.getBBox()
-      @customGui.css 'left', box.x + box.width + 2
-      @customGui.css 'top', box.y
+      @customGui.css
+        left: box.x + box.width + 3
+        top: box.y
+        position: 'absolute'
 
   drawConnections: () ->
     # draw your own lines
