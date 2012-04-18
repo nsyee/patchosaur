@@ -1,4 +1,4 @@
-# patchagogy
+# PATCHAGOGY
 
 Patchagogy is...
 
@@ -85,9 +85,13 @@ Models, units, unit graph views, ui views
 
 ### Future Ideas
 
-* Document support: save and share patches
+* Document support, save and share patches:
   * stored remotely (save and load to/from github pritave anonymous gists or dropbox or something), would be nice for purely static server-less app
   * stored locally, checked into repo (nice for demo patches at least)
   * localStorage or load and save from copypastad text
+  * have the app access a database, not sure I like this idea
+* Static site generation with `wget --mirror`, hosted on gh-pages, so anyone can try it out.
 * Max-like subpatcher and abstraction support
 * Collaborative patch editing (send model changes over socket.io)
+* Undo support (backbone.memento?), would be nice if it worked with browser back button
+* Easy patchagogy units in faust would be awesome. [faust](http://faust.grame.fr/) compiles to js, maybe add audiolet architecture files to faust? See [this article](http://faust.grame.fr/index.php/7-news/73-faust-web-art).
