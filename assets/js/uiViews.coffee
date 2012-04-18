@@ -14,7 +14,6 @@ patchagogy.ObjectView = Backbone.View.extend {
     @bind 'redrawConnections', => do @drawConnections
     # when text changes, start over...
     @model.bind 'change:numInlets change:numOutlets change:text', =>
-      console.log 'calling change text'
       do @clearElems
       do @render
 
@@ -94,14 +93,9 @@ patchagogy.ObjectView = Backbone.View.extend {
     for connection in connections
       [fromID, outlet, toID, inlet] = connection
       toElem = @model.collection.get(toID)?.get('view')?.inlets[inlet]
-      if not toElem
-        console.warn "no inlet here, we must be loading a patch"
-        continue
+      continue if not toElem # it isn't there yet
       fromElem = @outlets[outlet]
-      if not fromElem
-        # num outlets not set yet, we're still on default 1
-        console.warn "no outlet here, we must be loading a patch"
-        continue
+      continue if not fromElem
       bbox1 = fromElem.getBBox()
       x1 = bbox1.x + (bbox1.width / 2)
       y1 = bbox1.y + (bbox1.height)
@@ -124,7 +118,6 @@ patchagogy.ObjectView = Backbone.View.extend {
     @raphaelSet?.remove()
     do @p.setStart
     console.log 'rendering object view', @id, @, @model
-    drawConnections = => do @drawConnections
     p = @p
     x = @model.get 'x'
     y = @model.get 'y'
@@ -234,7 +227,6 @@ patchagogy.ObjectView = Backbone.View.extend {
     move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
     rect.dblclick => do @edit
-    drawConnections()
     rect.click (event) =>
       if event.altKey or event.ctrlKey
         do @clear
@@ -257,12 +249,11 @@ patchagogy.PatchView = Backbone.View.extend {
         patchView: @
       do objectView.edit if do object.isNew
 
-    @objects.bind 'add change:x change:y change:text change:connections', (changedObject) =>
+    @objects.bind 'add change:x change:y change:text change:connections change:numInlets change:numOutlets', (changedObject) =>
       affected = @objects.connectedFrom changedObject
       _.each affected, (object) ->
         view = object.get 'view'
-        # FIXME: is the if a bug?
-        if view
+        if view # could be going backwards
           view.trigger 'redrawConnections'
 
     # bind view event handlers

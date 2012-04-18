@@ -9,7 +9,7 @@ class DAC extends patchagogy.Unit
     panL.connect a.output
     panR.connect a.output
     # analagous to inputs
-    @audioletNodes = [panL, panR]
+    @audioletInputNodes = [panL, panR]
 
 class ADC extends patchagogy.Unit
   @names: ['adc~', 'in~']

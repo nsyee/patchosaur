@@ -77,8 +77,8 @@
     "id": "c32"
   },
   {
-    "x": 485,
-    "y": 209,
+    "x": 451,
+    "y": 225,
     "text": "% 2",
     "connections": "[[\"object_39\",0,\"object_53\",0]]",
     "id": "object_39"
@@ -98,38 +98,80 @@
     "id": "object_45"
   },
   {
-    "x": 573,
-    "y": 128,
+    "x": 550,
+    "y": 123,
     "text": "cycle~ 440",
-    "connections": "[[\"object_47\",0,\"object_59\",0],[\"object_47\",0,\"object_51\",1]]",
+    "connections": "[[\"object_47\",0,\"object_62\",0]]",
     "id": "object_47"
   },
   {
-    "x": 593,
-    "y": 236,
+    "x": 610,
+    "y": 314,
     "text": "dac~",
     "connections": "[]",
     "id": "object_51"
   },
   {
-    "x": 500,
-    "y": 241,
+    "x": 464,
+    "y": 261,
     "text": "cb",
-    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_59\",1]]",
+    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_59\",1],[\"object_53\",0,\"object_77\",0]]",
     "id": "object_53"
   },
   {
-    "x": 503,
-    "y": 279,
+    "x": 463,
+    "y": 317,
     "text": "print \"checkbox\"",
     "connections": "[]",
     "id": "object_56"
   },
   {
-    "x": 569,
-    "y": 177,
+    "x": 560,
+    "y": 249,
     "text": "muladd~ 1, 0",
     "connections": "[[\"object_59\",0,\"object_51\",0]]",
     "id": "object_59"
+  },
+  {
+    "x": 628,
+    "y": 158,
+    "text": "cycle~",
+    "connections": "[[\"object_60\",0,\"object_62\",0]]",
+    "id": "object_60"
+  },
+  {
+    "x": 550,
+    "y": 201,
+    "text": "muladd~ 0.4",
+    "connections": "[[\"object_62\",0,\"object_59\",0],[\"object_62\",0,\"object_65\",0]]",
+    "id": "object_62"
+  },
+  {
+    "x": 660,
+    "y": 251,
+    "text": "muladd~ 0, 0",
+    "connections": "[[\"object_65\",0,\"object_51\",1]]",
+    "id": "object_65"
+  },
+  {
+    "x": 648,
+    "y": 201,
+    "text": "not",
+    "connections": "[[\"object_77\",0,\"object_65\",1]]",
+    "id": "object_77"
+  },
+  {
+    "x": 637,
+    "y": 81,
+    "text": "cycle~ 330",
+    "connections": "[[\"object_71\",0,\"object_75\",0]]",
+    "id": "object_71"
+  },
+  {
+    "x": 647,
+    "y": 125,
+    "text": "muladd~ 200, 440",
+    "connections": "[[\"object_75\",0,\"object_60\",0]]",
+    "id": "object_75"
   }
 ]

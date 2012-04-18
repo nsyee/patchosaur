@@ -19,6 +19,7 @@ class Cycle extends patchagogy.Unit
         ( (x) => @muladd.mul.setValue x),
         ( (x) => @muladd.add.setValue x)
     ]
-    @audioletNodes = [@muladd, mulNode, addNode]
+    @audioletInputNodes = [@muladd, mulNode, addNode]
+    @audioletOutputNodes = [@muladd]
 
 patchagogy.units.add Cycle

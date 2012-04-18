@@ -42,8 +42,8 @@ patchagogy.UnitGraphView = Backbone.View.extend
         # that's when you're trying to connect to it from cycle though
         # only doesn't get connected on patch load
         toUnit = @objects.get(toID)?.get('unit')
-        if toUnit?.audioletNodes?
-          fromUnit?.audioletNodes?[outlet].disconnect toUnit.audioletNodes[inlet]
+        if toUnit?.audioletInputNodes?
+          fromUnit?.audioletOutputNodes?[outlet].disconnect toUnit.audioletInputNodes[inlet]
       # make new ones
       @makeConnections object
 
@@ -59,9 +59,9 @@ patchagogy.UnitGraphView = Backbone.View.extend
       toUnit = @objects.get(toID)?.get('unit')
       toFunc = toUnit?.inlets[inlet]
       # connect audiolet groups
-      if toUnit?.audioletNodes?
+      if toUnit?.audioletInputNodes?
         # fromUnit? is this a bug? when would it not be there yet?
-        fromUnit?.audioletNodes?[outlet].connect toUnit.audioletNodes[inlet]
+        fromUnit?.audioletOutputNodes?[outlet].connect toUnit.audioletInputNodes[inlet]
       # make make normal connections
       if toFunc
         unitConnections[outlet] or= []
