@@ -40,12 +40,12 @@ funcs.push _.extend ((x) -> return Math.pow(10, x/20)), names: ['dbtoa']
 
 # midi to frequency
 funcs.push _.extend (x) ->
-    return (Math.pow 2, (x-57)/12) * 440
+  return (Math.pow 2, (x-57)/12) * 440
 , names: ['mtof']
 
 # frequency to midi
 funcs.push _.extend (x) ->
-    return (Math.round(Math.log x/440 / Math.log 2)) * 12 + 57
+  return (Math.round(Math.log x/440 / Math.log 2)) * 12 + 57
 , names: ['ftom']
 
 # from http://www.musicdsp.org/showone.php?id=238

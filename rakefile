@@ -6,10 +6,10 @@ task :default => :test
 
 desc "run coffeelint"
 task :coffeelint do
-    sh "find assets app -name '*.coffee' | xargs node_modules/.bin/coffeelint"
+    sh "find assets app -name '*.coffee' | xargs node_modules/.bin/coffeelint -f etc/coffeelint.json"
 end
 
-fixme_command = "grep -ri --after-context=5 fixme assets"
+fixme_command = "grep -ri --after-context=5 fixme assets app"
 desc fixme_command
 task :fixme do
     sh fixme_command
@@ -17,12 +17,12 @@ end
 
 desc 'start the server'
 task :start do
-    sh "coffee server.coffee"
+    sh "./node_modules/.bin/coffee server.coffee"
 end
 
 desc 'start the server in production mode'
 task "start:production" do
-    sh "export NODE_ENV=production; coffee server.coffee"
+    sh "export NODE_ENV=production; ./node_modules/.bin/coffee server.coffee"
 end
 
 desc 'restore documents: git checkout documents'

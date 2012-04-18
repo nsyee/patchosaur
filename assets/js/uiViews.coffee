@@ -32,8 +32,13 @@ patchagogy.ObjectView = Backbone.View.extend {
       @place()
 
   clearElems: ->
-    for el in _.flatten [@raphaelSet, @raphaelBox, @raphaelText, @inlets, @outlets, @customGui]
-      el?.remove()
+    elemsToRemove = _.flatten [@raphaelSet,
+        @raphaelBox,
+        @raphaelText,
+        @inlets,
+        @outlets,
+        @customGui]
+    el?.remove() for el in elemsToRemove
 
   clear: () ->
     # FIXME
@@ -55,7 +60,8 @@ patchagogy.ObjectView = Backbone.View.extend {
       editEl.remove()
       @raphaelSet.show()
       @model.set new: false
-      @patchView.fsm.saveObjectEdit() # change state FIXME: save through this event?
+      # change state FIXME: save through this event?
+      @patchView.fsm.saveObjectEdit() 
     editEl.on 'keydown', (event) ->
       do editEl.blur if event.which == 13
 
@@ -84,7 +90,8 @@ patchagogy.ObjectView = Backbone.View.extend {
     # http://raphaeljs.com/reference.html#Paper.path
     # still leaking memory, maybe this isn't why
     # but it's better anyway
-    # FIXME: rename @connections to connectionels, update line instead of making new one
+    # FIXME: rename @connections to connectionels,
+    # update line instead of making new one
     # FIXME: connections and @connections
     for line in @connections
       line.remove()

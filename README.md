@@ -1,7 +1,6 @@
 # patchagogy
-## Max/MSP/puredata-like patching in the browser
 
-Description...
+Patchagogy is...
 
 ## Installing dependencies to run locally
 
@@ -27,11 +26,11 @@ Do one of the following:
   * clone mine: `git clone git@github.com:badamson/patchagogy.git`
   * [fork it](https://github.com/badamson/patchagogy/fork) and clone that
 
-Install patchagogy's dependencies:
+Install patchagogy's node.js dependencies:
 
 ```
 cd patchagogy
-npm install # install dependencies
+npm update # install or update node.js dependencies from package.json
 ```
 
 To start a patchagogy server:
