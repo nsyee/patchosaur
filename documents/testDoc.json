@@ -84,15 +84,15 @@
     "id": "object_39"
   },
   {
-    "x": 333,
-    "y": 282,
+    "x": 284,
+    "y": 293,
     "text": "socket.io \"midi\"",
     "connections": "[[\"object_41\",0,\"object_45\",0]]",
     "id": "object_41"
   },
   {
-    "x": 304,
-    "y": 337,
+    "x": 262,
+    "y": 336,
     "text": "print \"socket.io midi\"",
     "connections": "[]",
     "id": "object_45"
@@ -105,8 +105,8 @@
     "id": "object_47"
   },
   {
-    "x": 610,
-    "y": 314,
+    "x": 568,
+    "y": 393,
     "text": "dac~",
     "connections": "[]",
     "id": "object_51"
@@ -115,26 +115,26 @@
     "x": 464,
     "y": 261,
     "text": "cb",
-    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_59\",1],[\"object_53\",0,\"object_77\",0]]",
+    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_87\",0],[\"object_53\",0,\"object_77\",0]]",
     "id": "object_53"
   },
   {
-    "x": 463,
-    "y": 317,
+    "x": 394,
+    "y": 382,
     "text": "print \"checkbox\"",
     "connections": "[]",
     "id": "object_56"
   },
   {
-    "x": 560,
-    "y": 249,
+    "x": 527,
+    "y": 341,
     "text": "muladd~ 1, 0",
     "connections": "[[\"object_59\",0,\"object_51\",0]]",
     "id": "object_59"
   },
   {
-    "x": 628,
-    "y": 158,
+    "x": 640,
+    "y": 162,
     "text": "cycle~",
     "connections": "[[\"object_60\",0,\"object_62\",0]]",
     "id": "object_60"
@@ -147,17 +147,17 @@
     "id": "object_62"
   },
   {
-    "x": 660,
-    "y": 251,
+    "x": 657,
+    "y": 298,
     "text": "muladd~ 0, 0",
     "connections": "[[\"object_65\",0,\"object_51\",1]]",
     "id": "object_65"
   },
   {
-    "x": 648,
-    "y": 201,
+    "x": 662,
+    "y": 228,
     "text": "not",
-    "connections": "[[\"object_77\",0,\"object_65\",1]]",
+    "connections": "[[\"object_77\",0,\"object_83\",0]]",
     "id": "object_77"
   },
   {
@@ -168,10 +168,38 @@
     "id": "object_71"
   },
   {
-    "x": 647,
-    "y": 125,
+    "x": 653,
+    "y": 133,
     "text": "muladd~ 200, 440",
     "connections": "[[\"object_75\",0,\"object_60\",0]]",
     "id": "object_75"
+  },
+  {
+    "x": 738,
+    "y": 65,
+    "text": "cycle~ 2",
+    "connections": "[[\"object_78\",0,\"object_82\",0]]",
+    "id": "object_78"
+  },
+  {
+    "x": 718,
+    "y": 99,
+    "text": "muladd~ 300, 600",
+    "connections": "[[\"object_82\",0,\"object_75\",1]]",
+    "id": "object_82"
+  },
+  {
+    "x": 685,
+    "y": 261,
+    "text": "lag~ 0.1",
+    "connections": "[[\"object_83\",0,\"object_65\",1]]",
+    "id": "object_83"
+  },
+  {
+    "x": 524,
+    "y": 295,
+    "text": "lag~ 0.1",
+    "connections": "[[\"object_87\",0,\"object_59\",1]]",
+    "id": "object_87"
   }
 ]
