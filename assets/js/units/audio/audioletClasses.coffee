@@ -2,6 +2,7 @@ wrappedClasses = []
 wrappedClasses.push _.extend MulAdd, names: ['muladd~']
 wrappedClasses.push _.extend Sine, names: ['cycle~']
 wrappedClasses.push _.extend Lag, names: ['lag~']
+wrappedClasses.push _.extend Tanh, names: ['tanh~']
 
 # wrap each audiolet "class" in a Unit
 for AudioletClass in wrappedClasses then do (AudioletClass) ->

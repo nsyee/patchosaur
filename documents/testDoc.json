@@ -105,8 +105,8 @@
     "id": "object_47"
   },
   {
-    "x": 568,
-    "y": 393,
+    "x": 557,
+    "y": 453,
     "text": "dac~",
     "connections": "[]",
     "id": "object_51"
@@ -129,7 +129,7 @@
     "x": 527,
     "y": 341,
     "text": "muladd~ 1, 0",
-    "connections": "[[\"object_59\",0,\"object_51\",0]]",
+    "connections": "[[\"object_59\",0,\"object_97\",0]]",
     "id": "object_59"
   },
   {
@@ -142,7 +142,7 @@
   {
     "x": 550,
     "y": 201,
-    "text": "muladd~ 0.4",
+    "text": "muladd~ 5",
     "connections": "[[\"object_62\",0,\"object_59\",0],[\"object_62\",0,\"object_65\",0]]",
     "id": "object_62"
   },
@@ -150,7 +150,7 @@
     "x": 657,
     "y": 298,
     "text": "muladd~ 0, 0",
-    "connections": "[[\"object_65\",0,\"object_51\",1]]",
+    "connections": "[[\"object_65\",0,\"object_93\",0]]",
     "id": "object_65"
   },
   {
@@ -189,8 +189,8 @@
     "id": "object_82"
   },
   {
-    "x": 685,
-    "y": 261,
+    "x": 683,
+    "y": 260,
     "text": "lag~ 0.1",
     "connections": "[[\"object_83\",0,\"object_65\",1]]",
     "id": "object_83"
@@ -201,5 +201,19 @@
     "text": "lag~ 0.1",
     "connections": "[[\"object_87\",0,\"object_59\",1]]",
     "id": "object_87"
+  },
+  {
+    "x": 620,
+    "y": 377,
+    "text": "tanh~",
+    "connections": "[[\"object_93\",0,\"object_51\",1]]",
+    "id": "object_93"
+  },
+  {
+    "x": 539,
+    "y": 379,
+    "text": "tanh~",
+    "connections": "[[\"object_97\",0,\"object_51\",0]]",
+    "id": "object_97"
   }
 ]
