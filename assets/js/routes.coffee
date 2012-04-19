@@ -1,10 +1,10 @@
 # FIXME: require views and models
 
-patchagogy = @patchagogy = @patchagogy or {}
+patchosaur = @patchosaur = @patchosaur or {}
 
-patchagogy.routes = {}
+patchosaur.routes = {}
 
-patchagogy.routes.App = Backbone.Router.extend {
+patchosaur.routes.App = Backbone.Router.extend {
   routes:
     "index":       'index'
     "help":        'help'
@@ -14,13 +14,13 @@ patchagogy.routes.App = Backbone.Router.extend {
     "*path":       'index'
 
   index: () ->
-    patchagogy.paper = Raphael("holder", "100%", "100%")
-    patchagogy.objects = new patchagogy.Objects
-    patchagogy.patchView = new patchagogy.PatchView
-      objects: patchagogy.objects
-      paper:   patchagogy.paper
-    patchagogy.unitGraphView = new patchagogy.UnitGraphView
-      objects: patchagogy.objects
-    console.log 'created patch:', patchagogy.objects
-    patchagogy.objects.load()
+    patchosaur.paper = Raphael("holder", "100%", "100%")
+    patchosaur.objects = new patchosaur.Objects
+    patchosaur.patchView = new patchosaur.PatchView
+      objects: patchosaur.objects
+      paper:   patchosaur.paper
+    patchosaur.unitGraphView = new patchosaur.UnitGraphView
+      objects: patchosaur.objects
+    console.log 'created patch:', patchosaur.objects
+    patchosaur.objects.load()
 }

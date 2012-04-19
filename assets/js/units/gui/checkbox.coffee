@@ -1,4 +1,4 @@
-class Checkbox extends patchagogy.Unit
+class Checkbox extends patchosaur.Unit
   # repeat initialization value whenever input received
   @names: ['checkbox', 'cb']
   @tags: ['gui']
@@ -25,5 +25,5 @@ class Checkbox extends patchagogy.Unit
     # output
     @out 0, @value
 
-patchagogy.units.add Checkbox
+patchosaur.units.add Checkbox
 

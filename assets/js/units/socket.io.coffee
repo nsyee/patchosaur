@@ -1,4 +1,4 @@
-class Socket extends patchagogy.Unit
+class Socket extends patchosaur.Unit
   # repeat initialization value whenever input received
   @names: ['socket.io']
   setup: (@objectModel, @args) ->
@@ -13,5 +13,5 @@ class Socket extends patchagogy.Unit
   inlet: (args...) =>
     @socket.emit @event, args...
 
-patchagogy.units.add Socket
+patchosaur.units.add Socket
 

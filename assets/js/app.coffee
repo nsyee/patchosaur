@@ -1,8 +1,8 @@
-#= require patchagogy
+#= require patchosaur
 
 $ ->
   # start the engines
-  appController = new patchagogy.routes.App
+  appController = new patchosaur.routes.App
   do Backbone.history.start
   console.log 'aww... shit.'
 

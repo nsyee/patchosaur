@@ -1,6 +1,6 @@
 describe "Object Models", ->
   beforeEach ->
-    @objects = new patchagogy.Objects
+    @objects = new patchosaur.Objects
   afterEach ->
     do @objects.clear
 

@@ -1,4 +1,4 @@
-class Trigger extends patchagogy.Unit
+class Trigger extends patchosaur.Unit
   @names: ['trigger', 't']
   # repeat input to many outputs, specified by arg
   # outlets called in right-to-left order
@@ -13,4 +13,4 @@ class Trigger extends patchagogy.Unit
     for i in _.range(@numOutlets).reverse()
       @out i, arg
 
-patchagogy.units.add Trigger
+patchosaur.units.add Trigger

@@ -1,6 +1,6 @@
-# PATCHAGOGY
+# patchosaur
 
-Patchagogy is...
+patchosaur is...
 
 ## Installing dependencies to run locally
 
@@ -19,21 +19,21 @@ Patchagogy is...
   * ??? Install [rubygems](http://rubygems.org/)
   * Install rake: `gem install rake`
 
-### Check out patchagogy
+### Check out patchosaur
 
 Do one of the following:
 
-  * clone mine: `git clone git@github.com:badamson/patchagogy.git`
-  * [fork it](https://github.com/badamson/patchagogy/fork) and clone that
+  * clone mine: `git clone git@github.com:badamson/patchosaur.git`
+  * [fork it](https://github.com/badamson/patchosaur/fork) and clone that
 
-Install patchagogy's node.js dependencies:
+Install patchosaur's node.js dependencies:
 
 ```
-cd patchagogy
+cd patchosaur
 npm update # install or update node.js dependencies from package.json
 ```
 
-To start a patchagogy server:
+To start a patchosaur server:
 
 ```
 rake start
@@ -41,7 +41,7 @@ rake start
 
 Now open Chrome and visit [http://localhost:7777](http://localhost:7777)
 
-To start a local patchagogy server in production mode (js and css all concatted and minified):
+To start a local patchosaur server in production mode (js and css all concatted and minified):
 
 ```
 rake start:production
@@ -66,7 +66,7 @@ rake -T
 
 ## Contributing
 
-[Submit an issue](https://github.com/badamson/patchagogy/issues) and/or [fork this](https://github.com/badamson/patchagogy/fork) if you want to help!
+[Submit an issue](https://github.com/badamson/patchosaur/issues) and/or [fork this](https://github.com/badamson/patchosaur/fork) if you want to help!
 
 ### Arch
 
@@ -94,4 +94,4 @@ Models, units, unit graph views, ui views
 * Max-like subpatcher and abstraction support
 * Collaborative patch editing (send model changes over socket.io)
 * Undo support (backbone.memento?), would be nice if it worked with browser back button
-* Easy patchagogy units in faust would be awesome. [faust](http://faust.grame.fr/) compiles to js, maybe add audiolet architecture files to faust? See [this article](http://faust.grame.fr/index.php/7-news/73-faust-web-art).
+* Easy patchosaur units in faust would be awesome. [faust](http://faust.grame.fr/) compiles to js, maybe add audiolet architecture files to faust? See [this article](http://faust.grame.fr/index.php/7-news/73-faust-web-art).

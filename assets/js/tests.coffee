@@ -1,4 +1,4 @@
-#= require patchagogy
+#= require patchosaur
 #= require 3p/jasmine
 #= require 3p/jasmine-html
 #= require_tree spec

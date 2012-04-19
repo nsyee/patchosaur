@@ -1,6 +1,6 @@
-patchagogy = @patchagogy = @patchagogy or {}
+patchosaur = @patchosaur = @patchosaur or {}
 
-patchagogy.ObjectView = Backbone.View.extend {
+patchosaur.ObjectView = Backbone.View.extend {
   initialize: () ->
     # get elements inside a span or div?
     @patchView = @options.patchView
@@ -240,7 +240,7 @@ patchagogy.ObjectView = Backbone.View.extend {
     @raphaelSet = do @p.setFinish
 }
 
-patchagogy.PatchView = Backbone.View.extend {
+patchosaur.PatchView = Backbone.View.extend {
   # FIXME: let the view make the #holder div
   el: $('#holder')
   initialize: () ->
@@ -251,7 +251,7 @@ patchagogy.PatchView = Backbone.View.extend {
     @fsm = do @makeFSM
     # bind model change events
     @objects.bind 'add', (object) =>
-      objectView = new patchagogy.ObjectView
+      objectView = new patchosaur.ObjectView
         model: object
         patchView: @
       do objectView.edit if do object.isNew
@@ -291,12 +291,12 @@ patchagogy.PatchView = Backbone.View.extend {
     <div class="modal" id="modalHelp">
         <div class="modal-header">
             <a class="close" data-dismiss="modal">×</a>
-            <h3>Patchagogy Help</h3>
+            <h3>patchosaur Help</h3>
         </div>
         <div class="modal-body">
             <p>awesome sauce</p>
             <ul>
-                <% _.each(patchagogy.units.units, function (unit, name, x) {  %>
+                <% _.each(patchosaur.units.units, function (unit, name, x) {  %>
                     <li><%= name %></li>
                 <% }); %>
             </ul>

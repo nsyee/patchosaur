@@ -1,4 +1,4 @@
-class Coffee extends patchagogy.Unit
+class Coffee extends patchosaur.Unit
   @names: ['cs']
   setup: (@objectModel, @args) ->
     # take num inlets from num args
@@ -19,4 +19,4 @@ class Coffee extends patchagogy.Unit
     if i == 0
       @out 0, @csFunc @currArgs...
 
-patchagogy.units.add Coffee
+patchosaur.units.add Coffee

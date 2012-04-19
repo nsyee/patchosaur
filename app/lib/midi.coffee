@@ -1,7 +1,7 @@
 {EventEmitter} = require 'events'
 _ = require 'underscore'
 
-VIRTUAL_PORT = 'Patchagogy'
+VIRTUAL_PORT = 'patchosaur'
 
 MIDI_COMMANDS =
   0x90: 'noteOn'

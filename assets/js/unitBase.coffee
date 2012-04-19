@@ -1,6 +1,6 @@
-@patchagogy ?= {}
+@patchosaur ?= {}
 
-class patchagogy.Unit
+class patchosaur.Unit
   constructor: (@objectModel, @args) ->
     console.log 'making unit', @objectModel.get 'text'
     @connections = {}  # {outletIndex: [func, func, func...]}
@@ -32,7 +32,7 @@ class patchagogy.Unit
 
   stop: ->
 
-class patchagogy.Units
+class patchosaur.Units
   constructor: -> @units = {}
 
   add: (UnitClass) ->
@@ -45,4 +45,4 @@ class patchagogy.Units
   get: (name) ->
     @units[name] or console.log 'no unit class by name:', name
 
-patchagogy.units = new patchagogy.Units
+patchosaur.units = new patchosaur.Units

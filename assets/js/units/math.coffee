@@ -59,7 +59,7 @@ funcs.push _.extend (x) ->
 
 for func in funcs
   do (func) ->
-    class MathFunc extends patchagogy.Unit
+    class MathFunc extends patchosaur.Unit
       @names = func.names
       @tags  = (func.tags or []).concat ['math']
       setup: (@objectModel, @args) ->
@@ -75,6 +75,6 @@ for func in funcs
         if i == 0
           @out 0, @func @currArgs...
 
-    patchagogy.units.add MathFunc
+    patchosaur.units.add MathFunc
 
 

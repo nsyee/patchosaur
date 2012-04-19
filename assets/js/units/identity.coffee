@@ -1,4 +1,4 @@
-class Identity extends patchagogy.Unit
+class Identity extends patchosaur.Unit
   @names: ['identity']
   setup: (@objectModel, @args) ->
     @objectModel.set numInlets: 1
@@ -9,4 +9,4 @@ class Identity extends patchagogy.Unit
   call: (i, arg) =>
     @out i, arg
 
-patchagogy.units.add Identity
+patchosaur.units.add Identity

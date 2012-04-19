@@ -1,4 +1,4 @@
-class Cycle extends patchagogy.Unit
+class Cycle extends patchosaur.Unit
   @names: ['cycle~']
   setup: (@objectModel, @args) ->
     # take num inlets from num args
@@ -9,8 +9,8 @@ class Cycle extends patchagogy.Unit
     @objectModel.set numInlets: 1
     @objectModel.set numOutlets: 1
     @inlets = [(x)=>@sine.frequency.setValue x] # FIXME
-    @sine = new Sine patchagogy.audiolet, arg
+    @sine = new Sine patchosaur.audiolet, arg
     @audioletInputNodes = [@sine]
     @audioletOutputNodes = [@sine]
 
-patchagogy.units.add Cycle
+patchosaur.units.add Cycle

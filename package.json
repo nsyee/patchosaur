@@ -1,11 +1,11 @@
 {
   "author": "Brendan Adamson <brendan.adamson@gmail.com> (http://github.com/badamson)",
-  "name": "patchagogy",
+  "name": "patchosaur",
   "description": "Max/MSP/puredata-like music patching in the browser",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/badamson/patchagogy.git"
+    "url": "git://github.com/badamson/patchosaur.git"
   },
   "scripts": {
     "test": "rake test"

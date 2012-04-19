@@ -1,3 +1,3 @@
-@patchagogy ?= @patchagogy or {}
+@patchosaur ?= @patchosaur or {}
 
-@patchagogy.audiolet = new Audiolet
+@patchosaur.audiolet = new Audiolet

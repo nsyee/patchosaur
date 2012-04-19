@@ -1,11 +1,11 @@
 # FIXME: require underscore
 # FIXME: require jquery
 
-patchagogy = @patchagogy = @patchagogy or {}
+patchosaur = @patchosaur = @patchosaur or {}
 
 DEFAULT_UNIT = 'identity'
 
-patchagogy.Object = Backbone.Model.extend {
+patchosaur.Object = Backbone.Model.extend {
   defaults:
     text: DEFAULT_UNIT # '' and even ' ' makes 0px objects FIXME: just put in min width
     numInlets: 1
@@ -100,9 +100,9 @@ patchagogy.Object = Backbone.Model.extend {
     (cx[2] for cx in do @getConnections)
 }
 
-patchagogy.Objects = Backbone.Collection.extend {
+patchosaur.Objects = Backbone.Collection.extend {
   url: '/patch'
-  model: patchagogy.Object
+  model: patchosaur.Object
 
   initialize: ->
     @bind 'remove', (removed) ->

@@ -1,4 +1,4 @@
-class Dump extends patchagogy.Unit
+class Dump extends patchosaur.Unit
   # repeat initialization value whenever input received
   @names: ['dump']
   setup: (@objectModel, @args) ->
@@ -10,5 +10,5 @@ class Dump extends patchagogy.Unit
   inlet: (arg) =>
     @out 0, @value
 
-patchagogy.units.add Dump
+patchosaur.units.add Dump
 

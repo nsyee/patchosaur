@@ -1,4 +1,4 @@
-class Cycle extends patchagogy.Unit
+class Cycle extends patchosaur.Unit
   # FIXME this doesn't work at all
   @names: ['muladd~']
   setup: (@objectModel, @args) ->
@@ -8,7 +8,7 @@ class Cycle extends patchagogy.Unit
     # FIXME: error handling for non-number args?
     @objectModel.set numInlets: 3
     @objectModel.set numOutlets: 1
-    a = patchagogy.audiolet
+    a = patchosaur.audiolet
     @muladd = new MulAdd a, mul, add
     mulNode = new PassThroughNode a, 1, 1
     addNode = new PassThroughNode a, 1, 1
@@ -22,4 +22,4 @@ class Cycle extends patchagogy.Unit
     @audioletInputNodes = [@muladd, mulNode, addNode]
     @audioletOutputNodes = [@muladd]
 
-patchagogy.units.add Cycle
+patchosaur.units.add Cycle
