@@ -30,6 +30,14 @@ task "restore:docs" do
     sh "git checkout documents"
 end
 
+desc 'generate static site from app running locally on port 7777; run rake start:production first'
+# see
+# http://www.noah.org/wiki/Offline_mirror_with_wget
+# http://news.ycombinator.com/item?id=3196103
+task "statify" do
+    sh "wget --mirror --page-requisites --no-host-directories --directory-prefix=static --convert-links localhost:7777"
+end
+
 desc 'update 3p'
 task :update3p do
     sh "curl -o assets/js/3p/underscore.js 'https://raw.github.com/documentcloud/underscore/master/underscore.js'"
