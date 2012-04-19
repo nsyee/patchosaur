@@ -1,4 +1,4 @@
-class Cycle extends patchosaur.Unit
+class PSMulAdd extends patchosaur.Unit
   # FIXME this doesn't work at all
   @names: ['muladd~']
   setup: (@objectModel, @args) ->
@@ -13,13 +13,13 @@ class Cycle extends patchosaur.Unit
     mulNode = new PassThroughNode a, 1, 1
     addNode = new PassThroughNode a, 1, 1
     mulNode.connect @muladd, 0, 1
-    mulNode.connect @muladd, 0, 2
+    addNode.connect @muladd, 0, 2
     @inlets = [
         (->),
-        ( (x) => @muladd.mul.setValue x),
-        ( (x) => @muladd.add.setValue x)
+        ( (x) => @muladd.mul.setValue (+x)),
+        ( (x) => @muladd.add.setValue (+x))
     ]
     @audioletInputNodes = [@muladd, mulNode, addNode]
     @audioletOutputNodes = [@muladd]
 
-patchosaur.units.add Cycle
+patchosaur.units.add PSMulAdd
