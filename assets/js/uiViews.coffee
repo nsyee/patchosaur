@@ -1,5 +1,10 @@
 patchosaur = @patchosaur = @patchosaur or {}
 
+# 30 times a second
+REFRESH_RATE = 1000 / 30
+
+throttle = (f) => _.throttle f, REFRESH_RATE
+
 patchosaur.ObjectView = Backbone.View.extend {
   initialize: () ->
     # get elements inside a span or div?
@@ -25,19 +30,17 @@ patchosaur.ObjectView = Backbone.View.extend {
     @customGui = @model.get 'customGui'
     # make it
     do @render
-    @raphaelSet.forEach (el) =>
-      el.node.setAttribute 'class', @id
     @model.bind 'change:customGui', =>
       @customGui = @model.get 'customGui'
       @place()
 
   clearElems: ->
     elemsToRemove = _.flatten [@raphaelSet,
-        @raphaelBox,
-        @raphaelText,
-        @inlets,
-        @outlets,
-        @customGui]
+      @raphaelBox,
+      @raphaelText,
+      @inlets,
+      @outlets,
+      @customGui]
     el?.remove() for el in elemsToRemove
 
   clear: () ->
@@ -61,7 +64,7 @@ patchosaur.ObjectView = Backbone.View.extend {
       @raphaelSet.show()
       @model.set new: false
       # change state FIXME: save through this event?
-      @patchView.fsm.saveObjectEdit() 
+      @patchView.fsm.saveObjectEdit()
     editEl.on 'keydown', (event) ->
       do editEl.blur if event.which == 13
 
@@ -82,16 +85,8 @@ patchosaur.ObjectView = Backbone.View.extend {
         position: 'absolute'
 
   drawConnections: () ->
-    # draw your own lines
-    # FIXME, move current if poss
-    # else, clear current and redo
-    # FIXME there has to be some kind of wrapper lib
-    # make slightly curvy?
-    # http://raphaeljs.com/reference.html#Paper.path
-    # still leaking memory, maybe this isn't why
-    # but it's better anyway
-    # FIXME: rename @connections to connectionels,
-    # update line instead of making new one
+    # FIXME: rename @connections to connectionEls?
+    # FIXME: update line instead of making new one?
     # FIXME: connections and @connections
     for line in @connections
       line.remove()
@@ -121,26 +116,29 @@ patchosaur.ObjectView = Backbone.View.extend {
     onEl.offsetX = onEl.attrs.x - fromEl.attrs.x
     onEl.offsetY = onEl.attrs.y - fromEl.attrs.y
 
-  render: () ->
-    @raphaelSet?.remove()
-    do @p.setStart
-    console.log 'rendering object view', @id, @, @model
-    p = @p
-    x = @model.get 'x'
-    y = @model.get 'y'
-    text = @model.get 'text'
+  drawTextElem: (text, x, y) ->
     textElem = @p.text x, y, text
     textElem.attr
       "font-size": 11
       "font-family": "monospace"
     box = textElem.getBBox()
     # reposition so saves/restores work
-    # FIXME this is stupid
     textElem.attr
       x: x + (box.width / 2)
       y: y + (box.height / 2)
-    box = textElem.getBBox()
-    @raphaelText = textElem
+    textElem
+
+  render: () ->
+    # FIXME: break this up
+    console.log 'rendering object view', @id, @, @model
+    @raphaelSet?.remove()
+    do @p.setStart
+    p = @p
+    x = @model.get 'x'
+    y = @model.get 'y'
+    text = @model.get 'text'
+    @raphaelText = @drawTextElem text, x, y
+    box = @raphaelText.getBBox()
     pad = 2
     # FIXME: mess
     # draw wider based on max(numInlets, outlets)
@@ -227,11 +225,10 @@ patchosaur.ObjectView = Backbone.View.extend {
       @animate({"fill-opacity": .3}, 200)
     endDrag = (event) ->
       @animate({"fill-opacity": 0}, 700)
-    move = (dx, dy) ->
+    move = throttle (dx, dy) ->
       att = {x: @ox + dx, y: @oy + dy}
       # set on model, triggers events to redraw
       self.model.set att
-    move = _.throttle move, 22
     rect.drag move, startDrag, endDrag
     rect.dblclick => do @edit
     rect.click (event) =>
