@@ -14,6 +14,8 @@ patchosaur.UnitGraphView = Backbone.View.extend
       object.get('unit').stop()
 
     @objects.bind 'add change:text', (o) =>
+      # FIXME: audio units need to be disconnected before you make the new unit
+      # when you are changing text. split up redoConnections and call remove prev before to fix the bug
       o.get('unit')?.stop()
       UnitClass = patchosaur.units.get o.get 'unitClassName'
       if not UnitClass
