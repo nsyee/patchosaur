@@ -57,6 +57,7 @@ task :update3p do
     sh "unzip -d tmp_bootstrap tmp_bootstrap/bootstrap.zip"
     sh "cp tmp_bootstrap/bootstrap/css/*min*.css assets/css/3p/"
     sh "cp tmp_bootstrap/bootstrap/js/*min*.js assets/js/3p/"
+    sh "cp tmp_bootstrap/bootstrap/img/* public/img"
     #FIXME: Include images
     sh "rm -r tmp_bootstrap"
     # strip 'min' out of all names

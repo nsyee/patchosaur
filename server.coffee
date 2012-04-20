@@ -5,15 +5,7 @@ io = require('socket.io').listen app
 controllers = require './app/controllers'
 midi = require './app/lib/midi'
 
-cacheMiddleware = (req, res, next) ->
-  res.setHeader "Cache-Control", "public, max-age=86400"  # 1 day
-  do next
-
-
-app.configure 'production', ->
-  app.use cacheMiddleware
-
-app.use express.static 'public', {maxAge: 86400000} # 1 day
+app.use express.static 'public'
 app.configure 'production', ->
   app.use do express.staticCache
 app.use express.logger()
