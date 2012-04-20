@@ -2,7 +2,7 @@
 
 patchosaur is...
 
-![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png "demo patchosaur patch")
+![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
 
 ## Installing dependencies to run locally
 
@@ -56,6 +56,10 @@ rake -T
 ```
 
 ## Making Patches
+
+### Getting help
+
+### Saving
 
 ### Conventions
 
