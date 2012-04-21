@@ -275,16 +275,10 @@ patchosaur.PatchView = Backbone.View.extend {
 
     # help
     do @generateHelp
-    # bind h key to toggle help
-    # to get link in header to toggle it, see docs under markup,
-    # you can have a link with data-toggle
     $(document).on 'keydown', (event) =>
-      # toggle help
-      if event.which == 72      # "h"
-        if @fsm.can('showHelp')
-          @fsm.showHelp()
-        else if @fsm.can('hideHelp')
-          @fsm.hideHelp()
+      do @fsm.toggleHelp if event.which == 72 # "h"
+    $('#help-link').on 'click', =>
+      do @fsm.toggleHelp
 
   generateHelp: ->
     template = patchosaur.templates.help
@@ -303,8 +297,8 @@ patchosaur.PatchView = Backbone.View.extend {
         {name: 'selectInlet', from: 'outletSelected', to: 'ready'}
         {name: 'createObject', from: '*', to: 'editingObject'}
         {name: 'saveObjectEdit', from: 'editingObject', to: 'ready'}
-        {name: 'showHelp', from: 'ready', to: 'help'}
-        {name: 'hideHelp', from: 'help', to: 'ready'}
+        # can only toggle help from ready
+        {name: 'toggleHelp', from: 'ready', to: 'ready'}
         {
           name: 'escape'
           from: ['outletSelected', 'inletSelected']
@@ -318,10 +312,8 @@ patchosaur.PatchView = Backbone.View.extend {
           @_setInlet data
         oncreateObject: (event, from, to, object) =>
           @objects.newObject object
-        onshowHelp: (event, from, to, object) =>
-          @helpEl.modal('show')
-        onhideHelp: (event, from, to, object) =>
-          @helpEl.modal('hide')
+        ontoggleHelp: (event, from, to, object) =>
+          @helpEl.modal 'toggle'
 
   selectOutlet: (args...) -> @fsm.selectOutlet(args...)
   selectInlet:  (args...) -> @fsm.selectInlet(args...)
