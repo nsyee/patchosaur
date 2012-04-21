@@ -1,4 +1,6 @@
-patchosaur = @patchosaur = @patchosaur or {}
+#= require templates/help
+
+patchosaur = @patchosaur ?= {}
 
 # 30 times a second
 REFRESH_RATE = 1000 / 30
@@ -269,6 +271,7 @@ patchosaur.PatchView = Backbone.View.extend {
         y: event.pageY
         new: true
 
+    # help
     do @generateHelp
     # bind h key to toggle help
     # to get link in header to toggle it, see docs under markup,
@@ -282,30 +285,9 @@ patchosaur.PatchView = Backbone.View.extend {
           @fsm.hideHelp()
 
   generateHelp: ->
-    # FIXME: use templates, compile before
-    # FIXME: set up removal
-    template = '''
-    <div class="modal" id="modalHelp">
-        <div class="modal-header">
-            <a class="close" data-dismiss="modal">×</a>
-            <h3>patchosaur Help</h3>
-        </div>
-        <div class="modal-body">
-            <p>awesome sauce</p>
-            <ul>
-                <% _.each(patchosaur.units.units, function (unit, name, x) {  %>
-                    <li><%= name %></li>
-                <% }); %>
-            </ul>
-        </div>
-        <div class="modal-footer">
-            <a data-dismiss="modal" class="btn">Close</a>
-        </div>
-    </div>
-    '''
-    compiled = _.template template
+    template = patchosaur.templates.help
     data = {}
-    div = $ compiled data
+    div = $ template data
     $('body').append div
     div.modal().modal('hide')
     @helpEl = div
