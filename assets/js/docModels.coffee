@@ -5,7 +5,7 @@ patchosaur = @patchosaur = @patchosaur or {}
 
 DEFAULT_UNIT = 'identity'
 
-patchosaur.Object = Backbone.Model.extend {
+patchosaur.Object = Backbone.Model.extend
   defaults:
     text: DEFAULT_UNIT # '' and even ' ' makes 0px objects FIXME: just put in min width
     numInlets: 1
@@ -98,9 +98,9 @@ patchosaur.Object = Backbone.Model.extend {
     # get a list of objects this is connected to
     # useful for limiting connection redraws
     (cx[2] for cx in do @getConnections)
-}
 
-patchosaur.Objects = Backbone.Collection.extend {
+
+patchosaur.Objects = Backbone.Collection.extend
   url: '/patch'
   model: patchosaur.Object
 
@@ -154,4 +154,3 @@ patchosaur.Objects = Backbone.Collection.extend {
   load: () ->
     do @clear
     @fetch({add: true})
-}

@@ -21,7 +21,7 @@ patchosaur.templates.help = _.template '''
           To remove an object:
           <ul>
             <li>On a Mac: alt-click on it</li>
-            <li>Linx: ctrl-click on it</li>
+            <li>Linux: ctrl-click on it</li>
           </ul>
         </p>
         <p>
