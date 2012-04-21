@@ -1,6 +1,7 @@
 class DAC extends patchosaur.Unit
   @names: ['dac~', 'out~']
-  setup: (@objectModel, @args) ->
+  setup: (@objectModel) ->
+    # FIXME: get numOutlets
     @objectModel.set numInlets: 2
     @objectModel.set numOutlets: 0
     a = patchosaur.audiolet
@@ -14,7 +15,7 @@ class DAC extends patchosaur.Unit
 class ADC extends patchosaur.Unit
   @names: ['adc~', 'in~']
   setup: (@objectModel, @args) ->
-    # FIXME: this doesn't really work, see DAC
+    # FIXME: this doesn't work, see DAC to fix
     @objectModel.set numInlets: 0
     @objectModel.set numOutlets: 2
     @audioletGroup = patchosaur.audiolet.input

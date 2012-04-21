@@ -1,11 +1,11 @@
 @patchosaur ?= {}
 
 class patchosaur.Unit
-  constructor: (@objectModel, @args) ->
+  constructor: (@objectModel) ->
     console.log 'making unit', @objectModel.get 'text'
     @connections = {}  # {outletIndex: [func, func, func...]}
     @inlets = []       # [inlet1Func, inlet2Func]
-    @setup @objectModel, @args
+    @setup @objectModel
 
   setConnections: (@connections) ->
 

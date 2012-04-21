@@ -1,6 +1,7 @@
 class Print extends patchosaur.Unit
   @names: ['print']
-  setup: (@objectModel, @args) ->
+  setup: (@objectModel) ->
+    @args = @objectModel.get 'unitArgs'
     @label = @args[0] or "print"
     @objectModel.set numInlets: 1
     @objectModel.set numOutlets: 0

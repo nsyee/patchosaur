@@ -1,6 +1,6 @@
 class Identity extends patchosaur.Unit
   @names: ['identity']
-  setup: (@objectModel, @args) ->
+  setup: (@objectModel) ->
     @objectModel.set numInlets: 1
     @objectModel.set numOutlets: 1
     # make inlets from @call

@@ -1,7 +1,8 @@
 class Socket extends patchosaur.Unit
   # repeat initialization value whenever input received
   @names: ['socket.io']
-  setup: (@objectModel, @args) ->
+  setup: (@objectModel) ->
+    @args = @objectModel.get 'unitArgs'
     @event = @args[0] or 'midi'
     @socket = do io.connect
     @socket.on @event, (args...) =>

@@ -57,9 +57,11 @@ rake -T
 
 ## Making Patches
 
-### Getting help
+Press 'h' to toggle help. Double click to create a new object or to edit an existing one. To connect an inlet to and outlet, click an outlet (it should pulse), then click the inlet. To move an object, drag it.
 
 ### Saving
+
+No real document support. After the app loads, the patch `documents/testDoc.json` is loaded. Every time the patch is edited, it is saved to this file. To edit a new document, replace the contents of `documents/testDoc.json` with `[]`.
 
 ### Conventions
 
@@ -87,13 +89,18 @@ rake -T
 
 * mention exposing audiolet inlet and outlet nodes, internal routing
 
-### Up next
+## Up next
 
 * bugs
+* more audio units (wrap rest of audiolet classes)
+* sample-accurate audiolet-based timing objects
+* docs
+* better MIDI
 * static site with bootstrapped document
 * unit tests
+* demo video
 
-### Future Ideas
+## Future Ideas
 
 * Document support, save and share patches:
   * stored remotely (save and load to/from github pritave anonymous gists or dropbox or something), would be nice for purely static server-less app

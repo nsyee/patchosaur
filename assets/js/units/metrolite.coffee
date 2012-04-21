@@ -1,7 +1,8 @@
 class Metrolite extends patchosaur.Unit
   @names: ['metrolite']
-  setup: (@objectModel, @args) ->
+  setup: (@objectModel) ->
     console.log 'making metrolite unit', @
+    @args = @objectModel.get 'unitArgs'
     [deltaT, rest...] = @args
     @objectModel.set numInlets: 1
     @objectModel.set numOutlets: 1

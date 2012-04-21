@@ -62,8 +62,9 @@ for func in funcs
     class MathFunc extends patchosaur.Unit
       @names = func.names
       @tags  = (func.tags or []).concat ['math']
-      setup: (@objectModel, @args) ->
+      setup: (@objectModel) ->
         @func = func
+        @args = @objectModel.get 'unitArgs'
         numInlets = @func.length
         @currArgs = [0, @args...]
         @objectModel.set numInlets: numInlets

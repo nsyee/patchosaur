@@ -1,6 +1,6 @@
 class Null extends patchosaur.Unit
   @names: ['null']
-  setup: (@objectModel, @args) ->
+  setup: (@objectModel) ->
     @objectModel.set numInlets: 0
     @objectModel.set numOutlets: 0
 

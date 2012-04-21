@@ -3,7 +3,7 @@
 # FIXME: put this directly on models? that seems like a bad idea too
 patchosaur = @patchosaur = @patchosaur or {}
 
-DEFAULT_UNIT = 'identity'
+DEFAULT_UNIT = 'null'
 
 patchosaur.UnitGraphView = Backbone.View.extend
   initialize: () ->
@@ -20,8 +20,7 @@ patchosaur.UnitGraphView = Backbone.View.extend
         # FIXME: just don't make it?
         console.warn "no unit class found for #{o.get 'unitClassName'}, using #{DEFAULT_UNIT}"
         UnitClass = patchosaur.units.get DEFAULT_UNIT
-      unit = new UnitClass o, o.get 'unitArgs'
-      console.log 'unit', unit
+      unit = new UnitClass o
       o.set unit: unit
       @makeConnectionsFrom o
 
@@ -59,7 +58,6 @@ patchosaur.UnitGraphView = Backbone.View.extend
     connections = object.getConnections()
     fromUnit = object.get 'unit'
     return if not fromUnit
-    console.log 'redoing unit connections on', object.get 'text'
     unitConnections = {}
     for connection in connections
       [fromID, outlet, toID, inlet] = connection
@@ -72,6 +70,4 @@ patchosaur.UnitGraphView = Backbone.View.extend
       if toFunc
         unitConnections[outlet] or= []
         unitConnections[outlet].push toFunc
-      else
-        console.warn "no inlet func here, we must be loading a patch", object, @objects.get toID
     fromUnit.setConnections unitConnections

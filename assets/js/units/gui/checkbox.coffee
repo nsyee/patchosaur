@@ -2,7 +2,8 @@ class Checkbox extends patchosaur.Unit
   # repeat initialization value whenever input received
   @names: ['checkbox', 'cb']
   @tags: ['gui']
-  setup: (@objectModel, @args) ->
+  setup: (@objectModel) ->
+    @args = @objectModel.get 'unitArgs'
     arg = @args[0]
     @value = if arg == undefined then false else !!arg
     @objectModel.set numInlets: 1

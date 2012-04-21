@@ -220,7 +220,6 @@ patchosaur.ObjectView = Backbone.View.extend {
 
   render: () ->
     # FIXME: break this up
-    console.log 'rendering object view', @id, @, @model
     @raphaelSet?.remove()
     do @p.setStart
     x = @model.get 'x'

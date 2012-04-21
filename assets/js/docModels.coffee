@@ -17,8 +17,6 @@ patchosaur.Object = Backbone.Model.extend
   isNew: -> !! @get 'new'
 
   toJSON: ->
-    # whitelist only attributes to sync
-    # FIXME: needs more, see trello...
     o = {}
     for prop in ['x', 'y', 'text', 'connections']
       o[prop] = @get prop
@@ -125,18 +123,6 @@ patchosaur.Objects = Backbone.Collection.extend
     @add object
     object
 
-  # FIXME: you are going to need this
-  #@bind 'change:numInlets change:numOutlets', (changed) =>
-  # FIXME: do you need this? probably for changing numoutlets
-  # connectedObjects: (targetObject) ->
-  #   # get objects this is connected to or from
-  #   # including this object
-  #   tid = targetObject.id
-  #   targetToObjects = do targetObject.getToObjects
-  #   affected = @filter (object) ->
-  #     toObjects = do object.getToObjects
-  #     tid == object.id or tid in toObjects or tid in targetToObjects
-
   connectedFrom: (targetObject) ->
     # get objects this is connected from
     # INCLUDING this object
@@ -147,7 +133,7 @@ patchosaur.Objects = Backbone.Collection.extend
 
   save: _.debounce () ->
     Backbone.sync 'create', @
-  , 1000 # debounce ms
+  , 500 # debounce ms
 
   clear: -> @remove @models
 
