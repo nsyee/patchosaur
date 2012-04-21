@@ -3,17 +3,14 @@
 
 patchosaur = @patchosaur = @patchosaur or {}
 
-DEFAULT_UNIT = 'identity'
-
 patchosaur.Object = Backbone.Model.extend
   defaults:
-    text: DEFAULT_UNIT # '' and even ' ' makes 0px objects FIXME: just put in min width
+    text: 'null'
     numInlets: 1
     numOutlets: 1
     x: 100
     y: 100
 
-  isBlank: -> @get('text') == DEFAULT_UNIT
   isNew: -> !! @get 'new'
 
   toJSON: ->

@@ -58,7 +58,7 @@ patchosaur.ObjectView = Backbone.View.extend {
       left: bbox.x - 1
       top: bbox.y - 1
     editEl.on 'focusout', (event) =>
-      @model.set 'text', editEl.val()
+      @model.set 'text', editEl.val() or 'null'
       @model.set new: false
       @raphaelSet.show()
       editEl.remove()
@@ -241,7 +241,7 @@ patchosaur.ObjectView = Backbone.View.extend {
       # set on model, triggers events to redraw
       model.set att
     @raphaelBox.drag move, startDrag, endDrag
-    @raphaelBox.dblclick => do @edit
+    @raphaelBox.dblclick => @patchView.fsm.editObject @
     @raphaelBox.click (event) =>
       if event.altKey or event.ctrlKey
         do @clear
@@ -302,7 +302,8 @@ patchosaur.PatchView = Backbone.View.extend {
       events: [
         {name: 'selectOutlet', from: '*', to: 'outletSelected'}
         {name: 'selectInlet', from: 'outletSelected', to: 'ready'}
-        {name: 'createObject', from: '*', to: 'editingObject'}
+        {name: 'editObject', from: 'ready', to: 'editingObject'}
+        {name: 'createObject', from: 'ready', to: 'editingObject'}
         {name: 'saveObjectEdit', from: 'editingObject', to: 'ready'}
         # can only toggle help from ready
         {name: 'toggleHelp', from: 'ready', to: 'ready'}
@@ -319,6 +320,8 @@ patchosaur.PatchView = Backbone.View.extend {
           @_setInlet data
         oncreateObject: (event, from, to, object) =>
           @objects.newObject object
+        oneditObject: (event, from, to, object) =>
+          object.edit()
         ontoggleHelp: (event, from, to, object) =>
           @helpEl.modal 'toggle'
 
