@@ -1,6 +1,6 @@
 # patchosaur
 
-patchosaur is...
+patchosaur is a Max/MSP- and puredata-like patching environment that runs in a browser. It supports audio and MIDI. It's not useful yet, but it can do some cool things.
 
 ![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
 
@@ -58,6 +58,11 @@ rake -T
 ## Making Patches
 
 Press 'h' to toggle help. Double click to create a new object or to edit an existing one. To connect an inlet to and outlet, click an outlet (it should pulse), then click the inlet. To move an object, drag it.
+
+To remove an object or patchcord:
+
+* On a Mac: alt-click on it
+* Linux: ctrl-click on it
 
 ### Saving
 

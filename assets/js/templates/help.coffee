@@ -18,7 +18,7 @@ patchosaur.templates.help = _.template '''
         To move an object, drag it.
         </p>
         <p>
-          To remove an object:
+          To remove an object or patchcord:
           <ul>
             <li>On a Mac: alt-click on it</li>
             <li>Linux: ctrl-click on it</li>
