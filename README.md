@@ -2,6 +2,8 @@
 
 patchosaur is...
 
+![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
+
 ## Installing dependencies to run locally
 
 ### Install [node.js](http://nodejs.org/), git, dependencies
@@ -55,22 +57,24 @@ rake -T
 
 ## Making Patches
 
+### Getting help
+
+### Saving
+
 ### Conventions
 
 * mention right to left (link to some pd or max docs)
   * like pd, not max: trigger is necessary
-* mention left inlet is hot with few exceptions (puredata docs)
-* object argument parsing as JSON, commas, valid input
+* mention left inlet is hot with few exceptions (link to puredata docs)
+* mention object argument parsing as JSON, commas, valid input
+
+### MIDI
 
 #### Differences from Max and puredata
 
 ## Contributing
 
-[Submit an issue](https://github.com/badamson/patchosaur/issues) and/or [fork this](https://github.com/badamson/patchosaur/fork) if you want to help!
-
-### Arch
-
-Models, units, unit graph views, ui views
+[Submit an issue](https://github.com/badamson/patchosaur/issues) and/or [fork this](https://github.com/badamson/patchosaur/fork).
 
 ### Writing Units
 
@@ -81,7 +85,13 @@ Models, units, unit graph views, ui views
 
 #### Writing audiolet units
 
-* mention exposing audiolet inlet and outlet nodes, internal routing, they don't even work yet.
+* mention exposing audiolet inlet and outlet nodes, internal routing
+
+### Up next
+
+* bugs
+* static site with bootstrapped document
+* unit tests
 
 ### Future Ideas
 

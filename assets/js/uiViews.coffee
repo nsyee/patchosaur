@@ -130,6 +130,8 @@ patchosaur.ObjectView = Backbone.View.extend {
       y: y + (box.height / 2)
     textElem
 
+  drawRectElem: () ->
+
   render: () ->
     # FIXME: break this up
     console.log 'rendering object view', @id, @, @model
