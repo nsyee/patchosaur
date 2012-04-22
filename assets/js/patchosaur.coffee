@@ -7,7 +7,7 @@
 #= require 3p/state-machine
 #= require 3p/coffee-script
 #= require audio
-#= require docModels
+#= require models
 #= require uiViews
 #= require unitViews
 #= require unitBase

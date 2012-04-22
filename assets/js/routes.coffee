@@ -1,6 +1,4 @@
-# FIXME: require views and models
-
-patchosaur = @patchosaur = @patchosaur or {}
+patchosaur = @patchosaur ?= {}
 
 patchosaur.routes = {}
 

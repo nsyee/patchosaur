@@ -1,7 +1,4 @@
-#= require unitBase
-
-# FIXME: put this directly on models? that seems like a bad idea too
-patchosaur = @patchosaur = @patchosaur or {}
+patchosaur = @patchosaur ?= {}
 
 DEFAULT_UNIT = 'null'
 

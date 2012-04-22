@@ -1,7 +1,4 @@
-# FIXME: require underscore
-# FIXME: require jquery
-
-patchosaur = @patchosaur = @patchosaur or {}
+patchosaur = @patchosaur ?= {}
 
 patchosaur.Object = Backbone.Model.extend
   defaults:

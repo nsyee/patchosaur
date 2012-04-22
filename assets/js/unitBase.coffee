@@ -1,4 +1,4 @@
-@patchosaur ?= {}
+patchosaur = @patchosaur ?= {}
 
 class patchosaur.Unit
   constructor: (@objectModel) ->
