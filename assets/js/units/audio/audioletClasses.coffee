@@ -30,7 +30,7 @@ for AudioletClass in wrappedClasses then do (AudioletClass) ->
       # default inlets do nothing
       @inlets = ((->) for i in _.range(numInlets))
       # find AudioletParameters, set function inlets
-      # to do setValue on them
+      # FIXME: has to be a better way...
       for prop, val of @mainNode then do (prop, val) =>
         if val?.input?.index? # is this an AudioletParameter?
           window.x = val
