@@ -1,6 +1,6 @@
 # patchosaur
 
-patchosaur is a Max/MSP- and puredata-like patching environment that runs in a browser. It supports audio and MIDI. It's a work in progress and not really usable yet, but it can do some cool things.
+patchosaur is a Max/MSP- and puredata-like patching environment written in coffeescript that runs in a browser. It supports audio and MIDI. It's a work in progress and not usable yet, but it can do some cool things.
 
 ![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
 
@@ -35,6 +35,8 @@ cd patchosaur
 npm update # install or update node.js dependencies from package.json
 ```
 
+### Run it
+
 To start a patchosaur server:
 
 ```
@@ -66,18 +68,25 @@ To remove an object or patchcord:
 
 ### Saving
 
-No real document support. After the app loads, the patch `documents/testDoc.json` is loaded. Every time the patch is edited, it is saved to this file. To edit a new document, replace the contents of `documents/testDoc.json` with `[]`.
+No real document support. After the app loads, the patch `documents/testDoc.json` is loaded. Every time the patch is edited, it is saved to this file. To edit a new document, replace the contents of `documents/testDoc.json` with `[]`. To "save," move the file.
 
 ### Conventions
 
-* mention right to left (link to some pd or max docs)
-  * like pd, not max: trigger is necessary
-* mention left inlet is hot with few exceptions (link to puredata docs)
-* mention object argument parsing as JSON, commas, valid input
+* object outlets are always called in right to left order, depth first, exactly like in Max or PD.
+  * see [Max docs](http://cycling74.com/docs/max5/tutorials/max-tut/basicchapter05.html)
+  * see [PD docs](http://crca.ucsd.edu/~msp/Pd_documentation/x2.htm)
+* The leftmost inlet is "hot", other inlets do not result in output (with a few exceptions)
+* Unlike PD or Max which have space-delimited object arguments, in patchagogy everything after the first space is surrounded by square brackets and parsed as JSON.
+  * `route "ten", 11, 12` will instantiate a `route` unit with arguments `["ten", 11, 12]`
+  * `route "ten" 11 12` fails to parse
+* When a single object outlet is connected to multiple inlets, Max always works right to left. In PD, this isn't the case; you always need a `trigger` or something to guarantee order. Patchosaur works like PD in this regard.
 
 ### MIDI
 
+MIDI travels over websockets from the patchagogy server. See the `socket.io` unit. This is just a proof of concept for now, but seems to work fine for input.
+
 #### Differences from Max and puredata
+
 
 ## Contributing
 
@@ -85,14 +94,27 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 
 ### Writing Units
 
-* mention what units are and can do
-* mention function inlets, can call outlets, set numInlets and numOutlets on model, reading args
+Units are little programs that can be connected by object patchcords. They are all defined [here](https://github.com/badamson/patchosaur/tree/master/assets/js/units), where there are many examples. To add a unit, define a class in the units directory that extends `patchosaur.Unit`, add a `setup` method, and then register it: `patchosaur.units.add MyUnit`.
 
-#### Writing function units
+Units can change model attributes during setup, which will be reflected in the ui view:
 
-#### Writing audiolet units
+* Set the number of inlets: `@objectModel.set numInlets: 3`
+* Set the number of outlets: `@objectModel.set numOutlets: 3`
+* Set an error (will make the object red in the ui view), which you should also log (`console.error anError`): `@objectModel.set error: "I've made a huge mistake."`
+* Set the id of a custom gui (moved and removed by ui view, see [gui units](https://github.com/badamson/patchosaur/tree/master/assets/js/units/gui)): `@objectModel.set customGuiId: id`
 
-* mention exposing audiolet inlet and outlet nodes, internal routing
+They can also expose attributes that do stuff:
+
+* `@inlets = [inletFunc1, inletFunc2]`: an array of functions to be called when something is connected to one of the unit's inlets (mapped by index).
+* audiolet nodes to be connected and disconnected (see [audio units](https://github.com/badamson/patchosaur/tree/master/assets/js/units/audio)):
+  * `@audioletOutputNodes = [audioletNode1, audioletNode2]`
+  * `@audioletInputNodes = [audioletNode1, audioletNode2]`
+
+They should name themselves in a class variable (see [examples](https://github.com/badamson/patchosaur/blob/master/assets/js/units), `@names = ['spigot', 'gate']`).They can read arguments from the model (`@objectModel.get 'unitArgs'`), which is an array. When an object is created, everything before the first space is set as `unitClass`, which is used to look up a unit by name, and everything after is surrounded by square brackets and parsed as JSON. `route 1, 4, 5`'s args become [1, 4, 5], while `route 1 4 5` fails to parse.
+
+#### Documenting objects
+
+In addition to setting `names` as a class variable, units can set `tags` and `help`. This doesn't do anything yet, but in the future it will show in help (press 'h' to see, right now just displays a list of units).
 
 #### Writing custom audiolet nodes
 
@@ -102,9 +124,10 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 * more timing objects
 * loadbang
 * infinite canvas scrolling
-* more gui objects (sliders, etc)
+* better help (right now it just displays a list of units)
+* more gui objects
 * docs
-* better MIDI
+* better MIDI, including output
 * static site with bootstrapped document
 * unit tests
 * demo video
