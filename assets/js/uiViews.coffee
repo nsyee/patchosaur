@@ -45,6 +45,7 @@ patchosaur.ObjectView = Backbone.View.extend {
       @inlets,
       @outlets,
       @customGui
+      @connectionEls
     ]
     el?.remove() for el in elemsToRemove
 

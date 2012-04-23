@@ -25,8 +25,8 @@ task "start:production" do
     sh "export NODE_ENV=production; ./node_modules/.bin/coffee server.coffee"
 end
 
-desc 'restore documents: git checkout documents'
-task "restore:docs" do
+desc 'git checkout documents'
+task "checkout:documents" do
     sh "git checkout documents"
 end
 
