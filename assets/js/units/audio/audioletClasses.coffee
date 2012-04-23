@@ -1,3 +1,6 @@
+# FIXME: wrap ERRYTHING
+# see http://oampo.github.com/Audiolet/api.html
+
 wrappedClasses = []
 wrappedClasses.push _.extend MulAdd, names: ['muladd~']
 wrappedClasses.push _.extend Sine, names: ['cycle~']
