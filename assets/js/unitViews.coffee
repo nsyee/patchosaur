@@ -33,6 +33,9 @@ patchosaur.UnitGraphView = Backbone.View.extend
     fromUnit = @objects.get(fromID)?.get('unit')
     toUnit = @objects.get(toID)?.get('unit')
     if toUnit?.audioletInputNodes?
+      # FIXME: no longer exists when removing object, though disconnect
+      # events fire first 
+      # console.log @objects.get(fromID)
       fromUnit?.audioletOutputNodes?[outlet].disconnect toUnit.audioletInputNodes[inlet]
 
   disconnectPreviousAudioletUnits: (object) ->
