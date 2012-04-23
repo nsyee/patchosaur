@@ -36,6 +36,8 @@ class patchosaur.Units
   constructor: -> @units = {}
 
   add: (UnitClass) ->
+    if not UnitClass.names or _.isEmpty UnitClass.names
+      console.error "no names on UnitClass:", UnitClass
     for name in UnitClass.names
       if @units[name]?
         console.error "unit class already defined:", name, UnitClass

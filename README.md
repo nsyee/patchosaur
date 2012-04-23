@@ -98,7 +98,9 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 
 * bugs
 * more audio units (wrap rest of audiolet classes)
-* sample-accurate audiolet-based timing objects
+* more timing objects
+* infinite canvas scrolling
+* more gui objects (sliders, etc)
 * docs
 * better MIDI
 * static site with bootstrapped document
