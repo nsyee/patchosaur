@@ -2,6 +2,9 @@
 
 patchosaur is a Max/MSP- and puredata-like patching environment written in coffeescript that runs in a browser. It supports audio and MIDI. All of the audio is synthesized in real time in javascript by [audiolet](https://github.com/oampo/Audiolet). It's a buggy work in progress and not usable yet, but it can do some cool things.
 
+* code on github: https://github.com/badamson/patchosaur/
+* http://patchosaur.org
+
 ![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
 
 ## Installing dependencies to run locally
@@ -85,8 +88,6 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 
 MIDI travels over websockets from the patchagogy server. See the `socket.io` unit. This is just a proof of concept for now, but seems to work fine for input.
 
-#### Differences from Max and puredata
-
 ## Contributing
 
 [Submit an issue](https://github.com/badamson/patchosaur/issues) and/or [fork this](https://github.com/badamson/patchosaur/fork).
@@ -124,12 +125,13 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
 * bugs
 * more timing objects
 * loadbang
-* infinite canvas scrolling
+* infinite canvas scrolling (maybe click drag, and just move all the objects?)
 * better help (right now it just displays a list of units)
-* more gui objects
+* more gui objects (number object like Max would be cool)
 * docs
 * better MIDI, including output
-* static site with bootstrapped document
+* static site with bootstrapped document (see `rake statify` task, which works except for ajax doc load)
+  * deploy to `patchosaur.org/demo` or something
 * unit tests
 * demo video
 * recording support: https://github.com/oampo/Audiolet/issues/11#issuecomment-2716776

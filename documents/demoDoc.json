@@ -1,0 +1,373 @@
+[
+  {
+    "x": 21,
+    "y": 54,
+    "text": "metro 300",
+    "connections": "[[\"c2\",0,\"c5\",0]]",
+    "id": "c2"
+  },
+  {
+    "x": 37,
+    "y": 88,
+    "text": "dump 10",
+    "connections": "[[\"c5\",0,\"c8\",0]]",
+    "id": "c5"
+  },
+  {
+    "x": 79,
+    "y": 126,
+    "text": "trigger 3",
+    "connections": "[[\"c8\",0,\"c11\",0],[\"c8\",1,\"c14\",0],[\"c8\",2,\"c20\",0]]",
+    "id": "c8"
+  },
+  {
+    "x": 24,
+    "y": 170,
+    "text": "cs \"(x) -> x*x\"",
+    "connections": "[[\"c11\",0,\"c23\",0],[\"c11\",0,\"c17\",0]]",
+    "id": "c11"
+  },
+  {
+    "x": 149,
+    "y": 171,
+    "text": "cs \"(x) -> x*x*x\"",
+    "connections": "[[\"c14\",0,\"c17\",1],[\"c14\",0,\"c26\",0]]",
+    "id": "c14"
+  },
+  {
+    "x": 36,
+    "y": 210,
+    "text": "cs \"(x,y) -> x+y\"",
+    "connections": "[[\"c17\",0,\"c29\",0]]",
+    "id": "c17"
+  },
+  {
+    "x": 304,
+    "y": 150,
+    "text": "cs \"(b) -> @x = (@x or 0) + 1\"",
+    "connections": "[[\"c20\",0,\"c32\",0],[\"c20\",0,\"object_39\",0]]",
+    "id": "c20"
+  },
+  {
+    "x": 10,
+    "y": 281,
+    "text": "print \"squared\"",
+    "connections": "[]",
+    "id": "c23"
+  },
+  {
+    "x": 180,
+    "y": 210,
+    "text": "print \"cubed\"",
+    "connections": "[]",
+    "id": "c26"
+  },
+  {
+    "x": 32,
+    "y": 251,
+    "text": "print \"cubed + squared\"",
+    "connections": "[]",
+    "id": "c29"
+  },
+  {
+    "x": 267,
+    "y": 256,
+    "text": "print \"ghetto counter\"",
+    "connections": "[]",
+    "id": "c32"
+  },
+  {
+    "x": 451,
+    "y": 225,
+    "text": "% 2",
+    "connections": "[[\"object_39\",0,\"object_53\",0],[\"object_39\",0,\"object_76\",0]]",
+    "id": "object_39"
+  },
+  {
+    "x": 810,
+    "y": 119,
+    "text": "socket.io \"midi\"",
+    "connections": "[[\"object_41\",0,\"object_45\",0],[\"object_41\",0,\"object_80\",0]]",
+    "id": "object_41"
+  },
+  {
+    "x": 871,
+    "y": 200,
+    "text": "print \"socket.io midi\"",
+    "connections": "[]",
+    "id": "object_45"
+  },
+  {
+    "x": 547,
+    "y": 139,
+    "text": "cycle~ 440",
+    "connections": "[[\"object_47\",0,\"object_62\",0]]",
+    "id": "object_47"
+  },
+  {
+    "x": 591,
+    "y": 476,
+    "text": "dac~",
+    "connections": "[]",
+    "id": "object_51"
+  },
+  {
+    "x": 471,
+    "y": 264,
+    "text": "cb",
+    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_87\",0],[\"object_53\",0,\"object_77\",0]]",
+    "id": "object_53"
+  },
+  {
+    "x": 264,
+    "y": 323,
+    "text": "print \"checkbox\"",
+    "connections": "[]",
+    "id": "object_56"
+  },
+  {
+    "x": 527,
+    "y": 341,
+    "text": "muladd~ 1, 0",
+    "connections": "[[\"object_59\",0,\"object_97\",0]]",
+    "id": "object_59"
+  },
+  {
+    "x": 640,
+    "y": 162,
+    "text": "cycle~",
+    "connections": "[[\"object_60\",0,\"object_62\",0]]",
+    "id": "object_60"
+  },
+  {
+    "x": 550,
+    "y": 201,
+    "text": "muladd~ 5",
+    "connections": "[[\"object_62\",0,\"object_59\",0],[\"object_62\",0,\"object_65\",0]]",
+    "id": "object_62"
+  },
+  {
+    "x": 657,
+    "y": 298,
+    "text": "muladd~ 0, 0",
+    "connections": "[[\"object_65\",0,\"object_93\",0]]",
+    "id": "object_65"
+  },
+  {
+    "x": 655,
+    "y": 228,
+    "text": "not",
+    "connections": "[[\"object_77\",0,\"object_83\",0]]",
+    "id": "object_77"
+  },
+  {
+    "x": 546,
+    "y": 91,
+    "text": "cycle~ 330",
+    "connections": "[[\"object_71\",0,\"object_75\",0]]",
+    "id": "object_71"
+  },
+  {
+    "x": 645,
+    "y": 132,
+    "text": "muladd~ 200, 440",
+    "connections": "[[\"object_75\",0,\"object_60\",0]]",
+    "id": "object_75"
+  },
+  {
+    "x": 648,
+    "y": 66,
+    "text": "cycle~ 3",
+    "connections": "[[\"object_78\",0,\"object_82\",0]]",
+    "id": "object_78"
+  },
+  {
+    "x": 680,
+    "y": 98,
+    "text": "muladd~ 300, 600",
+    "connections": "[[\"object_82\",0,\"object_75\",1]]",
+    "id": "object_82"
+  },
+  {
+    "x": 683,
+    "y": 260,
+    "text": "lag~ 0.1",
+    "connections": "[[\"object_83\",0,\"object_65\",1]]",
+    "id": "object_83"
+  },
+  {
+    "x": 559,
+    "y": 297,
+    "text": "lag~ 0.1",
+    "connections": "[[\"object_87\",0,\"object_59\",1]]",
+    "id": "object_87"
+  },
+  {
+    "x": 620,
+    "y": 377,
+    "text": "tanh~",
+    "connections": "[[\"object_93\",0,\"object_95\",0]]",
+    "id": "object_93"
+  },
+  {
+    "x": 539,
+    "y": 379,
+    "text": "tanh~",
+    "connections": "[[\"object_97\",0,\"object_99\",0]]",
+    "id": "object_97"
+  },
+  {
+    "x": 629,
+    "y": 412,
+    "text": "muladd~ 0.2",
+    "connections": "[[\"object_95\",0,\"object_51\",1]]",
+    "id": "object_95"
+  },
+  {
+    "x": 529,
+    "y": 414,
+    "text": "muladd~ 0.2",
+    "connections": "[[\"object_99\",0,\"object_51\",0]]",
+    "id": "object_99"
+  },
+  {
+    "x": 315,
+    "y": 392,
+    "text": "bdpercsynth~",
+    "connections": "[[\"object_72\",0,\"object_70\",0]]",
+    "id": "object_72"
+  },
+  {
+    "x": 407,
+    "y": 440,
+    "text": "muladd~ 40",
+    "connections": "[[\"object_70\",0,\"object_97\",0],[\"object_70\",0,\"object_93\",0]]",
+    "id": "object_70"
+  },
+  {
+    "x": 395,
+    "y": 357,
+    "text": "route 0, 1",
+    "connections": "[[\"object_76\",0,\"object_72\",0],[\"object_76\",1,\"object_84\",0]]",
+    "id": "object_76"
+  },
+  {
+    "x": 416,
+    "y": 393,
+    "text": "snarepercsynth~",
+    "connections": "[[\"object_84\",0,\"object_70\",0]]",
+    "id": "object_84"
+  },
+  {
+    "x": 424,
+    "y": 65,
+    "text": "metro 150",
+    "connections": "[[\"object_79\",0,\"object_85\",0]]",
+    "id": "object_79"
+  },
+  {
+    "x": 426,
+    "y": 101,
+    "text": "chpercsynth~",
+    "connections": "[[\"object_85\",0,\"object_70\",0]]",
+    "id": "object_85"
+  },
+  {
+    "x": 816,
+    "y": 171,
+    "text": "cs \"(x) -> x[0].note\"",
+    "connections": "[[\"object_80\",0,\"object_92\",0]]",
+    "id": "object_80"
+  },
+  {
+    "x": 783,
+    "y": 291,
+    "text": "print \"freq\"",
+    "connections": "[]",
+    "id": "object_86"
+  },
+  {
+    "x": 807,
+    "y": 215,
+    "text": "mtof",
+    "connections": "[[\"object_92\",0,\"object_86\",0],[\"object_92\",0,\"object_88\",0],[\"object_92\",0,\"object_75\",2],[\"object_92\",0,\"object_47\",0],[\"object_92\",0,\"object_91\",0]]",
+    "id": "object_92"
+  },
+  {
+    "x": 769,
+    "y": 59,
+    "text": "* 1.5",
+    "connections": "[[\"object_88\",0,\"object_82\",2]]",
+    "id": "object_88"
+  },
+  {
+    "x": 553,
+    "y": 57,
+    "text": "* 0.75",
+    "connections": "[[\"object_91\",0,\"object_71\",0]]",
+    "id": "object_91"
+  },
+  {
+    "x": 725,
+    "y": 354,
+    "text": "range 0, 1, 0.01, 0.5",
+    "connections": "[[\"object_94\",0,\"object_100\",0]]",
+    "id": "object_94"
+  },
+  {
+    "x": 738,
+    "y": 421,
+    "text": "lag~ 0.1",
+    "connections": "[[\"object_96\",0,\"object_99\",1],[\"object_96\",0,\"object_95\",1]]",
+    "id": "object_96"
+  },
+  {
+    "x": 733,
+    "y": 387,
+    "text": "cs \"(x) -> x*x\"",
+    "connections": "[[\"object_100\",0,\"object_96\",0]]",
+    "id": "object_100"
+  },
+  {
+    "x": 8,
+    "y": 369,
+    "text": "hey there 'awef,eee",
+    "connections": "[]",
+    "id": "object_98"
+  },
+  {
+    "x": 22,
+    "y": 396,
+    "text": "nulll",
+    "connections": "[]",
+    "id": "object_105"
+  },
+  {
+    "x": 883,
+    "y": 336,
+    "text": "c \"this is a slider\"",
+    "connections": "[]",
+    "id": "object_102"
+  },
+  {
+    "x": 108,
+    "y": 99,
+    "text": "c \"this is different from Max/MSP trigger\"",
+    "connections": "[]",
+    "id": "object_104"
+  },
+  {
+    "x": 8,
+    "y": 345,
+    "text": "c \"This is a comment about error objects\"",
+    "connections": "[]",
+    "id": "object_107"
+  },
+  {
+    "x": 836,
+    "y": 94,
+    "text": "c \"MIDI INPUT!\"",
+    "connections": "[]",
+    "id": "object_110"
+  }
+]

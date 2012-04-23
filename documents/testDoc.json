@@ -1,373 +1,408 @@
 [
   {
-    "x": 21,
-    "y": 54,
+    "x": 25,
+    "y": 101,
     "text": "metro 300",
-    "connections": "[[\"c2\",0,\"c5\",0]]",
-    "id": "c2"
+    "connections": "[[\"object_2\",0,\"object_13\",0]]",
+    "id": "object_2"
   },
   {
-    "x": 37,
-    "y": 88,
-    "text": "dump 10",
-    "connections": "[[\"c5\",0,\"c8\",0]]",
-    "id": "c5"
+    "x": 100,
+    "y": 101,
+    "text": "c \"outputs true every 100ms, works off audio clock\"",
+    "connections": "[]",
+    "id": "object_5"
   },
   {
-    "x": 79,
-    "y": 126,
-    "text": "trigger 3",
-    "connections": "[[\"c8\",0,\"c11\",0],[\"c8\",1,\"c14\",0],[\"c8\",2,\"c20\",0]]",
-    "id": "c8"
+    "x": 23,
+    "y": 67,
+    "text": "cb",
+    "connections": "[[\"object_8\",0,\"object_2\",0]]",
+    "id": "object_8"
   },
   {
     "x": 24,
-    "y": 170,
-    "text": "cs \"(x) -> x*x\"",
-    "connections": "[[\"c11\",0,\"c23\",0],[\"c11\",0,\"c17\",0]]",
-    "id": "c11"
+    "y": 136,
+    "text": "cs \"(b) -> @x = ((@x or 0) + 1) % 8\"",
+    "connections": "[[\"object_13\",0,\"object_22\",0],[\"object_13\",0,\"object_40\",0],[\"object_13\",0,\"object_92\",0],[\"object_13\",0,\"object_50\",0]]",
+    "id": "object_13"
   },
   {
-    "x": 149,
-    "y": 171,
-    "text": "cs \"(x) -> x*x*x\"",
-    "connections": "[[\"c14\",0,\"c17\",1],[\"c14\",0,\"c26\",0]]",
-    "id": "c14"
-  },
-  {
-    "x": 36,
-    "y": 210,
-    "text": "cs \"(x,y) -> x+y\"",
-    "connections": "[[\"c17\",0,\"c29\",0]]",
-    "id": "c17"
-  },
-  {
-    "x": 304,
-    "y": 150,
-    "text": "cs \"(b) -> @x = (@x or 0) + 1\"",
-    "connections": "[[\"c20\",0,\"c32\",0],[\"c20\",0,\"object_39\",0]]",
-    "id": "c20"
-  },
-  {
-    "x": 10,
-    "y": 281,
-    "text": "print \"squared\"",
+    "x": 287,
+    "y": 135,
+    "text": "c \"coffeescript counter 0-7, no native counter object yet\"",
     "connections": "[]",
-    "id": "c23"
+    "id": "object_16"
   },
   {
-    "x": 180,
-    "y": 210,
-    "text": "print \"cubed\"",
-    "connections": "[]",
-    "id": "c26"
+    "x": 26,
+    "y": 183,
+    "text": "route 0, 1, 2, 3, 4, 5, 6, 7",
+    "connections": "[[\"object_22\",0,\"object_28\",0],[\"object_22\",0,\"object_34\",0],[\"object_22\",1,\"object_37\",0],[\"object_22\",2,\"object_34\",0],[\"object_22\",4,\"object_34\",0],[\"object_22\",6,\"object_34\",0],[\"object_22\",7,\"object_37\",0],[\"object_22\",5,\"object_37\",0],[\"object_22\",3,\"object_37\",0],[\"object_22\",4,\"object_35\",0],[\"object_22\",6,\"object_37\",0]]",
+    "id": "object_22"
   },
   {
-    "x": 32,
-    "y": 251,
-    "text": "print \"cubed + squared\"",
+    "x": 234,
+    "y": 183,
+    "text": "c \"routes messages by value\"",
     "connections": "[]",
-    "id": "c29"
+    "id": "object_25"
   },
   {
-    "x": 267,
-    "y": 256,
-    "text": "print \"ghetto counter\"",
+    "x": 12,
+    "y": 241,
+    "text": "bdpercsynth~",
+    "connections": "[[\"object_28\",0,\"object_101\",0],[\"object_28\",0,\"object_104\",0]]",
+    "id": "object_28"
+  },
+  {
+    "x": 252,
+    "y": 247,
+    "text": "chpercsynth~",
+    "connections": "[[\"object_34\",0,\"object_101\",0]]",
+    "id": "object_34"
+  },
+  {
+    "x": 359,
+    "y": 243,
+    "text": "chpercsynth~",
+    "connections": "[[\"object_37\",0,\"object_104\",0]]",
+    "id": "object_37"
+  },
+  {
+    "x": 358,
+    "y": 548,
+    "text": "tanh~",
+    "connections": "[[\"object_27\",0,\"object_31\",1]]",
+    "id": "object_27"
+  },
+  {
+    "x": 306,
+    "y": 596,
+    "text": "dac~",
     "connections": "[]",
-    "id": "c32"
+    "id": "object_31"
+  },
+  {
+    "x": 113,
+    "y": 246,
+    "text": "snarepercsynth~",
+    "connections": "[[\"object_35\",0,\"object_101\",0],[\"object_35\",0,\"object_104\",0]]",
+    "id": "object_35"
+  },
+  {
+    "x": 285,
+    "y": 536,
+    "text": "tanh~",
+    "connections": "[[\"object_29\",0,\"object_31\",0]]",
+    "id": "object_29"
   },
   {
     "x": 451,
-    "y": 225,
-    "text": "% 2",
-    "connections": "[[\"object_39\",0,\"object_53\",0],[\"object_39\",0,\"object_76\",0]]",
+    "y": 341,
+    "text": "cycle~",
+    "connections": "[[\"object_32\",0,\"object_53\",0]]",
+    "id": "object_32"
+  },
+  {
+    "x": 510,
+    "y": 202,
+    "text": "+ 20",
+    "connections": "[[\"object_36\",0,\"object_39\",0]]",
+    "id": "object_36"
+  },
+  {
+    "x": 505,
+    "y": 234,
+    "text": "mtof",
+    "connections": "[[\"object_39\",0,\"object_42\",0]]",
     "id": "object_39"
   },
   {
-    "x": 810,
-    "y": 119,
-    "text": "socket.io \"midi\"",
-    "connections": "[[\"object_41\",0,\"object_45\",0],[\"object_41\",0,\"object_80\",0]]",
-    "id": "object_41"
+    "x": 495,
+    "y": 262,
+    "text": "lag~ 60, 0.5",
+    "connections": "[[\"object_42\",0,\"object_32\",0],[\"object_42\",0,\"object_44\",0]]",
+    "id": "object_42"
   },
   {
-    "x": 871,
-    "y": 200,
-    "text": "print \"socket.io midi\"",
-    "connections": "[]",
-    "id": "object_45"
-  },
-  {
-    "x": 547,
-    "y": 139,
-    "text": "cycle~ 440",
-    "connections": "[[\"object_47\",0,\"object_62\",0]]",
-    "id": "object_47"
-  },
-  {
-    "x": 591,
-    "y": 476,
-    "text": "dac~",
-    "connections": "[]",
-    "id": "object_51"
-  },
-  {
-    "x": 471,
-    "y": 264,
-    "text": "cb",
-    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_87\",0],[\"object_53\",0,\"object_77\",0]]",
-    "id": "object_53"
-  },
-  {
-    "x": 264,
-    "y": 323,
-    "text": "print \"checkbox\"",
-    "connections": "[]",
-    "id": "object_56"
-  },
-  {
-    "x": 527,
-    "y": 341,
-    "text": "muladd~ 1, 0",
-    "connections": "[[\"object_59\",0,\"object_97\",0]]",
-    "id": "object_59"
-  },
-  {
-    "x": 640,
-    "y": 162,
-    "text": "cycle~",
-    "connections": "[[\"object_60\",0,\"object_62\",0]]",
-    "id": "object_60"
-  },
-  {
-    "x": 550,
-    "y": 201,
-    "text": "muladd~ 5",
-    "connections": "[[\"object_62\",0,\"object_59\",0],[\"object_62\",0,\"object_65\",0]]",
-    "id": "object_62"
-  },
-  {
-    "x": 657,
-    "y": 298,
-    "text": "muladd~ 0, 0",
-    "connections": "[[\"object_65\",0,\"object_93\",0]]",
-    "id": "object_65"
-  },
-  {
-    "x": 655,
-    "y": 228,
-    "text": "not",
-    "connections": "[[\"object_77\",0,\"object_83\",0]]",
-    "id": "object_77"
-  },
-  {
-    "x": 546,
-    "y": 91,
-    "text": "cycle~ 330",
-    "connections": "[[\"object_71\",0,\"object_75\",0]]",
-    "id": "object_71"
-  },
-  {
-    "x": 645,
-    "y": 132,
-    "text": "muladd~ 200, 440",
-    "connections": "[[\"object_75\",0,\"object_60\",0]]",
-    "id": "object_75"
-  },
-  {
-    "x": 648,
-    "y": 66,
-    "text": "cycle~ 3",
-    "connections": "[[\"object_78\",0,\"object_82\",0]]",
-    "id": "object_78"
-  },
-  {
-    "x": 680,
-    "y": 98,
-    "text": "muladd~ 300, 600",
-    "connections": "[[\"object_82\",0,\"object_75\",1]]",
-    "id": "object_82"
-  },
-  {
-    "x": 683,
-    "y": 260,
-    "text": "lag~ 0.1",
-    "connections": "[[\"object_83\",0,\"object_65\",1]]",
-    "id": "object_83"
-  },
-  {
-    "x": 559,
-    "y": 297,
-    "text": "lag~ 0.1",
-    "connections": "[[\"object_87\",0,\"object_59\",1]]",
-    "id": "object_87"
-  },
-  {
-    "x": 620,
-    "y": 377,
-    "text": "tanh~",
-    "connections": "[[\"object_93\",0,\"object_95\",0]]",
-    "id": "object_93"
-  },
-  {
-    "x": 539,
-    "y": 379,
-    "text": "tanh~",
-    "connections": "[[\"object_97\",0,\"object_99\",0]]",
-    "id": "object_97"
-  },
-  {
-    "x": 629,
-    "y": 412,
-    "text": "muladd~ 0.2",
-    "connections": "[[\"object_95\",0,\"object_51\",1]]",
-    "id": "object_95"
+    "x": 509,
+    "y": 166,
+    "text": "cs \"(x) -> if x %2 then x*x else x+9\"",
+    "connections": "[[\"object_40\",0,\"object_36\",0],[\"object_40\",0,\"object_71\",0]]",
+    "id": "object_40"
   },
   {
     "x": 529,
-    "y": 414,
-    "text": "muladd~ 0.2",
-    "connections": "[[\"object_99\",0,\"object_51\",0]]",
-    "id": "object_99"
+    "y": 346,
+    "text": "cycle~",
+    "connections": "[[\"object_41\",0,\"object_56\",0]]",
+    "id": "object_41"
   },
   {
-    "x": 315,
-    "y": 392,
-    "text": "bdpercsynth~",
-    "connections": "[[\"object_72\",0,\"object_70\",0]]",
-    "id": "object_72"
+    "x": 532,
+    "y": 306,
+    "text": "*~ 0.5",
+    "connections": "[[\"object_44\",0,\"object_41\",0],[\"object_44\",0,\"object_83\",0],[\"object_44\",0,\"object_82\",1]]",
+    "id": "object_44"
   },
   {
-    "x": 407,
-    "y": 440,
-    "text": "muladd~ 40",
-    "connections": "[[\"object_70\",0,\"object_97\",0],[\"object_70\",0,\"object_93\",0]]",
+    "x": 587,
+    "y": 297,
+    "text": "lag~ 1, 0.4",
+    "connections": "[[\"object_47\",0,\"object_53\",1]]",
+    "id": "object_47"
+  },
+  {
+    "x": 614,
+    "y": 227,
+    "text": "% 2",
+    "connections": "[[\"object_50\",0,\"object_61\",0],[\"object_50\",0,\"object_64\",0]]",
+    "id": "object_50"
+  },
+  {
+    "x": 470,
+    "y": 390,
+    "text": "*~",
+    "connections": "[[\"object_53\",0,\"object_67\",0]]",
+    "id": "object_53"
+  },
+  {
+    "x": 541,
+    "y": 394,
+    "text": "*~",
+    "connections": "[[\"object_56\",0,\"object_70\",0]]",
+    "id": "object_56"
+  },
+  {
+    "x": 681,
+    "y": 291,
+    "text": "lag~ 0, 0.4",
+    "connections": "[[\"object_58\",0,\"object_56\",1]]",
+    "id": "object_58"
+  },
+  {
+    "x": 615,
+    "y": 265,
+    "text": "== 0",
+    "connections": "[[\"object_61\",0,\"object_47\",0]]",
+    "id": "object_61"
+  },
+  {
+    "x": 677,
+    "y": 258,
+    "text": "== 1",
+    "connections": "[[\"object_64\",0,\"object_58\",0]]",
+    "id": "object_64"
+  },
+  {
+    "x": 463,
+    "y": 426,
+    "text": "*~ 4",
+    "connections": "[[\"object_67\",0,\"object_73\",0]]",
+    "id": "object_67"
+  },
+  {
+    "x": 530,
+    "y": 425,
+    "text": "*~ 4",
+    "connections": "[[\"object_70\",0,\"object_76\",0]]",
     "id": "object_70"
   },
   {
-    "x": 395,
-    "y": 357,
-    "text": "route 0, 1",
-    "connections": "[[\"object_76\",0,\"object_72\",0],[\"object_76\",1,\"object_84\",0]]",
+    "x": 465,
+    "y": 460,
+    "text": "tanh~",
+    "connections": "[[\"object_73\",0,\"object_107\",0]]",
+    "id": "object_73"
+  },
+  {
+    "x": 524,
+    "y": 462,
+    "text": "tanh~",
+    "connections": "[[\"object_76\",0,\"object_110\",0]]",
     "id": "object_76"
   },
   {
-    "x": 416,
-    "y": 393,
-    "text": "snarepercsynth~",
-    "connections": "[[\"object_84\",0,\"object_70\",0]]",
-    "id": "object_84"
-  },
-  {
-    "x": 424,
-    "y": 65,
-    "text": "metro 150",
-    "connections": "[[\"object_79\",0,\"object_85\",0]]",
-    "id": "object_79"
-  },
-  {
-    "x": 426,
-    "y": 101,
-    "text": "chpercsynth~",
-    "connections": "[[\"object_85\",0,\"object_70\",0]]",
-    "id": "object_85"
-  },
-  {
-    "x": 816,
-    "y": 171,
-    "text": "cs \"(x) -> x[0].note\"",
-    "connections": "[[\"object_80\",0,\"object_92\",0]]",
-    "id": "object_80"
-  },
-  {
-    "x": 783,
-    "y": 291,
-    "text": "print \"freq\"",
+    "x": 672,
+    "y": 195,
+    "text": "print \"bam\"",
     "connections": "[]",
-    "id": "object_86"
+    "id": "object_71"
   },
   {
-    "x": 807,
-    "y": 215,
-    "text": "mtof",
-    "connections": "[[\"object_92\",0,\"object_86\",0],[\"object_92\",0,\"object_88\",0],[\"object_92\",0,\"object_75\",2],[\"object_92\",0,\"object_47\",0],[\"object_92\",0,\"object_91\",0]]",
-    "id": "object_92"
+    "x": 675,
+    "y": 363,
+    "text": "cycle~ 2",
+    "connections": "[[\"object_69\",0,\"object_85\",0]]",
+    "id": "object_69"
   },
   {
-    "x": 769,
-    "y": 59,
-    "text": "* 1.5",
-    "connections": "[[\"object_88\",0,\"object_82\",2]]",
-    "id": "object_88"
-  },
-  {
-    "x": 553,
-    "y": 57,
-    "text": "* 0.75",
-    "connections": "[[\"object_91\",0,\"object_71\",0]]",
-    "id": "object_91"
-  },
-  {
-    "x": 725,
-    "y": 354,
-    "text": "range 0, 1, 0.01, 0.5",
-    "connections": "[[\"object_94\",0,\"object_100\",0]]",
-    "id": "object_94"
+    "x": 659,
+    "y": 467,
+    "text": "cycle~",
+    "connections": "[[\"object_78\",0,\"object_53\",0],[\"object_78\",0,\"object_56\",0]]",
+    "id": "object_78"
   },
   {
     "x": 738,
-    "y": 421,
-    "text": "lag~ 0.1",
-    "connections": "[[\"object_96\",0,\"object_99\",1],[\"object_96\",0,\"object_95\",1]]",
-    "id": "object_96"
-  },
-  {
-    "x": 733,
-    "y": 387,
-    "text": "cs \"(x) -> x*x\"",
-    "connections": "[[\"object_100\",0,\"object_96\",0]]",
-    "id": "object_100"
-  },
-  {
-    "x": 8,
-    "y": 369,
-    "text": "hey there 'awef,eee",
+    "y": 359,
+    "text": "c \"fm\"",
     "connections": "[]",
+    "id": "object_81"
+  },
+  {
+    "x": 778,
+    "y": 163,
+    "text": "c \"change the 9\"",
+    "connections": "[]",
+    "id": "object_84"
+  },
+  {
+    "x": 77,
+    "y": 70,
+    "text": "c \"change tempo, add range?\"",
+    "connections": "[]",
+    "id": "object_87"
+  },
+  {
+    "x": 662,
+    "y": 430,
+    "text": "+~ 440",
+    "connections": "[[\"object_82\",0,\"object_78\",0]]",
+    "id": "object_82"
+  },
+  {
+    "x": 675,
+    "y": 395,
+    "text": "*~ 100",
+    "connections": "[[\"object_85\",0,\"object_82\",0]]",
+    "id": "object_85"
+  },
+  {
+    "x": 678,
+    "y": 334,
+    "text": "*~ 4.5",
+    "connections": "[[\"object_83\",0,\"object_69\",0]]",
+    "id": "object_83"
+  },
+  {
+    "x": 763,
+    "y": 395,
+    "text": "lag~ 0, 0.5",
+    "connections": "[[\"object_86\",0,\"object_85\",1]]",
+    "id": "object_86"
+  },
+  {
+    "x": 798,
+    "y": 233,
+    "text": "t 2",
+    "connections": "[[\"object_92\",0,\"object_98\",0],[\"object_92\",1,\"object_95\",1]]",
+    "id": "object_92"
+  },
+  {
+    "x": 786,
+    "y": 296,
+    "text": "-",
+    "connections": "[[\"object_95\",0,\"object_96\",0]]",
+    "id": "object_95"
+  },
+  {
+    "x": 787,
+    "y": 263,
+    "text": "dump 8",
+    "connections": "[[\"object_98\",0,\"object_95\",0]]",
     "id": "object_98"
   },
   {
-    "x": 22,
-    "y": 396,
-    "text": "nulll",
-    "connections": "[]",
-    "id": "object_105"
+    "x": 775,
+    "y": 327,
+    "text": "* 100",
+    "connections": "[[\"object_96\",0,\"object_86\",0],[\"object_96\",0,\"object_99\",0]]",
+    "id": "object_96"
   },
   {
-    "x": 883,
-    "y": 336,
-    "text": "c \"this is a slider\"",
+    "x": 698,
+    "y": 312,
+    "text": "c \"9 / 2\"",
     "connections": "[]",
-    "id": "object_102"
+    "id": "object_97"
   },
   {
-    "x": 108,
-    "y": 99,
-    "text": "c \"this is different from Max/MSP trigger\"",
+    "x": 798,
+    "y": 364,
+    "text": "print \"index\"",
     "connections": "[]",
+    "id": "object_99"
+  },
+  {
+    "x": 171,
+    "y": 473,
+    "text": "*~",
+    "connections": "[[\"object_101\",0,\"object_29\",0]]",
+    "id": "object_101"
+  },
+  {
+    "x": 248,
+    "y": 469,
+    "text": "*~",
+    "connections": "[[\"object_104\",0,\"object_27\",0]]",
     "id": "object_104"
   },
   {
-    "x": 8,
-    "y": 345,
-    "text": "c \"This is a comment about error objects\"",
-    "connections": "[]",
+    "x": 422,
+    "y": 502,
+    "text": "*~",
+    "connections": "[[\"object_107\",0,\"object_29\",0]]",
     "id": "object_107"
   },
   {
-    "x": 836,
-    "y": 94,
-    "text": "c \"MIDI INPUT!\"",
-    "connections": "[]",
+    "x": 459,
+    "y": 508,
+    "text": "*~",
+    "connections": "[[\"object_110\",0,\"object_27\",0]]",
     "id": "object_110"
+  },
+  {
+    "x": 19,
+    "y": 367,
+    "text": "range 0, 1, 0.01, 0.9",
+    "connections": "[[\"object_113\",0,\"object_118\",0]]",
+    "id": "object_113"
+  },
+  {
+    "x": 39,
+    "y": 431,
+    "text": "lag~ 0.9, 0.1",
+    "connections": "[[\"object_117\",0,\"object_101\",1],[\"object_117\",0,\"object_104\",1]]",
+    "id": "object_117"
+  },
+  {
+    "x": 178,
+    "y": 403,
+    "text": "range 0, 1, 0.01, 0.9",
+    "connections": "[[\"object_120\",0,\"object_121\",0]]",
+    "id": "object_120"
+  },
+  {
+    "x": 338,
+    "y": 458,
+    "text": "lag~ 0.6, 0.1",
+    "connections": "[[\"object_124\",0,\"object_107\",1],[\"object_124\",0,\"object_110\",1]]",
+    "id": "object_124"
+  },
+  {
+    "x": 28,
+    "y": 398,
+    "text": "cs \"(x) -> x*x\"",
+    "connections": "[[\"object_118\",0,\"object_117\",0]]",
+    "id": "object_118"
+  },
+  {
+    "x": 263,
+    "y": 435,
+    "text": "cs \"(x) -> x*x\"",
+    "connections": "[[\"object_121\",0,\"object_124\",0]]",
+    "id": "object_121"
   }
 ]
