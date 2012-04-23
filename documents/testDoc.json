@@ -327,5 +327,19 @@
     "text": "cs \"(x) -> x*x\"",
     "connections": "[[\"object_100\",0,\"object_96\",0]]",
     "id": "object_100"
+  },
+  {
+    "x": 125,
+    "y": 372,
+    "text": "hey there 'awef,eee",
+    "connections": "[]",
+    "id": "object_98"
+  },
+  {
+    "x": 161,
+    "y": 402,
+    "text": "nulll",
+    "connections": "[]",
+    "id": "object_105"
   }
 ]

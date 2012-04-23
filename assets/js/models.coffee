@@ -25,6 +25,7 @@ patchosaur.Object = Backbone.Model.extend
       do @setup
 
   setup: ->
+    @unset 'error'
     parsedText = @_textParse @get 'text'
     @set unitClassName: parsedText[0]
     @set unitArgs: parsedText[1]
@@ -44,7 +45,9 @@ patchosaur.Object = Backbone.Model.extend
     try
       options = JSON.parse("[#{options}]")
     catch error
-      console.warn "json parsing of object '#{execClass}' options '#{options}' failed:", error, "...using options string"
+      message = "json parsing of object '#{execClass}' with options '#{options}' failed"
+      console.error message, error
+      @set 'error', message
     finally
       return [execClass, options]
 

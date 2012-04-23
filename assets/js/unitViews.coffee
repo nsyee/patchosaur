@@ -15,8 +15,11 @@ patchosaur.UnitGraphView = Backbone.View.extend
       UnitClass = patchosaur.units.get o.get 'unitClassName'
       if not UnitClass
         # FIXME: just don't make it?
-        console.warn "no unit class found for #{o.get 'unitClassName'}, using #{DEFAULT_UNIT}"
+        message = "no unit class found for #{o.get 'unitClassName'}, using #{DEFAULT_UNIT}"
+        console.warn message
         UnitClass = patchosaur.units.get DEFAULT_UNIT
+        if not o.get 'error'
+          o.set 'error', message
       unit = new UnitClass o
       o.set unit: unit
       @makeConnectionsFrom o

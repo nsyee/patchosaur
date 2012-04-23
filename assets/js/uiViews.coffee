@@ -30,7 +30,7 @@ patchosaur.ObjectView = Backbone.View.extend {
     @model.bind 'remove', => do @clearElems
     @model.bind 'change:x change:y', => do @place
     @bind 'redrawConnections', => do @drawConnections
-    @model.bind 'change:numInlets change:numOutlets change:text', =>
+    @model.bind 'change:numInlets change:numOutlets change:text change:error', =>
       do @clearElems
       do @render
 
@@ -149,6 +149,10 @@ patchosaur.ObjectView = Backbone.View.extend {
     minWidth = numLets * 12
     box.width = minWidth if box.width < minWidth
     pad = 2
+    if @model.get 'error'
+      color = '#d03'
+    else
+      color = '#30a'
     rect = @p.rect(
       box.x - pad,              # x
       box.y - pad + 1,          # y
@@ -156,8 +160,8 @@ patchosaur.ObjectView = Backbone.View.extend {
       box.height + (pad*2) - 1, # height
       2                         # corner radius
     ).attr
-      fill: '#a00'
-      stroke: '#e03'
+      fill: color
+      stroke: color
       "fill-opacity": 0
       "stroke-width": 2
       cursor: "move"
