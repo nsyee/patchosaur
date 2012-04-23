@@ -2,7 +2,7 @@
   {
     "x": 21,
     "y": 54,
-    "text": "metrolite 1000",
+    "text": "metro 100",
     "connections": "[[\"c2\",0,\"c5\",0]]",
     "id": "c2"
   },
@@ -105,8 +105,8 @@
     "id": "object_47"
   },
   {
-    "x": 555,
-    "y": 474,
+    "x": 591,
+    "y": 476,
     "text": "dac~",
     "connections": "[]",
     "id": "object_51"
@@ -115,7 +115,7 @@
     "x": 464,
     "y": 261,
     "text": "cb",
-    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_87\",0],[\"object_53\",0,\"object_77\",0]]",
+    "connections": "[[\"object_53\",0,\"object_56\",0],[\"object_53\",0,\"object_87\",0],[\"object_53\",0,\"object_77\",0],[\"object_53\",0,\"object_72\",0]]",
     "id": "object_53"
   },
   {
@@ -229,5 +229,19 @@
     "text": "muladd~ 0.5",
     "connections": "[[\"object_99\",0,\"object_51\",0]]",
     "id": "object_99"
+  },
+  {
+    "x": 402,
+    "y": 375,
+    "text": "bdpercsynth~",
+    "connections": "[[\"object_72\",0,\"object_70\",0]]",
+    "id": "object_72"
+  },
+  {
+    "x": 407,
+    "y": 440,
+    "text": "muladd~ 40",
+    "connections": "[[\"object_70\",0,\"object_97\",0],[\"object_70\",0,\"object_93\",0]]",
+    "id": "object_70"
   }
 ]

@@ -33,7 +33,6 @@ for AudioletClass in wrappedClasses then do (AudioletClass) ->
       # FIXME: has to be a better way...
       for prop, val of @mainNode then do (prop, val) =>
         if val?.input?.index? # is this an AudioletParameter?
-          window.x = val
           @inlets[val.input.index] = (x) ->
             val.setValue x
 
