@@ -19,12 +19,13 @@ patchosaur.ObjectView = Backbone.View.extend {
     @outlets = []
     @raphaelBox = undefined
     @raphaelText = undefined
-    @customGui = @model.get 'customGui'
+    @customGui = @getCustomGui()
     # make it
     do @render
     # bind events
-    @model.bind 'change:customGui', =>
-      @customGui = @model.get 'customGui'
+    @model.bind 'change:customGuiId', =>
+      @customGui?.remove()
+      @customGui = @getCustomGui()
       @place()
     @model.bind 'remove', => do @clearElems
     @model.bind 'change:x change:y', => do @place
@@ -32,6 +33,9 @@ patchosaur.ObjectView = Backbone.View.extend {
     @model.bind 'change:numInlets change:numOutlets change:text', =>
       do @clearElems
       do @render
+
+  getCustomGui: ->
+    $ document.getElementById @model.get 'customGuiId'
 
   clearElems: ->
     elemsToRemove = _.flatten [

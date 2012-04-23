@@ -94,11 +94,13 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 
 * mention exposing audiolet inlet and outlet nodes, internal routing
 
+#### Writing audiolet classes
+
 ## Up next
 
 * bugs
-* more audio units (wrap rest of audiolet classes)
 * more timing objects
+* loadbang
 * infinite canvas scrolling
 * more gui objects (sliders, etc)
 * docs
