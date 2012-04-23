@@ -87,7 +87,6 @@ MIDI travels over websockets from the patchagogy server. See the `socket.io` uni
 
 #### Differences from Max and puredata
 
-
 ## Contributing
 
 [Submit an issue](https://github.com/badamson/patchosaur/issues) and/or [fork this](https://github.com/badamson/patchosaur/fork).
@@ -118,6 +117,8 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
 
 #### Writing custom audiolet nodes
 
+* FIXME: write some in coffeescript as examples. SuperCollider's [Leaky Integrator](http://www.ambisonictoolkit.net/Help/Classes/Integrator.html) would be nice to have. [This list of SC3 classes](http://www.ambisonictoolkit.net/Help/Overviews/Classes.html) has a lot of cool stuff.
+
 ## Up next
 
 * bugs
@@ -145,3 +146,132 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
 * Collaborative patch editing (send model changes over socket.io)
 * Undo support (backbone.memento?), would be nice if it worked with browser back button
 * Easy patchosaur units in faust would be awesome. [faust](http://faust.grame.fr/) compiles to js, maybe add audiolet architecture files to faust? See [this article](http://faust.grame.fr/index.php/7-news/73-faust-web-art).
+
+## List of current objects
+
+Many of these are not working, and the list is probably out of date. The list is copied from the in-app help (press 'h')
+
+* metrolite
+* print
+* gate
+* spigot
+* exp
+* atan
+* sqrt
+* asin
+* min
+* log
+* acos
+* ceil
+* max
+* round
+* sin
+* atan2
+* floor
+* abs
+* cos
+* tan
+* random
+* pow
+* +
+* -
+* /
+* *
+* %
+* &
+* |
+* ^
+* ~
+* <<
+* >>
+* >>>
+* ==
+* !=
+* >
+* <
+* >=
+* <=
+* &&
+* and
+* ||
+* or
+* !
+* not
+* log2
+* log10
+* atodb
+* dbtoa
+* mtof
+* ftom
+* rtanh
+* dump
+* route
+* socket.io
+* monovoicer
+* cs
+* trigger
+* t
+* null
+* identity
+* adc~
+* in~
+* dac~
+* out~
+* cycle~
+* triangle~
+* saw~
+* square~
+* pulse~
+* noise~
+* envelope~
+* adsr~
+* perc~
+* bufferplayer~
+* gain~
+* pan~
+* upmixer~
+* xfade~
+* linerxfade~
+* limiter~
+* biquad~
+* lpf~
+* hpf~
+* bpf~
+* brf~
+* apf~
+* dcblock~
+* lag~
+* delay~
+* fbdelay~
+* comb~
+* dampcomb~
+* reverb~
+* reverbb~
+* softclip~
+* bitcrusher~
+* amp~
+* discontinuity~
+* badvalue~
+* triggercontrol~
+* add~
+* +~
+* subtract~
+* -~
+* multiply~
+* *~
+* divide~
+* /~
+* modulo~
+* %~
+* reciprocal~
+* muladd~
+* *+~
+* tanh~
+* bdpercsynth~
+* snarepercsynth~
+* chpercsynth~
+* snapshot~
+* metro
+* range
+* checkbox
+* cb
