@@ -1,6 +1,6 @@
 # patchosaur
 
-patchosaur is a Max/MSP- and puredata-like patching environment written in coffeescript that runs in a browser. It supports audio and MIDI. It's a work in progress and not usable yet, but it can do some cool things.
+patchosaur is a Max/MSP- and puredata-like patching environment written in coffeescript that runs in a browser. It supports audio and MIDI. All of the audio is synthesized in real time in javascript by [audiolet](https://github.com/oampo/Audiolet). It's a buggy work in progress and not usable yet, but it can do some cool things.
 
 ![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
 

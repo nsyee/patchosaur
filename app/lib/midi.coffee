@@ -33,11 +33,20 @@ virtualInput = new midi.input
 virtualInput.openVirtualPort VIRTUAL_PORT
 inputs.push virtualInput
 
+convertNoteOffs = (formattedMessage) ->
+  # convert note offs to note ons with 0 vel
+  if formattedMessage.type == 'noteOff'
+    formattedMessage.type = 'noteOn'
+    formattedMessage.velocity = 0
+  formattedMessage
+
 formatMessage = (deltaTime, message) ->
   midiEvent =
     type: MIDI_COMMANDS[message[0]]
     note: message[1]
     velocity: message[2]
+    deltaTime: deltaTime
+  convertNoteOffs midiEvent
 
 for i in _.range do virtualInput.getPortCount
   inPort = new midi.input
