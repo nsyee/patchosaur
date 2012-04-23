@@ -73,6 +73,12 @@ To remove an object or patchcord:
 
 No real document support. After the app loads, the patch `documents/testDoc.json` is loaded. Every time the patch is edited, it is saved to this file. To edit a new document, replace the contents of `documents/testDoc.json` with `[]`. To "save," move the file.
 
+### Audio objects (~ suffix)
+
+Units that have audio inputs or outputs have a tilde suffix (`*~`, `cycle~`). Some of them do not work yet (any with multiple outputs, buffer stuff, callbacks). Most of them are directly wrapped from Audiolet. See the sections "DSP" and "Operators" in the [Audiolet API Documentation](http://oampo.github.com/Audiolet/api.html) for argument and inlet specifications.
+
+For example, in the Audiolet API Documentation, under "DSP", the Lag constructor takes 3 arguments: audiolet, initial value (default 0), and lag time (default 1). The first argument, audiolet, is passed for you. Arguments (initial value, lag time) can be optionally passed as patchosaur arguments: `lag~ 0.5, 0.1`. The inputs in the documentation are value and lag time. You can make patchcord connections to either of these as function or audio inputs.
+
 ### Conventions
 
 * object outlets are always called in right to left order, depth first, exactly like in Max or PD.
