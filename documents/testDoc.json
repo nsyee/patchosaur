@@ -80,7 +80,7 @@
     "x": 451,
     "y": 225,
     "text": "% 2",
-    "connections": "[[\"object_39\",0,\"object_53\",0],[\"object_39\",0,\"object_76\",0],[\"object_39\",0,\"object_94\",0]]",
+    "connections": "[[\"object_39\",0,\"object_53\",0],[\"object_39\",0,\"object_76\",0]]",
     "id": "object_39"
   },
   {
@@ -161,8 +161,8 @@
     "id": "object_77"
   },
   {
-    "x": 543,
-    "y": 78,
+    "x": 546,
+    "y": 91,
     "text": "cycle~ 330",
     "connections": "[[\"object_71\",0,\"object_75\",0]]",
     "id": "object_71"
@@ -217,15 +217,15 @@
     "id": "object_97"
   },
   {
-    "x": 630,
-    "y": 421,
+    "x": 629,
+    "y": 412,
     "text": "muladd~ 0.2",
     "connections": "[[\"object_95\",0,\"object_51\",1]]",
     "id": "object_95"
   },
   {
-    "x": 521,
-    "y": 424,
+    "x": 529,
+    "y": 414,
     "text": "muladd~ 0.2",
     "connections": "[[\"object_99\",0,\"object_51\",0]]",
     "id": "object_99"
@@ -301,24 +301,31 @@
     "id": "object_88"
   },
   {
-    "x": 837,
-    "y": 247,
+    "x": 553,
+    "y": 57,
     "text": "* 0.75",
     "connections": "[[\"object_91\",0,\"object_71\",0]]",
     "id": "object_91"
   },
   {
-    "x": 721,
-    "y": 369,
-    "text": "range 0, 10, 1, 3",
-    "connections": "[[\"object_94\",0,\"object_96\",0]]",
+    "x": 725,
+    "y": 354,
+    "text": "range 0, 1, 0.01, 0.5",
+    "connections": "[[\"object_94\",0,\"object_100\",0]]",
     "id": "object_94"
   },
   {
-    "x": 748,
-    "y": 406,
-    "text": "print \"range\"",
-    "connections": "[]",
+    "x": 738,
+    "y": 421,
+    "text": "lag~ 0.1",
+    "connections": "[[\"object_96\",0,\"object_99\",1],[\"object_96\",0,\"object_95\",1]]",
     "id": "object_96"
+  },
+  {
+    "x": 733,
+    "y": 387,
+    "text": "cs \"(x) -> x*x\"",
+    "connections": "[[\"object_100\",0,\"object_96\",0]]",
+    "id": "object_100"
   }
 ]

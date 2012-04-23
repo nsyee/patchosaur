@@ -1,6 +1,6 @@
 # patchosaur
 
-patchosaur is a Max/MSP- and puredata-like patching environment that runs in a browser. It supports audio and MIDI. It's not useful yet, but it can do some cool things.
+patchosaur is a Max/MSP- and puredata-like patching environment that runs in a browser. It supports audio and MIDI. It's a work in progress and not really usable yet, but it can do some cool things.
 
 ![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
 
@@ -94,7 +94,7 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 
 * mention exposing audiolet inlet and outlet nodes, internal routing
 
-#### Writing audiolet classes
+#### Writing custom audiolet nodes
 
 ## Up next
 
@@ -108,6 +108,7 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 * static site with bootstrapped document
 * unit tests
 * demo video
+* recording support: https://github.com/oampo/Audiolet/issues/11#issuecomment-2716776
 
 ## Future Ideas
 
