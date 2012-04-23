@@ -9,6 +9,7 @@ patchosaur.Object = Backbone.Model.extend
     y: 100
 
   isNew: -> !! @get 'new'
+  isComment: -> 'c' == @get 'unitClassName'
 
   toJSON: ->
     o = {}

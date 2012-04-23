@@ -329,17 +329,45 @@
     "id": "object_100"
   },
   {
-    "x": 125,
-    "y": 372,
+    "x": 8,
+    "y": 369,
     "text": "hey there 'awef,eee",
     "connections": "[]",
     "id": "object_98"
   },
   {
-    "x": 161,
-    "y": 402,
+    "x": 22,
+    "y": 396,
     "text": "nulll",
     "connections": "[]",
     "id": "object_105"
+  },
+  {
+    "x": 883,
+    "y": 336,
+    "text": "c \"this is a slider\"",
+    "connections": "[]",
+    "id": "object_102"
+  },
+  {
+    "x": 108,
+    "y": 99,
+    "text": "c \"this is different from Max/MSP trigger\"",
+    "connections": "[]",
+    "id": "object_104"
+  },
+  {
+    "x": 8,
+    "y": 345,
+    "text": "c \"This is a comment about error objects\"",
+    "connections": "[]",
+    "id": "object_107"
+  },
+  {
+    "x": 836,
+    "y": 94,
+    "text": "c \"MIDI INPUT!\"",
+    "connections": "[]",
+    "id": "object_110"
   }
 ]

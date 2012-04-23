@@ -149,10 +149,18 @@ patchosaur.ObjectView = Backbone.View.extend {
     minWidth = numLets * 12
     box.width = minWidth if box.width < minWidth
     pad = 2
+    # set up colors for errors and comments
     if @model.get 'error'
       color = '#d03'
     else
       color = '#30a'
+
+    if @model.isComment()
+      strokeOpacity = 0
+    else
+      strokeOpacity = 1
+
+    # make it
     rect = @p.rect(
       box.x - pad,              # x
       box.y - pad + 1,          # y
@@ -163,6 +171,7 @@ patchosaur.ObjectView = Backbone.View.extend {
       fill: color
       stroke: color
       "fill-opacity": 0
+      "stroke-opacity": strokeOpacity
       "stroke-width": 2
       cursor: "move"
     @setOffset textElem, rect
@@ -234,6 +243,8 @@ patchosaur.ObjectView = Backbone.View.extend {
     x = @model.get 'x'
     y = @model.get 'y'
     text = @model.get 'text'
+    if @model.isComment()
+      text = @model.get 'unitArgs'
     @raphaelText = @drawTextElem text, x, y
     @raphaelBox = @drawRectElem(@raphaelText)
     @drawInletOutletElems @raphaelBox
