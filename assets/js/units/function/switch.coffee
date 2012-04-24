@@ -11,9 +11,9 @@ class Switch extends patchosaur.Unit
 
   call: (i, args...) =>
     if i == 0
-      @state = arg
+      @state = args[0]
     else
-      if i == (@state + 1)
+      if i == @state
         @out 0, args...
 
 patchosaur.units.add Switch
