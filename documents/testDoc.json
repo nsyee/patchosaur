@@ -2,7 +2,7 @@
   {
     "x": 25,
     "y": 101,
-    "text": "metro 300",
+    "text": "metro 250",
     "connections": "[[\"object_2\",0,\"object_13\",0]]",
     "id": "object_2"
   },
@@ -24,7 +24,7 @@
     "x": 24,
     "y": 136,
     "text": "cs \"(b) -> @x = ((@x or 0) + 1) % 8\"",
-    "connections": "[[\"object_13\",0,\"object_22\",0],[\"object_13\",0,\"object_40\",0],[\"object_13\",0,\"object_92\",0],[\"object_13\",0,\"object_50\",0]]",
+    "connections": "[[\"object_13\",0,\"object_22\",0],[\"object_13\",0,\"object_50\",0],[\"object_13\",0,\"object_92\",0],[\"object_13\",0,\"object_140\",0]]",
     "id": "object_13"
   },
   {
@@ -126,10 +126,10 @@
     "id": "object_42"
   },
   {
-    "x": 509,
-    "y": 166,
+    "x": 507,
+    "y": 163,
     "text": "cs \"(x) -> if x %2 then x*x else x+9\"",
-    "connections": "[[\"object_40\",0,\"object_36\",0],[\"object_40\",0,\"object_71\",0]]",
+    "connections": "[[\"object_40\",0,\"object_36\",0]]",
     "id": "object_40"
   },
   {
@@ -157,7 +157,7 @@
     "x": 614,
     "y": 227,
     "text": "% 2",
-    "connections": "[[\"object_50\",0,\"object_61\",0],[\"object_50\",0,\"object_64\",0]]",
+    "connections": "[[\"object_50\",0,\"object_47\",0],[\"object_50\",0,\"object_122\",0]]",
     "id": "object_50"
   },
   {
@@ -182,22 +182,8 @@
     "id": "object_58"
   },
   {
-    "x": 615,
-    "y": 265,
-    "text": "== 0",
-    "connections": "[[\"object_61\",0,\"object_47\",0]]",
-    "id": "object_61"
-  },
-  {
-    "x": 677,
-    "y": 258,
-    "text": "== 1",
-    "connections": "[[\"object_64\",0,\"object_58\",0]]",
-    "id": "object_64"
-  },
-  {
-    "x": 463,
-    "y": 426,
+    "x": 472,
+    "y": 421,
     "text": "*~ 4",
     "connections": "[[\"object_67\",0,\"object_73\",0]]",
     "id": "object_67"
@@ -222,13 +208,6 @@
     "text": "tanh~",
     "connections": "[[\"object_76\",0,\"object_110\",0]]",
     "id": "object_76"
-  },
-  {
-    "x": 672,
-    "y": 195,
-    "text": "print \"bam\"",
-    "connections": "[]",
-    "id": "object_71"
   },
   {
     "x": 675,
@@ -294,8 +273,8 @@
     "id": "object_86"
   },
   {
-    "x": 798,
-    "y": 233,
+    "x": 735,
+    "y": 223,
     "text": "t 2",
     "connections": "[[\"object_92\",0,\"object_98\",0],[\"object_92\",1,\"object_95\",1]]",
     "id": "object_92"
@@ -308,8 +287,8 @@
     "id": "object_95"
   },
   {
-    "x": 787,
-    "y": 263,
+    "x": 741,
+    "y": 257,
     "text": "dump 8",
     "connections": "[[\"object_98\",0,\"object_95\",0]]",
     "id": "object_98"
@@ -318,7 +297,7 @@
     "x": 775,
     "y": 327,
     "text": "* 100",
-    "connections": "[[\"object_96\",0,\"object_86\",0],[\"object_96\",0,\"object_99\",0]]",
+    "connections": "[[\"object_96\",0,\"object_86\",0]]",
     "id": "object_96"
   },
   {
@@ -327,13 +306,6 @@
     "text": "c \"9 / 2\"",
     "connections": "[]",
     "id": "object_97"
-  },
-  {
-    "x": 798,
-    "y": 364,
-    "text": "print \"index\"",
-    "connections": "[]",
-    "id": "object_99"
   },
   {
     "x": 171,
@@ -404,5 +376,103 @@
     "text": "cs \"(x) -> x*x\"",
     "connections": "[[\"object_121\",0,\"object_124\",0]]",
     "id": "object_121"
+  },
+  {
+    "x": 663,
+    "y": 257,
+    "text": "not",
+    "connections": "[[\"object_122\",0,\"object_58\",0]]",
+    "id": "object_122"
+  },
+  {
+    "x": 611,
+    "y": 52,
+    "text": "socket.io \"midi\"",
+    "connections": "[[\"object_115\",0,\"object_123\",0]]",
+    "id": "object_115"
+  },
+  {
+    "x": 689,
+    "y": 119,
+    "text": "gate",
+    "connections": "[[\"object_119\",0,\"object_132\",0]]",
+    "id": "object_119"
+  },
+  {
+    "x": 649,
+    "y": 82,
+    "text": "t 2",
+    "connections": "[[\"object_123\",0,\"object_119\",0],[\"object_123\",1,\"object_126\",0]]",
+    "id": "object_123"
+  },
+  {
+    "x": 721,
+    "y": 90,
+    "text": "cs \"(m) -> m.type == 'noteOn'\"",
+    "connections": "[[\"object_126\",0,\"object_119\",1]]",
+    "id": "object_126"
+  },
+  {
+    "x": 859,
+    "y": 133,
+    "text": "monovoicer",
+    "connections": "[[\"object_132\",0,\"object_129\",0],[\"object_132\",0,\"object_133\",0]]",
+    "id": "object_132"
+  },
+  {
+    "x": 729,
+    "y": 110,
+    "text": "c \"just note ons, no pesky aftertouch\"",
+    "connections": "[]",
+    "id": "object_135"
+  },
+  {
+    "x": 853,
+    "y": 189,
+    "text": "cs \"(x) -> x.note\"",
+    "connections": "[[\"object_129\",0,\"object_39\",0]]",
+    "id": "object_129"
+  },
+  {
+    "x": 813,
+    "y": 222,
+    "text": "cs \"(x) -> x.velocity > 0\"",
+    "connections": "[[\"object_133\",0,\"object_136\",0],[\"object_133\",0,\"object_143\",0]]",
+    "id": "object_133"
+  },
+  {
+    "x": 797,
+    "y": 251,
+    "text": "adsr~ 0, 0.001, 0.05, 0.1, 0.5",
+    "connections": "[[\"object_136\",0,\"object_137\",0]]",
+    "id": "object_136"
+  },
+  {
+    "x": 845,
+    "y": 310,
+    "text": "*~ 4",
+    "connections": "[[\"object_137\",0,\"object_70\",1],[\"object_137\",0,\"object_67\",1]]",
+    "id": "object_137"
+  },
+  {
+    "x": 420,
+    "y": 159,
+    "text": "gate true",
+    "connections": "[[\"object_140\",0,\"object_40\",0],[\"object_140\",0,\"object_146\",0]]",
+    "id": "object_140"
+  },
+  {
+    "x": 484,
+    "y": 108,
+    "text": "!",
+    "connections": "[[\"object_143\",0,\"object_140\",1]]",
+    "id": "object_143"
+  },
+  {
+    "x": 438,
+    "y": 196,
+    "text": "dump 1",
+    "connections": "[[\"object_146\",0,\"object_67\",1],[\"object_146\",0,\"object_136\",0]]",
+    "id": "object_146"
   }
 ]
