@@ -129,9 +129,9 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
 ## Up next
 
 * bugs
+* more [control objects](http://cycling74.com/docs/max5/vignettes/thesaurus/thesaurus.html)
 * more timing objects
-* loadbang
-* infinite canvas scrolling (maybe click drag, and just move all the objects?)
+* bang, loadbang
 * better help (right now it just displays a list of units)
 * more gui objects (number object like Max would be cool)
 * docs
@@ -140,6 +140,7 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
   * deploy to `patchosaur.org/demo` or something
 * unit tests
 * demo video
+* infinite canvas scrolling (maybe click drag, and just move all the objects?)
 * recording support: https://github.com/oampo/Audiolet/issues/11#issuecomment-2716776
 
 ## Future Ideas

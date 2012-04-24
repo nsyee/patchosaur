@@ -238,13 +238,6 @@
     "id": "object_84"
   },
   {
-    "x": 77,
-    "y": 70,
-    "text": "c \"change tempo, add range?\"",
-    "connections": "[]",
-    "id": "object_87"
-  },
-  {
     "x": 662,
     "y": 430,
     "text": "+~ 440",
@@ -474,5 +467,12 @@
     "text": "dump 1",
     "connections": "[[\"object_146\",0,\"object_67\",1],[\"object_146\",0,\"object_136\",0]]",
     "id": "object_146"
+  },
+  {
+    "x": 71,
+    "y": 70,
+    "text": "range 10, 1000, 1, 250",
+    "connections": "[[\"object_141\",0,\"object_2\",1]]",
+    "id": "object_141"
   }
 ]
