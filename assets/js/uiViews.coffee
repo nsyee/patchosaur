@@ -302,24 +302,24 @@ patchosaur.PatchView = Backbone.View.extend {
         y: event.pageY
         new: true
 
-    # infinite canvas drag
-    # FIXME: too expensive to move on mousemove
-    # so it only moves on mouseup. fix redraw
-    # code to not redraw so much uneccessarily
-    moveCanvas = (dx, dy) =>
-      @objects.each (o) ->
-        o.set 'x', dx + o.get 'x'
-        o.set 'y', dy + o.get 'y'
-    @$el.on 'mousedown', (event) =>
-      if (event.target == @svgEl)
-        @dragStart = [event.pageX, event.pageY]
-        @dragging = true
-    $(document).on 'mouseup', =>
-      if @dragging
-        dx = event.pageX - @dragStart[0]
-        dy = event.pageY - @dragStart[1]
-        moveCanvas dx, dy
-      @dragging = false
+    # # infinite canvas drag
+    # # FIXME: too expensive to move on mousemove
+    # # so it only moves on mouseup. fix redraw
+    # # code to not redraw so much uneccessarily
+    # moveCanvas = (dx, dy) =>
+    #   @objects.each (o) ->
+    #     o.set 'x', dx + o.get 'x'
+    #     o.set 'y', dy + o.get 'y'
+    # @$el.on 'mousedown', (event) =>
+    #   if (event.target == @svgEl)
+    #     @dragStart = [event.pageX, event.pageY]
+    #     @dragging = true
+    # $(document).on 'mouseup', =>
+    #   if @dragging
+    #     dx = event.pageX - @dragStart[0]
+    #     dy = event.pageY - @dragStart[1]
+    #     moveCanvas dx, dy
+    #   @dragging = false
 
     # help
     do @generateHelp
