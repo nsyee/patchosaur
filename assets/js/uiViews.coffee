@@ -270,7 +270,7 @@ patchosaur.ObjectView = Backbone.View.extend {
 
 patchosaur.PatchView = Backbone.View.extend {
   # FIXME: let the view make the #holder div?
-  el: $('#holder')
+  el: $('body')
   initialize: () ->
     @objects = @options.objects
     @paper = @options.paper # raphael paper
