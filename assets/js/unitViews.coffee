@@ -28,10 +28,19 @@ patchosaur.UnitGraphView = Backbone.View.extend
       @disconnectPreviousAudioletUnits object
       @makeConnectionsFrom object
 
-  audioletDisconnect: (connection) ->
+  audioletDisconnect: (connection, changedObject) ->
+    # if changedObject was removed, collection.get
+    # won't work, FIXME: this is an ugly hack
     [fromID, outlet, toID, inlet] = connection
-    fromUnit = @objects.get(fromID)?.get('unit')
-    toUnit = @objects.get(toID)?.get('unit')
+    # get units
+    if changedObject and fromID == changedObject.id
+      fromUnit = changedObject.get 'unit'
+    else
+      fromUnit = @objects.get(fromID)?.get('unit')
+    if changedObject and toID == changedObject.id
+      toUnit = changedObject.get 'unit'
+    else
+      toUnit = @objects.get(toID)?.get('unit')
     if toUnit?.audioletInputNodes?
       # FIXME: no longer exists when removing object, though disconnect
       # events fire first 
@@ -42,12 +51,12 @@ patchosaur.UnitGraphView = Backbone.View.extend
     # disconnect audiolet units to and from this object
     prevConns = object.getPreviousConnections()
     for connection in prevConns
-      @audioletDisconnect connection
+      @audioletDisconnect connection, object
     affected = @objects.connectedFrom object
     _.each affected, (object) =>
       connections = object.get 'connections'
       for connection in connections
-        @audioletDisconnect connection
+        @audioletDisconnect connection, object
 
   makeConnectionsFrom: (object) ->
     # redo connections on objects connected to this one,

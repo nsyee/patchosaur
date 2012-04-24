@@ -5,7 +5,7 @@ patchosaur = @patchosaur ?= {}
 # 30 times a second
 REFRESH_RATE = 1000 / 30
 
-throttle = (f) => _.throttle f, REFRESH_RATE
+throttle = (f) -> _.throttle f, REFRESH_RATE
 
 patchosaur.ObjectView = Backbone.View.extend {
   initialize: () ->
@@ -286,6 +286,8 @@ patchosaur.PatchView = Backbone.View.extend {
 
     @objects.bind 'add change:x change:y change:text change:connections change:numInlets change:numOutlets', (changedObject) =>
       affected = @objects.connectedFrom changedObject
+      # affected = _.reject affected, (obj) ->
+      #   obj.id = changedObject.id
       _.each affected, (object) ->
         view = object.get 'view'
         if view # could be going backwards
@@ -299,6 +301,25 @@ patchosaur.PatchView = Backbone.View.extend {
         x: event.pageX
         y: event.pageY
         new: true
+
+    # # infinite canvas drag
+    # # FIXME
+    # moveCanvas = (dx, dy) =>
+    #   @objects.each (o) ->
+    #     o.set 'x', dx + o.get 'x'
+    #     o.set 'y', dy + o.get 'y'
+    # @$el.on 'mousedown', (event) =>
+    #   if (event.target == @svgEl)
+    #     @dragging = true
+    #     @dragStart = [event.pageX, event.pageY]
+    # $(document).on 'mouseup', =>
+    #   @dragging = false
+    # @$el.on 'mousemove', (event) =>
+    #   if @dragging
+    #     moveCanvas [
+    #       event.pageX - @dragStart[0]
+    #       event.pageY - @dragStart[1]
+    #     ]
 
     # help
     do @generateHelp
