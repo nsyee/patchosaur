@@ -16,7 +16,7 @@
   {
     "x": 23,
     "y": 67,
-    "text": "cb",
+    "text": "cb 1",
     "connections": "[[\"object_8\",0,\"object_2\",0]]",
     "id": "object_8"
   },
@@ -469,8 +469,8 @@
     "id": "object_146"
   },
   {
-    "x": 71,
-    "y": 70,
+    "x": 108,
+    "y": 68,
     "text": "range 10, 1000, 1, 250",
     "connections": "[[\"object_141\",0,\"object_2\",1]]",
     "id": "object_141"

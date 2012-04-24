@@ -14,6 +14,7 @@ class Checkbox extends patchosaur.Unit
     el = $ document.createElement 'input'
     el.attr type: 'checkbox'
     el.attr {id}
+    el.prop 'checked', @value
     el.change (event) =>
       @value = $(event.target).prop 'checked'
       @inlet @value
