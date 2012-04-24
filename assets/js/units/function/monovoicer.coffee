@@ -1,4 +1,5 @@
 class MonoVoicer extends patchosaur.Unit
+  # FIXME: test this
   @names: ['monovoicer']
   # FIXME: document this
   setup: (@objectModel) ->
@@ -34,6 +35,5 @@ class MonoVoicer extends patchosaur.Unit
         # FIXME: only filter one
         @ons = _.reject @ons, (onMessage) ->
           onMessage.note == m.note
-    console.log @ons
 
 patchosaur.units.add MonoVoicer
