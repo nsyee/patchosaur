@@ -427,8 +427,8 @@
     "id": "object_145"
   },
   {
-    "x": 775,
-    "y": 370,
+    "x": 789,
+    "y": 368,
     "text": "switch 2, 1",
     "connections": "[]",
     "id": "object_128"
@@ -439,5 +439,19 @@
     "text": "d 4, 6, 7",
     "connections": "[]",
     "id": "object_130"
+  },
+  {
+    "x": 550,
+    "y": 512,
+    "text": "This is not an object",
+    "connections": "[]",
+    "id": "object_133"
+  },
+  {
+    "x": 580,
+    "y": 559,
+    "text": "cs \"\"",
+    "connections": "[]",
+    "id": "object_139"
   }
 ]

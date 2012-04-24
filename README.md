@@ -91,7 +91,8 @@ For example, in the Audiolet API Documentation, under "DSP", the Lag constructor
 * When a single object outlet is connected to multiple inlets, Max always works right to left. In PD, this isn't the case; you always need a `trigger` or something to guarantee order. Patchosaur works like PD in this regard.
   * That said, `trigger` (or `t` for short) is different from its Max/PD cousins. It is meant only for message ordering, and takes one argument: the number of outlets. It repeats whatever it receives right-to-left from every outlet.
   * `dump` (or `d`) is similar to trigger, but outputs its arguments in right-to-left order whenever it receives any message. `dump true, 4, "hey there"` will have 3 outlets, and when it hears any message in its inlet, will output "hey there" from outlet 2, then 4 from outlet 1, then true from outlet 0.
-* `switch`, `route`, `gate`:w should be identical to Max's.
+* `switch`, `route`, `gate` should be identical to Max's.
+* A lot of basic Max/pd stuff is missing, but you can use the `cs` unit to define useful objects as coffeescript functions. The number of inlets is the number of arguments the function takes, there is always a single outlet, and the function isn't invoked until it hears something in the "hot" left inlet. `cs "(x, y) -> x + y"` should be identical to `+`. The `cs` function is bound to a new empty object, so you can use `this` to remember stuff: `cs "(b) -> @x = (@x or 0) + 1"` is a basic counter.
 
 ### MIDI
 

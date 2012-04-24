@@ -2,10 +2,15 @@ patchosaur = @patchosaur ?= {}
 
 class patchosaur.Unit
   constructor: (@objectModel) ->
-    console.log 'making unit', @objectModel.get 'text'
+    text = @objectModel.get 'text'
+    console.log 'making unit', text
     @connections = {}  # {outletIndex: [func, func, func...]}
     @inlets = []       # [inlet1Func, inlet2Func]
-    @setup @objectModel
+    try
+      @setup @objectModel
+    catch error
+      console.error "error setting up", text, error
+      @objectModel.set error: error
 
   setConnections: (@connections) ->
 
@@ -21,7 +26,6 @@ class patchosaur.Unit
           console.error objectText, \
             "error calling func connected to outlet #{i} with #{arg}:", \
             error
-          throw error
 
   makeInlets: (numInlets, func) ->
     # convenience method to build @inlets from a function

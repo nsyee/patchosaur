@@ -4,9 +4,9 @@ class Coffee extends patchosaur.Unit
     # take num inlets from num args
     @csFunc = CoffeeScript.eval objectModel.get('unitArgs')[0]
     numInlets = @csFunc.length
-    # bind this to instance, so you can do things like a counter:
+    # bind this to new obj, so you can do things like a counter:
     # (bang) -> @x = (@x or 0) + 1
-    @csFunc = _.bind @csFunc, @
+    @csFunc = _.bind @csFunc, {}
     # keep state, only call when left inlet fires
     @currArgs = []
     @objectModel.set numInlets: numInlets
