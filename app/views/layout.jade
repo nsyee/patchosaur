@@ -18,22 +18,17 @@ html(lang='en')
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
           .brand
             a(href='/') patchosaur
-          .nav-collapse
-            ul.nav
-              li
-                a#help-link help (h)
-              li
-                a(href='http://patchosaur.org') about
-              li
-                a(href='https://github.com/badamson/patchosaur') github
-              li
-                a(href='/tests') tests
+          ul.nav
+            li
+              a#help-link help (h)
+            li
+              a(href='http://patchosaur.org') about
+            li
+              a(href='https://github.com/badamson/patchosaur') github
+            li
+              a(href='/tests') tests
     != body
     // hr
     if includeTests

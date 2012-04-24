@@ -12,7 +12,7 @@ patchosaur.routes.App = Backbone.Router.extend {
     "*path":       'index'
 
   index: () ->
-    patchosaur.paper = Raphael("holder", "100%", "100%")
+    patchosaur.paper = Raphael(0, 0, "100%", "100%")
     patchosaur.objects = new patchosaur.Objects
     patchosaur.patchView = new patchosaur.PatchView
       objects: patchosaur.objects
