@@ -85,7 +85,7 @@ For example, in the Audiolet API Documentation, under "DSP", the Lag constructor
   * see [Max docs](http://cycling74.com/docs/max5/tutorials/max-tut/basicchapter05.html)
   * see [PD docs](http://crca.ucsd.edu/~msp/Pd_documentation/x2.htm)
 * The leftmost inlet is "hot", other inlets do not result in output (with a few exceptions)
-* Unlike PD or Max which have space-delimited object arguments, in patchagogy everything after the first space is surrounded by square brackets and parsed as JSON.
+* Unlike PD or Max which have space-delimited object arguments, in patchosaur everything after the first space is surrounded by square brackets and parsed as JSON.
   * `route "ten", 11, 12` will instantiate a `route` unit with arguments `["ten", 11, 12]`
   * `route "ten" 11 12` fails to parse
 * When a single object outlet is connected to multiple inlets, Max always works right to left. In PD, this isn't the case; you always need a `trigger` or something to guarantee order. Patchosaur works like PD in this regard.
@@ -95,7 +95,7 @@ For example, in the Audiolet API Documentation, under "DSP", the Lag constructor
 
 ### MIDI
 
-MIDI travels over websockets from the patchagogy server. See the `socket.io` unit. This is just a proof of concept for now, but seems to work fine for input.
+MIDI travels over websockets from the patchosaur server. See the `socket.io` unit. This is just a proof of concept for now, but seems to work fine for input.
 
 ## Contributing
 
@@ -132,6 +132,7 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
 ## Up next
 
 * bugs
+* perfomance
 * more [control objects](http://cycling74.com/docs/max5/vignettes/thesaurus/thesaurus.html)
 * more timing objects
 * bang, loadbang
