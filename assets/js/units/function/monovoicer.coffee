@@ -1,14 +1,14 @@
 class MonoVoicer extends patchosaur.Unit
   # FIXME: test this
-  @names: ['monovoicer']
   # FIXME: document this
+  @names: ['monovoicer']
   setup: (@objectModel) ->
-    @objectModel.set numInlets: 1
+    @objectModel.set numInlets: 2
     @objectModel.set numOutlets: 1
-    @inlets = [@inlet]
+    @inlets = [@inlet1, @inlet2]
     @ons = []
 
-  inlet: (m) =>
+  inlet1: (m) =>
     # note on
     if m.type == 'noteOn' and m.velocity > 0
       # turn off playing note
@@ -35,5 +35,14 @@ class MonoVoicer extends patchosaur.Unit
         # FIXME: only filter one
         @ons = _.reject @ons, (onMessage) ->
           onMessage.note == m.note
+
+  inlet2: =>
+    # clear
+    for noteOn in @ons
+      noteOff = _.clone noteOn
+      noteOff.velocity = 0
+      @out 0, noteOff
+
+    @ons = []
 
 patchosaur.units.add MonoVoicer

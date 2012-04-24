@@ -7,11 +7,10 @@ class Trigger extends patchosaur.Unit
     @numOutlets = @args[0]
     @objectModel.set numInlets: 1
     @objectModel.set numOutlets: @numOutlets
-    # make inlets from @call
     @inlets = [@inlet]
 
-  inlet: (arg) =>
+  inlet: (arg...) =>
     for i in _.range(@numOutlets).reverse()
-      @out i, arg
+      @out i, arg...
 
 patchosaur.units.add Trigger

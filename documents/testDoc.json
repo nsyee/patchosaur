@@ -24,7 +24,7 @@
     "x": 24,
     "y": 136,
     "text": "cs \"(b) -> @x = ((@x or 0) + 1) % 8\"",
-    "connections": "[[\"object_13\",0,\"object_22\",0],[\"object_13\",0,\"object_50\",0],[\"object_13\",0,\"object_92\",0],[\"object_13\",0,\"object_140\",0]]",
+    "connections": "[[\"object_13\",0,\"object_22\",0],[\"object_13\",0,\"object_50\",0],[\"object_13\",0,\"object_140\",0]]",
     "id": "object_13"
   },
   {
@@ -259,41 +259,6 @@
     "id": "object_83"
   },
   {
-    "x": 763,
-    "y": 395,
-    "text": "lag~ 0, 0.5",
-    "connections": "[[\"object_86\",0,\"object_85\",1]]",
-    "id": "object_86"
-  },
-  {
-    "x": 735,
-    "y": 223,
-    "text": "t 2",
-    "connections": "[[\"object_92\",0,\"object_98\",0],[\"object_92\",1,\"object_95\",1]]",
-    "id": "object_92"
-  },
-  {
-    "x": 786,
-    "y": 296,
-    "text": "-",
-    "connections": "[[\"object_95\",0,\"object_96\",0]]",
-    "id": "object_95"
-  },
-  {
-    "x": 741,
-    "y": 257,
-    "text": "dump 8",
-    "connections": "[[\"object_98\",0,\"object_95\",0]]",
-    "id": "object_98"
-  },
-  {
-    "x": 775,
-    "y": 327,
-    "text": "* 100",
-    "connections": "[[\"object_96\",0,\"object_86\",0]]",
-    "id": "object_96"
-  },
-  {
     "x": 698,
     "y": 312,
     "text": "c \"9 / 2\"",
@@ -406,10 +371,10 @@
     "id": "object_126"
   },
   {
-    "x": 859,
-    "y": 133,
+    "x": 784,
+    "y": 253,
     "text": "monovoicer",
-    "connections": "[[\"object_132\",0,\"object_129\",0],[\"object_132\",0,\"object_133\",0]]",
+    "connections": "[]",
     "id": "object_132"
   },
   {
@@ -418,34 +383,6 @@
     "text": "c \"just note ons, no pesky aftertouch\"",
     "connections": "[]",
     "id": "object_135"
-  },
-  {
-    "x": 853,
-    "y": 189,
-    "text": "cs \"(x) -> x.note\"",
-    "connections": "[[\"object_129\",0,\"object_39\",0]]",
-    "id": "object_129"
-  },
-  {
-    "x": 813,
-    "y": 222,
-    "text": "cs \"(x) -> x.velocity > 0\"",
-    "connections": "[[\"object_133\",0,\"object_136\",0],[\"object_133\",0,\"object_143\",0]]",
-    "id": "object_133"
-  },
-  {
-    "x": 797,
-    "y": 251,
-    "text": "adsr~ 0, 0.001, 0.05, 0.1, 0.5",
-    "connections": "[[\"object_136\",0,\"object_137\",0]]",
-    "id": "object_136"
-  },
-  {
-    "x": 845,
-    "y": 310,
-    "text": "*~ 4",
-    "connections": "[[\"object_137\",0,\"object_70\",1],[\"object_137\",0,\"object_67\",1]]",
-    "id": "object_137"
   },
   {
     "x": 420,
@@ -465,7 +402,7 @@
     "x": 438,
     "y": 196,
     "text": "dump 1",
-    "connections": "[[\"object_146\",0,\"object_67\",1],[\"object_146\",0,\"object_136\",0]]",
+    "connections": "[[\"object_146\",0,\"object_67\",1]]",
     "id": "object_146"
   },
   {
@@ -474,5 +411,33 @@
     "text": "range 10, 1000, 1, 250",
     "connections": "[[\"object_141\",0,\"object_2\",1]]",
     "id": "object_141"
+  },
+  {
+    "x": 805,
+    "y": 188,
+    "text": "makenote",
+    "connections": "[[\"object_142\",0,\"object_145\",0]]",
+    "id": "object_142"
+  },
+  {
+    "x": 818,
+    "y": 218,
+    "text": "t 2",
+    "connections": "[[\"object_145\",0,\"object_132\",0],[\"object_145\",1,\"object_132\",1]]",
+    "id": "object_145"
+  },
+  {
+    "x": 775,
+    "y": 370,
+    "text": "switch 2, 1",
+    "connections": "[]",
+    "id": "object_128"
+  },
+  {
+    "x": 794,
+    "y": 320,
+    "text": "d 4, 6, 7",
+    "connections": "[]",
+    "id": "object_130"
   }
 ]
