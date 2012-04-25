@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Patchosaur by badamson</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/badamson/patchosaur">Fork Me on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Patchosaur</h1>
+            <h2>Max/MSP/puredata-like music patching in the browser</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/badamson/patchosaur/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/badamson/patchosaur/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+      <span class="banner-fix"></span>
+
+      <section id="main_content">
+        <h1>patchosaur</h1>
+
+<p>patchosaur is a <a href="http://en.wikipedia.org/wiki/Max_(software)">Max/MSP</a>- and <a href="http://en.wikipedia.org/wiki/Pure_Data">puredata</a>-like patching environment that runs in a browser. It supports audio and MIDI. All of the audio is synthesized in real time in javascript by <a href="https://github.com/oampo/Audiolet">audiolet</a>. It's a buggy work in progress and not usable yet, but it can do some cool things.</p>
+
+<ul>
+<li>on github: <a href="https://github.com/badamson/patchosaur/">https://github.com/badamson/patchosaur/</a>
+</li>
+<li><a href="http://patchosaur.org">http://patchosaur.org</a></li>
+<li>demo video: <a href="http://www.youtube.com/watch?v=V7c3XwabUKM">http://www.youtube.com/watch?v=V7c3XwabUKM</a>
+</li>
+</ul><p><img src="https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png" alt="demo patchosaur patch"></p>
+
+<p></p>
+
+<h2>Installing dependencies to run locally</h2>
+
+<h3>Install <a href="http://nodejs.org/">node.js</a>, git, dependencies</h3>
+
+<ul>
+<li>
+<p>Mac</p>
+
+<ul>
+<li>Install <a href="http://mxcl.github.com/homebrew/">homebrew</a>
+</li>
+<li>Install node and git <code>brew install node git</code>
+</li>
+<li>Install <a href="http://npmjs.org/">npm</a>: <code>curl http://npmjs.org/install.sh | sh</code>
+</li>
+<li>??? Install <a href="http://rubygems.org/">rubygems</a>
+</li>
+<li>Install rake: <code>gem install rake</code>
+</li>
+</ul>
+</li>
+<li>
+<p>Ubuntu</p>
+
+<ul>
+<li>Install gcc, git, alsa headers: <code>sudo apt-get install build-essentials git libasound2-dev</code>
+</li>
+<li>Install <a href="http://nodejs.org/">node.js</a> from source, which I think comes with <a href="http://npmjs.org/">npm</a>.</li>
+<li>??? Install <a href="http://rubygems.org/">rubygems</a>
+</li>
+<li>Install rake: <code>gem install rake</code>
+</li>
+</ul>
+</li>
+</ul><h3>Check out patchosaur</h3>
+
+<p>Do one of the following:</p>
+
+<ul>
+<li>clone mine: <code>git clone git@github.com:badamson/patchosaur.git</code>
+</li>
+<li>
+<a href="https://github.com/badamson/patchosaur/fork">fork it</a> and clone that</li>
+</ul><p>Install patchosaur's node.js dependencies:</p>
+
+<pre><code>cd patchosaur
+npm update # install or update node.js dependencies from package.json
+</code></pre>
+
+<h3>Run it</h3>
+
+<p>To start a patchosaur server:</p>
+
+<pre><code>rake start
+</code></pre>
+
+<p>Now open Chrome and visit <a href="http://localhost:7777">http://localhost:7777</a>. It might work in Firefox, haven't tried.</p>
+
+<p>To start a local patchosaur server in production mode (js and css all concatted and minified):</p>
+
+<pre><code>rake start:production
+</code></pre>
+
+<p>To see a list of other tasks:</p>
+
+<pre><code>rake -T
+</code></pre>
+
+<h2>Making Patches</h2>
+
+<p>Press 'h' to toggle help. Double click to create a new object or to edit an existing one. To connect an inlet to and outlet, click an outlet (it should pulse), then click the inlet. To move an object, drag it. To create a comment, create an object starting with <code>c</code>, like <code>c "this is a comment"</code>.</p>
+
+<p>To remove an object or patchcord:</p>
+
+<ul>
+<li>On a Mac: alt-click on it</li>
+<li>Linux: ctrl-click on it</li>
+</ul><h3>Saving</h3>
+
+<p>No real document support. After the app loads, the patch <code>documents/testDoc.json</code> is loaded. Every time the patch is edited, it is saved to this file. To edit a new document, replace the contents of <code>documents/testDoc.json</code> with <code>[]</code>. To "save," move the file.</p>
+
+<h3>Audio objects (~ suffix)</h3>
+
+<p>Units that have audio inputs or outputs have a tilde suffix (<code>*~</code>, <code>cycle~</code>). Some of them do not work yet (any with multiple outputs, buffer stuff, callbacks). Most of them are directly wrapped from Audiolet. See the sections "DSP" and "Operators" in the <a href="http://oampo.github.com/Audiolet/api.html">Audiolet API Documentation</a> for argument and inlet specifications.</p>
+
+<p>For example, in the Audiolet API Documentation, under "DSP", the Lag constructor takes 3 arguments: audiolet, initial value (default 0), and lag time (default 1). The first argument, audiolet, is passed for you. Arguments (initial value, lag time) can be optionally passed as patchosaur arguments: <code>lag~ 0.5, 0.1</code>. The inputs in the documentation are value and lag time. You can make patchcord connections to audio inputs from audio outputs, and to audiolet parameters from function inputs.</p>
+
+<h3>Conventions</h3>
+
+<ul>
+<li>object outlets are always called in right to left order, depth first, exactly as in Max or PD.
+
+<ul>
+<li>see <a href="http://cycling74.com/docs/max5/tutorials/max-tut/basicchapter05.html">Max docs</a>
+</li>
+<li>see <a href="http://crca.ucsd.edu/%7Emsp/Pd_documentation/x2.htm">PD docs</a>
+</li>
+</ul>
+</li>
+<li>The leftmost inlet is "hot", other inlets do not result in output (with a few exceptions)</li>
+<li>Unlike PD or Max which have space-delimited object arguments, in patchosaur everything after the first space is surrounded by square brackets and parsed as JSON.
+
+<ul>
+<li>
+<code>route "ten", 11, 12</code> will instantiate a <code>route</code> unit with arguments <code>["ten", 11, 12]</code>
+</li>
+<li>
+<code>route "ten" 11 12</code> fails to parse</li>
+</ul>
+</li>
+<li>When a single object outlet is connected to multiple inlets, Max always works right to left. In PD, this isn't the case; you always need a <code>trigger</code> or something to guarantee order. Patchosaur works like PD in this regard.
+
+<ul>
+<li>That said, <code>trigger</code> (or <code>t</code> for short) is different from its Max/PD cousins. It is meant only for message ordering, and takes one argument: the number of outlets. It repeats whatever it receives right-to-left from every outlet.</li>
+<li>
+<code>dump</code> (or <code>d</code>) is similar to trigger, but outputs its arguments in right-to-left order whenever it receives any message. <code>dump true, 4, "hey there"</code> will have 3 outlets, and when it hears any message in its inlet, will output "hey there" from outlet 2, then 4 from outlet 1, then true from outlet 0.</li>
+</ul>
+</li>
+<li>
+<code>switch</code>, <code>route</code>, <code>gate</code> should be identical to Max's.</li>
+<li>A lot of basic Max/pd stuff is missing, but you can use the <code>cs</code> unit to define useful objects as coffeescript functions. The number of inlets is the number of arguments the function takes, there is always a single outlet, and the function isn't invoked until it hears something in the "hot" left inlet. <code>cs "(x, y) -&gt; x + y"</code> should be identical to <code>+</code>. The function argument to <code>cs</code> is bound to a new empty object, so you can use <code>this</code> to remember stuff: <code>cs "(b) -&gt; @x = (@x or 0) + 1"</code> is a basic counter.</li>
+</ul><h3>MIDI</h3>
+
+<p>MIDI travels over websockets from the patchosaur server. See the <code>socket.io</code> unit. This is just a proof of concept for now, but seems to work fine for input.</p>
+
+<h2>Contributing</h2>
+
+<p>Play with it, <a href="https://github.com/badamson/patchosaur/issues">submit an issue</a>, <a href="https://github.com/badamson/patchosaur/fork">fork it</a>.</p>
+
+<h3>Writing Units</h3>
+
+<p>Units are little programs that can be connected by patchcords. They are all defined <a href="https://github.com/badamson/patchosaur/tree/master/assets/js/units">here</a>, where there are many examples. To add a unit, define a class in the units directory that extends <code>patchosaur.Unit</code>, add a <code>setup</code> method, and then register it: <code>patchosaur.units.add MyUnit</code>.</p>
+
+<p>Units can change model attributes during setup, which will be reflected in the ui view:</p>
+
+<ul>
+<li>Set the number of inlets: <code>@objectModel.set numInlets: 3</code>
+</li>
+<li>Set the number of outlets: <code>@objectModel.set numOutlets: 3</code>
+</li>
+<li>Set an error (will make the object red in the ui view), which you should also log (<code>console.error anError</code>): <code>@objectModel.set error: "I've made a huge mistake."</code>
+</li>
+<li>Set the id of a custom gui (unit adds this to the dom for now, moved and removed by ui view, see <a href="https://github.com/badamson/patchosaur/tree/master/assets/js/units/gui">gui units</a>): <code>@objectModel.set customGuiId: id</code>
+</li>
+</ul><p>They can also expose attributes that do stuff:</p>
+
+<ul>
+<li>
+<code>@inlets = [inletFunc1, inletFunc2]</code>: an array of functions to be called when something is connected to one of the unit's inlets (mapped by index).</li>
+<li>audiolet nodes to be connected and disconnected (see <a href="https://github.com/badamson/patchosaur/tree/master/assets/js/units/audio">audio units</a>):
+
+<ul>
+<li><code>@audioletOutputNodes = [audioletNode1, audioletNode2]</code></li>
+<li><code>@audioletInputNodes = [audioletNode1, audioletNode2]</code></li>
+</ul>
+</li>
+</ul><p>They should name themselves in a class variable (see <a href="https://github.com/badamson/patchosaur/blob/master/assets/js/units">examples</a>, <code>@names = ['spigot', 'gate']</code>).They can read arguments from the model (<code>@objectModel.get 'unitArgs'</code>), which is an array. When an object is created, everything before the first space is set as <code>unitClass</code>, which is used to look up a unit by name, and everything after is surrounded by square brackets and parsed as JSON. <code>route 1, 4, 5</code>'s args become [1, 4, 5], while <code>route 1 4 5</code> fails to parse.</p>
+
+<h4>Documenting objects</h4>
+
+<p>In addition to setting <code>names</code> as a class variable, units can set <code>tags</code> and <code>help</code>. This doesn't do anything yet, but in the future it will show in help (press 'h' to show, right now just displays a list of units).</p>
+
+<h4>Writing custom audiolet nodes</h4>
+
+<ul>
+<li>FIXME: write some in coffeescript as examples. SuperCollider's <a href="http://www.ambisonictoolkit.net/Help/Classes/Integrator.html">Leaky Integrator</a> would be nice to have. <a href="http://www.ambisonictoolkit.net/Help/Overviews/Classes.html">This list of SC3 classes</a> has a lot of cool stuff.</li>
+</ul><h2>Up next</h2>
+
+<ul>
+<li>bugs</li>
+<li>perfomance</li>
+<li>config</li>
+<li>more <a href="http://cycling74.com/docs/max5/vignettes/thesaurus/thesaurus.html">control objects</a>
+</li>
+<li>more timing objects</li>
+<li>bang, loadbang</li>
+<li>better help (right now it just displays a list of units)</li>
+<li>more gui objects (number object like Max would be cool)</li>
+<li>docs</li>
+<li>better MIDI, including output</li>
+<li>static site with bootstrapped document (see <code>rake statify</code> task, which works except for ajax doc load)
+
+<ul>
+<li>deploy to <code>patchosaur.org/demo</code> or something</li>
+</ul>
+</li>
+<li>unit tests</li>
+<li>demo video</li>
+<li>infinite canvas scrolling (maybe click drag, and just move all the objects?)</li>
+<li>recording support: <a href="https://github.com/oampo/Audiolet/issues/11#issuecomment-2716776">https://github.com/oampo/Audiolet/issues/11#issuecomment-2716776</a>
+</li>
+</ul><h2>Future Ideas</h2>
+
+<ul>
+<li>Document support, save and share patches:
+
+<ul>
+<li>stored remotely (save and load to/from github pritave anonymous gists or <a href="http://code.google.com/p/google-api-javascript-client/wiki/Samples#Drive_API">google drive</a> or something), would be nice for purely static server-less app</li>
+<li>filesystem, checked into repo (nice for example patches at least)</li>
+<li>localStorage or load and save from copypastad text</li>
+<li>have the app access a database, not sure I like this idea</li>
+</ul>
+</li>
+<li>Static site generation with <code>wget --mirror</code>, hosted on gh-pages, so anyone can try it out.</li>
+<li>Max-like subpatcher and abstraction support</li>
+<li>Collaborative patch editing (send model changes over socket.io)</li>
+<li>Undo support (backbone.memento?), would be nice if it worked with browser back button</li>
+<li>Easy patchosaur units in faust would be awesome. <a href="http://faust.grame.fr/">faust</a> compiles to js, maybe add audiolet architecture files to faust? See <a href="http://faust.grame.fr/index.php/7-news/73-faust-web-art">this article</a>.</li>
+</ul><h2>List of current units</h2>
+
+<p>Many of these are not working, and the list is probably out of date. The list is copied from the in-app help (press 'h')</p>
+
+<ul>
+<li><code>cycle~</code></li>
+<li><code>triangle~</code></li>
+<li><code>saw~</code></li>
+<li><code>square~</code></li>
+<li><code>pulse~</code></li>
+<li><code>noise~</code></li>
+<li><code>envelope~</code></li>
+<li><code>adsr~</code></li>
+<li><code>perc~</code></li>
+<li><code>bufferplayer~</code></li>
+<li><code>gain~</code></li>
+<li><code>pan~</code></li>
+<li><code>upmixer~</code></li>
+<li><code>xfade~</code></li>
+<li><code>linerxfade~</code></li>
+<li><code>limiter~</code></li>
+<li><code>biquad~</code></li>
+<li><code>lpf~</code></li>
+<li><code>hpf~</code></li>
+<li><code>bpf~</code></li>
+<li><code>brf~</code></li>
+<li><code>apf~</code></li>
+<li><code>dcblock~</code></li>
+<li><code>lag~</code></li>
+<li><code>delay~</code></li>
+<li><code>fbdelay~</code></li>
+<li><code>comb~</code></li>
+<li><code>dampcomb~</code></li>
+<li><code>reverb~</code></li>
+<li><code>reverbb~</code></li>
+<li><code>softclip~</code></li>
+<li><code>bitcrusher~</code></li>
+<li><code>amp~</code></li>
+<li><code>discontinuity~</code></li>
+<li><code>badvalue~</code></li>
+<li><code>triggercontrol~</code></li>
+<li><code>add~</code></li>
+<li><code>+~</code></li>
+<li><code>subtract~</code></li>
+<li><code>-~</code></li>
+<li><code>multiply~</code></li>
+<li><code>*~</code></li>
+<li><code>divide~</code></li>
+<li><code>/~</code></li>
+<li><code>modulo~</code></li>
+<li><code>%~</code></li>
+<li><code>reciprocal~</code></li>
+<li><code>muladd~</code></li>
+<li><code>*+~</code></li>
+<li><code>tanh~</code></li>
+<li><code>bdpercsynth~</code></li>
+<li><code>snarepercsynth~</code></li>
+<li><code>chpercsynth~</code></li>
+<li><code>dac~</code></li>
+<li><code>out~</code></li>
+<li><code>cs</code></li>
+<li><code>dump</code></li>
+<li><code>d</code></li>
+<li><code>gate</code></li>
+<li><code>spigot</code></li>
+<li><code>identity</code></li>
+<li><code>makenote</code></li>
+<li><code>cos</code></li>
+<li><code>random</code></li>
+<li><code>pow</code></li>
+<li><code>tan</code></li>
+<li><code>atan2</code></li>
+<li><code>floor</code></li>
+<li><code>log</code></li>
+<li><code>abs</code></li>
+<li><code>min</code></li>
+<li><code>max</code></li>
+<li><code>ceil</code></li>
+<li><code>asin</code></li>
+<li><code>exp</code></li>
+<li><code>sqrt</code></li>
+<li><code>atan</code></li>
+<li><code>sin</code></li>
+<li><code>round</code></li>
+<li><code>acos</code></li>
+<li><code>+</code></li>
+<li><code>-</code></li>
+<li><code>/</code></li>
+<li><code>*</code></li>
+<li><code>%</code></li>
+<li><code>&amp;</code></li>
+<li><code>|</code></li>
+<li><code>^</code></li>
+<li><code>~</code></li>
+<li><code>&lt;&lt;</code></li>
+<li><code>&gt;&gt;</code></li>
+<li><code>&gt;&gt;&gt;</code></li>
+<li><code>==</code></li>
+<li><code>!=</code></li>
+<li><code>&gt;</code></li>
+<li><code>&lt;</code></li>
+<li><code>&gt;=</code></li>
+<li><code>&lt;=</code></li>
+<li><code>&amp;&amp;</code></li>
+<li><code>and</code></li>
+<li><code>||</code></li>
+<li><code>or</code></li>
+<li><code>!</code></li>
+<li><code>not</code></li>
+<li><code>log2</code></li>
+<li><code>log10</code></li>
+<li><code>atodb</code></li>
+<li><code>dbtoa</code></li>
+<li><code>mtof</code></li>
+<li><code>ftom</code></li>
+<li><code>rtanh</code></li>
+<li><code>metro</code></li>
+<li><code>metrolite</code></li>
+<li><code>monovoicer</code></li>
+<li><code>null</code></li>
+<li><code>parsenote</code></li>
+<li><code>print</code></li>
+<li><code>route</code></li>
+<li><code>socket.io</code></li>
+<li><code>switch</code></li>
+<li><code>trigger</code></li>
+<li><code>t</code></li>
+<li><code>checkbox</code></li>
+<li><code>cb</code></li>
+<li><code>range</code></li>
+</ul>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/badamson">badamson</a> can be found on <a href="https://github.com/badamson/patchosaur">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-31064885-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
