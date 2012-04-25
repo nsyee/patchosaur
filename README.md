@@ -136,6 +136,7 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
 ## Up next
 
 * bugs
+* [make it puredata compatible](https://github.com/badamson/patchosaur/issues/6)
 * perfomance
 * config
 * more [control objects](http://cycling74.com/docs/max5/vignettes/thesaurus/thesaurus.html)
