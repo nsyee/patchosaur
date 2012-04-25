@@ -111,7 +111,7 @@ Units can change model attributes during setup, which will be reflected in the u
 * Set the number of inlets: `@objectModel.set numInlets: 3`
 * Set the number of outlets: `@objectModel.set numOutlets: 3`
 * Set an error (will make the object red in the ui view), which you should also log (`console.error anError`): `@objectModel.set error: "I've made a huge mistake."`
-* Set the id of a custom gui (moved and removed by ui view, see [gui units](https://github.com/badamson/patchosaur/tree/master/assets/js/units/gui)): `@objectModel.set customGuiId: id`
+* Set the id of a custom gui (unit adds this to the dom for now, moved and removed by ui view, see [gui units](https://github.com/badamson/patchosaur/tree/master/assets/js/units/gui)): `@objectModel.set customGuiId: id`
 
 They can also expose attributes that do stuff:
 
