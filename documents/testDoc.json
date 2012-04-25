@@ -93,7 +93,7 @@
   {
     "x": 607,
     "y": 204,
-    "text": "+ 20",
+    "text": "+ 10",
     "connections": "[[\"object_36\",0,\"object_142\",0]]",
     "id": "object_36"
   },
@@ -114,7 +114,7 @@
   {
     "x": 402,
     "y": 313,
-    "text": "lag~ 1, 0.6",
+    "text": "lag~ 1, 0.1",
     "connections": "[[\"object_47\",0,\"object_53\",1]]",
     "id": "object_47"
   },
@@ -142,7 +142,7 @@
   {
     "x": 336,
     "y": 355,
-    "text": "lag~ 0, 0.6",
+    "text": "lag~ 0, 0.1",
     "connections": "[[\"object_58\",0,\"object_56\",1]]",
     "id": "object_58"
   },
@@ -159,13 +159,6 @@
     "text": "tanh~",
     "connections": "[[\"object_76\",0,\"object_110\",0]]",
     "id": "object_76"
-  },
-  {
-    "x": 887,
-    "y": 163,
-    "text": "c \"change the 9\"",
-    "connections": "[]",
-    "id": "object_84"
   },
   {
     "x": 171,
@@ -380,7 +373,7 @@
   {
     "x": 518,
     "y": 212,
-    "text": "*~ 700",
+    "text": "*~ 1100",
     "connections": "[[\"object_149\",0,\"object_127\",1]]",
     "id": "object_149"
   },
@@ -399,8 +392,8 @@
     "id": "object_143"
   },
   {
-    "x": 556,
-    "y": 236,
+    "x": 709,
+    "y": 212,
     "text": "cb 0",
     "connections": "[[\"object_147\",0,\"object_143\",0]]",
     "id": "object_147"
@@ -439,5 +432,19 @@
     "text": "dac~",
     "connections": "[]",
     "id": "object_139"
+  },
+  {
+    "x": 760,
+    "y": 214,
+    "text": "c \"midi in switch\"",
+    "connections": "[]",
+    "id": "object_145"
+  },
+  {
+    "x": 586,
+    "y": 518,
+    "text": "this is not valid",
+    "connections": "[]",
+    "id": "object_148"
   }
 ]

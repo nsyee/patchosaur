@@ -16,6 +16,7 @@ patchosaur.templates.help = _.template '''
         To connect an inlet to and outlet, click an outlet (it should pulse),
         then click the inlet.
         To move an object, drag it.
+        To create a comment, create a "c" object, like `c "this is a comment"`.
         </p>
         <p>
           To remove an object or patchcord:

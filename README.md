@@ -1,11 +1,14 @@
 # patchosaur
 
-patchosaur is a Max/MSP- and puredata-like patching environment written in coffeescript that runs in a browser. It supports audio and MIDI. All of the audio is synthesized in real time in javascript by [audiolet](https://github.com/oampo/Audiolet). It's a buggy work in progress and not usable yet, but it can do some cool things.
+patchosaur is a [Max/MSP](http://en.wikipedia.org/wiki/Max_\(software\))- and [puredata](http://en.wikipedia.org/wiki/Pure_Data)-like patching environment that runs in a browser. It supports audio and MIDI. All of the audio is synthesized in real time in javascript by [audiolet](https://github.com/oampo/Audiolet). It's a buggy work in progress and not usable yet, but it can do some cool things.
 
-* code on github: https://github.com/badamson/patchosaur/
+* on github: https://github.com/badamson/patchosaur/
 * http://patchosaur.org
+* demo video: http://www.youtube.com/watch?v=V7c3XwabUKM
 
 ![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
+
+<iframe id="ytplayer" type="text/html" width="640" height="390" src="http://www.youtube.com/embed/V7c3XwabUKM" frameborder="0"/>
 
 ## Installing dependencies to run locally
 
@@ -62,7 +65,7 @@ rake -T
 
 ## Making Patches
 
-Press 'h' to toggle help. Double click to create a new object or to edit an existing one. To connect an inlet to and outlet, click an outlet (it should pulse), then click the inlet. To move an object, drag it.
+Press 'h' to toggle help. Double click to create a new object or to edit an existing one. To connect an inlet to and outlet, click an outlet (it should pulse), then click the inlet. To move an object, drag it. To create a comment, create an object starting with `c`, like `c "this is a comment"`.
 
 To remove an object or patchcord:
 
@@ -77,11 +80,11 @@ No real document support. After the app loads, the patch `documents/testDoc.json
 
 Units that have audio inputs or outputs have a tilde suffix (`*~`, `cycle~`). Some of them do not work yet (any with multiple outputs, buffer stuff, callbacks). Most of them are directly wrapped from Audiolet. See the sections "DSP" and "Operators" in the [Audiolet API Documentation](http://oampo.github.com/Audiolet/api.html) for argument and inlet specifications.
 
-For example, in the Audiolet API Documentation, under "DSP", the Lag constructor takes 3 arguments: audiolet, initial value (default 0), and lag time (default 1). The first argument, audiolet, is passed for you. Arguments (initial value, lag time) can be optionally passed as patchosaur arguments: `lag~ 0.5, 0.1`. The inputs in the documentation are value and lag time. You can make patchcord connections audio inputs from audio outputs, and to parameters from function inputs.
+For example, in the Audiolet API Documentation, under "DSP", the Lag constructor takes 3 arguments: audiolet, initial value (default 0), and lag time (default 1). The first argument, audiolet, is passed for you. Arguments (initial value, lag time) can be optionally passed as patchosaur arguments: `lag~ 0.5, 0.1`. The inputs in the documentation are value and lag time. You can make patchcord connections to audio inputs from audio outputs, and to audiolet parameters from function inputs.
 
 ### Conventions
 
-* object outlets are always called in right to left order, depth first, exactly like in Max or PD.
+* object outlets are always called in right to left order, depth first, exactly as in Max or PD.
   * see [Max docs](http://cycling74.com/docs/max5/tutorials/max-tut/basicchapter05.html)
   * see [PD docs](http://crca.ucsd.edu/~msp/Pd_documentation/x2.htm)
 * The leftmost inlet is "hot", other inlets do not result in output (with a few exceptions)
@@ -104,7 +107,7 @@ Play with it, [submit an issue](https://github.com/badamson/patchosaur/issues), 
 
 ### Writing Units
 
-Units are little programs that can be connected by object patchcords. They are all defined [here](https://github.com/badamson/patchosaur/tree/master/assets/js/units), where there are many examples. To add a unit, define a class in the units directory that extends `patchosaur.Unit`, add a `setup` method, and then register it: `patchosaur.units.add MyUnit`.
+Units are little programs that can be connected by patchcords. They are all defined [here](https://github.com/badamson/patchosaur/tree/master/assets/js/units), where there are many examples. To add a unit, define a class in the units directory that extends `patchosaur.Unit`, add a `setup` method, and then register it: `patchosaur.units.add MyUnit`.
 
 Units can change model attributes during setup, which will be reflected in the ui view:
 
@@ -122,7 +125,7 @@ They can also expose attributes that do stuff:
 
 They should name themselves in a class variable (see [examples](https://github.com/badamson/patchosaur/blob/master/assets/js/units), `@names = ['spigot', 'gate']`).They can read arguments from the model (`@objectModel.get 'unitArgs'`), which is an array. When an object is created, everything before the first space is set as `unitClass`, which is used to look up a unit by name, and everything after is surrounded by square brackets and parsed as JSON. `route 1, 4, 5`'s args become [1, 4, 5], while `route 1 4 5` fails to parse.
 
-#### Documenting objects
+#### Documenting units
 
 In addition to setting `names` as a class variable, units can set `tags` and `help`. This doesn't do anything yet, but in the future it will show in help (press 'h' to show, right now just displays a list of units).
 
@@ -162,131 +165,132 @@ In addition to setting `names` as a class variable, units can set `tags` and `he
 * Undo support (backbone.memento?), would be nice if it worked with browser back button
 * Easy patchosaur units in faust would be awesome. [faust](http://faust.grame.fr/) compiles to js, maybe add audiolet architecture files to faust? See [this article](http://faust.grame.fr/index.php/7-news/73-faust-web-art).
 
-## List of current objects
+## List of current units
 
 Many of these are not working, and the list is probably out of date. The list is copied from the in-app help (press 'h')
 
-* metrolite
-* print
-* gate
-* spigot
-* exp
-* atan
-* sqrt
-* asin
-* min
-* log
-* acos
-* ceil
-* max
-* round
-* sin
-* atan2
-* floor
-* abs
-* cos
-* tan
-* random
-* pow
-* +
-* -
-* /
-* *
-* %
-* &
-* |
-* ^
-* ~
-* <<
-* >>
-* >>>
-* ==
-* !=
-* >
-* <
-* >=
-* <=
-* &&
-* and
-* ||
-* or
-* !
-* not
-* log2
-* log10
-* atodb
-* dbtoa
-* mtof
-* ftom
-* rtanh
-* dump
-* route
-* socket.io
-* monovoicer
-* cs
-* trigger
-* t
-* null
-* identity
-* adc~
-* in~
-* dac~
-* out~
-* cycle~
-* triangle~
-* saw~
-* square~
-* pulse~
-* noise~
-* envelope~
-* adsr~
-* perc~
-* bufferplayer~
-* gain~
-* pan~
-* upmixer~
-* xfade~
-* linerxfade~
-* limiter~
-* biquad~
-* lpf~
-* hpf~
-* bpf~
-* brf~
-* apf~
-* dcblock~
-* lag~
-* delay~
-* fbdelay~
-* comb~
-* dampcomb~
-* reverb~
-* reverbb~
-* softclip~
-* bitcrusher~
-* amp~
-* discontinuity~
-* badvalue~
-* triggercontrol~
-* add~
-* +~
-* subtract~
-* -~
-* multiply~
-* *~
-* divide~
-* /~
-* modulo~
-* %~
-* reciprocal~
-* muladd~
-* *+~
-* tanh~
-* bdpercsynth~
-* snarepercsynth~
-* chpercsynth~
-* snapshot~
-* metro
-* range
-* checkbox
-* cb
+* `cycle~`
+* `triangle~`
+* `saw~`
+* `square~`
+* `pulse~`
+* `noise~`
+* `envelope~`
+* `adsr~`
+* `perc~`
+* `bufferplayer~`
+* `gain~`
+* `pan~`
+* `upmixer~`
+* `xfade~`
+* `linerxfade~`
+* `limiter~`
+* `biquad~`
+* `lpf~`
+* `hpf~`
+* `bpf~`
+* `brf~`
+* `apf~`
+* `dcblock~`
+* `lag~`
+* `delay~`
+* `fbdelay~`
+* `comb~`
+* `dampcomb~`
+* `reverb~`
+* `reverbb~`
+* `softclip~`
+* `bitcrusher~`
+* `amp~`
+* `discontinuity~`
+* `badvalue~`
+* `triggercontrol~`
+* `add~`
+* `+~`
+* `subtract~`
+* `-~`
+* `multiply~`
+* `*~`
+* `divide~`
+* `/~`
+* `modulo~`
+* `%~`
+* `reciprocal~`
+* `muladd~`
+* `*+~`
+* `tanh~`
+* `bdpercsynth~`
+* `snarepercsynth~`
+* `chpercsynth~`
+* `dac~`
+* `out~`
+* `cs`
+* `dump`
+* `d`
+* `gate`
+* `spigot`
+* `identity`
+* `makenote`
+* `cos`
+* `random`
+* `pow`
+* `tan`
+* `atan2`
+* `floor`
+* `log`
+* `abs`
+* `min`
+* `max`
+* `ceil`
+* `asin`
+* `exp`
+* `sqrt`
+* `atan`
+* `sin`
+* `round`
+* `acos`
+* `+`
+* `-`
+* `/`
+* `*`
+* `%`
+* `&`
+* `|`
+* `^`
+* `~`
+* `<<`
+* `>>`
+* `>>>`
+* `==`
+* `!=`
+* `>`
+* `<`
+* `>=`
+* `<=`
+* `&&`
+* `and`
+* `||`
+* `or`
+* `!`
+* `not`
+* `log2`
+* `log10`
+* `atodb`
+* `dbtoa`
+* `mtof`
+* `ftom`
+* `rtanh`
+* `metro`
+* `metrolite`
+* `monovoicer`
+* `null`
+* `parsenote`
+* `print`
+* `route`
+* `socket.io`
+* `switch`
+* `trigger`
+* `t`
+* `checkbox`
+* `cb`
+* `range`
