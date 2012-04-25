@@ -218,7 +218,7 @@ npm update # install or update node.js dependencies from package.json
 </li>
 </ul><p>They should name themselves in a class variable (see <a href="https://github.com/badamson/patchosaur/blob/master/assets/js/units">examples</a>, <code>@names = ['spigot', 'gate']</code>).They can read arguments from the model (<code>@objectModel.get 'unitArgs'</code>), which is an array. When an object is created, everything before the first space is set as <code>unitClass</code>, which is used to look up a unit by name, and everything after is surrounded by square brackets and parsed as JSON. <code>route 1, 4, 5</code>'s args become [1, 4, 5], while <code>route 1 4 5</code> fails to parse.</p>
 
-<h4>Documenting objects</h4>
+<h4>Documenting units</h4>
 
 <p>In addition to setting <code>names</code> as a class variable, units can set <code>tags</code> and <code>help</code>. This doesn't do anything yet, but in the future it will show in help (press 'h' to show, right now just displays a list of units).</p>
 
