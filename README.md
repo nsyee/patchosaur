@@ -5,6 +5,7 @@ patchosaur is a [Max/MSP](http://en.wikipedia.org/wiki/Max_\(software\))- and [p
 * on github: https://github.com/badamson/patchosaur/
 * http://patchosaur.org
 * demo video: http://www.youtube.com/watch?v=V7c3XwabUKM
+* [On Create Digital Music](http://createdigitalmusic.com/2012/04/patchosaur-audio-midi-and-maxpd-style-patching-in-a-browser-because-you-can/)
 
 ![demo patchosaur patch](https://github.com/badamson/patchosaur/raw/master/public/img/demo-patch.png)
 
