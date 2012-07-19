@@ -8,7 +8,8 @@
     "url": "git://github.com/badamson/patchosaur.git"
   },
   "scripts": {
-    "test": "rake test"
+    "test": "cake test",
+    "start": "cake start"
   },
   "engines": {
     "node": "0.6.x"
